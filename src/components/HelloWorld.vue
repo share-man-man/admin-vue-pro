@@ -1,16 +1,18 @@
 <template>
   <div class="hello">
-    <click-button v-model:title.daxie="title" />
+    <click-button v-show="false" v-model:title.daxie="title" />
+    <reactive-com />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import ClickButton from "./ClickButton.vue";
+import ReactiveCom from "./ReactiveCom.vue";
 
 export default defineComponent({
   name: "HelloWorld",
-  components: { ClickButton },
+  components: { ClickButton, ReactiveCom },
   props: {
     msg: String
   },
