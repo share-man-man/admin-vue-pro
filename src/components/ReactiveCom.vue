@@ -2,17 +2,6 @@
   <div class="reactive">
     <table border="2px">
       <tr>
-        <td>姓</td>
-        <td id="firstname">-</td>
-      </tr>
-      <tr>
-        <td>名</td>
-        <td id="lastname">-</td>
-      </tr>
-    </table>
-
-    <table border="2px">
-      <tr>
         <td>属性</td>
         <td>响应式对象</td>
         <td>直接解构</td>
