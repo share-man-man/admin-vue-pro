@@ -24,17 +24,17 @@
     <input type="text" v-model="state.name" />
     <input type="number" v-model="state.age" />
     <button @click="addKPI">当前kpi：{{ userKpi }}，点击加kpi</button>
-    <Button>测试按钮</Button>
+    <a-button>测试按钮</a-button>
   </div>
 </template>
 
 <script>
 import { defineComponent, reactive, ref, toRefs } from "vue";
-import { Button } from "ant-design-vue";
+// import { Button } from "ant-design-vue";
 
 export default defineComponent({
   components: {
-    Button
+    // Button
   },
   setup() {
     //   通过reactive创建响应式对象
