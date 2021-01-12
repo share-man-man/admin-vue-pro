@@ -20,12 +20,34 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     component: Layout,
+    meta: {
+      breadcrumbName: "首页"
+    },
     children: [
       {
         path: "dashboard",
         name: "Dashboard",
         component: () => import("@/views/Dashboard/index.vue"),
-        props: route => ({ query: route.query.content })
+        props: route => ({ query: route.query.content }),
+        meta: {
+          breadcrumbName: "报表"
+        }
+      },
+      {
+        path: "basic",
+        name: "Basic",
+        component: () => import("@/views/Basic/index.vue"),
+        meta: {
+          breadcrumbName: "基础管理"
+        }
+      },
+      {
+        path: "income",
+        name: "Income",
+        component: () => import("@/views/Income/index.vue"),
+        meta: {
+          breadcrumbName: "入库管理"
+        }
       }
     ]
   }

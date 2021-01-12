@@ -1,3 +1,5 @@
+@lineHeight: 48px;
+
 // 最外层布局
 .public-basicLayout {
   display: flex;
@@ -27,12 +29,21 @@
     margin-left: 16px;
     font-size: 20px;
   }
+
+  // 面包屑导航
+  .public-global-header-breadcrumb {
+    flex: 1 1 0%;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
 }
 
 // 下拉框
 .public-dropdown {
   height: 48px;
-  line-height: 48px;
+  line-height: @lineHeight;
   vertical-align: top;
   cursor: pointer;
   display: inline-block;

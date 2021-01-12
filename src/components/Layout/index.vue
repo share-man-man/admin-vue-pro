@@ -1,14 +1,7 @@
 <template>
   <a-layout class="public-basicLayout">
     <!-- 侧边菜单栏 -->
-    <!-- <a-layout-sider
-      v-model:collapsed="collapsed"
-      :trigger="null"
-      collapsible
-      breakpoint="md"
-    > -->
     <menu-list />
-    <!-- </a-layout-sider> -->
     <a-layout>
       <!-- 顶部导航栏 -->
       <navigation />
@@ -20,7 +13,6 @@
   </a-layout>
 </template>
 <script>
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
 import MenuList from "./MenuList";
 import Navigation from "./Navigation";
 import RouteHistory from "./RouteHistory.vue";
@@ -34,9 +26,7 @@ export default {
     MainContent
   },
   data() {
-    return {
-      collapsed: false
-    };
+    return {};
   }
 };
 </script>

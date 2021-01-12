@@ -1,5 +1,5 @@
 <template>
-  <a-button>{{ query || "default" }}</a-button>
+  <h1>报表</h1>
 </template>
 
 <script>

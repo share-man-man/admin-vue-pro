@@ -1,6 +1,7 @@
 <template>
   <a-layout-sider
-    v-model:collapsed="collapsed"
+    :collapsed="collapsed"
+    @update:collapsed="setCollapsed"
     :trigger="null"
     collapsible
     breakpoint="md"
@@ -8,15 +9,18 @@
     <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
       <a-menu-item key="1">
         <user-outlined />
-        <span>nav 1</span>
+        <span> 报表 </span>
+        <router-link to="/dashboard" />
       </a-menu-item>
       <a-menu-item key="2">
         <video-camera-outlined />
-        <span>nav 2</span>
+        <span> 基础 </span>
+        <router-link to="/basic" />
       </a-menu-item>
       <a-menu-item key="3">
         <upload-outlined />
-        <span>nav 3</span>
+        <span> 入库 </span>
+        <router-link to="/income" />
       </a-menu-item>
     </a-menu>
   </a-layout-sider>
@@ -29,7 +33,8 @@ import {
   UploadOutlined
 } from "@ant-design/icons-vue";
 
-import { defineComponent, reactive } from "vue";
+import { defineComponent } from "vue";
+import { mapState, mapMutations } from "vuex";
 
 export default defineComponent({
   components: {
@@ -42,11 +47,11 @@ export default defineComponent({
       selectedKeys: ["1"]
     };
   },
-  setup() {
-    const state = reactive({
-      collapsed: false
-    });
-    return state;
+  computed: {
+    ...mapState("layout", ["collapsed"])
+  },
+  methods: {
+    ...mapMutations("layout", ["setCollapsed"])
   }
 });
 </script>
