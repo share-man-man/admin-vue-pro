@@ -6,7 +6,7 @@
       <!-- 顶部导航栏 -->
       <navigation />
       <!-- 路由缓存记录 -->
-      <route-history />
+      <route-cache />
       <!-- 内容展示 -->
       <main-content />
     </a-layout>
@@ -15,14 +15,14 @@
 <script>
 import MenuList from "./MenuList";
 import Navigation from "./Navigation";
-import RouteHistory from "./RouteHistory.vue";
+import RouteCache from "./RouteCache";
 import MainContent from "./MainContent";
 
 export default {
   components: {
     MenuList,
     Navigation,
-    RouteHistory,
+    RouteCache,
     MainContent
   },
   data() {

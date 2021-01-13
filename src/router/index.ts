@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import Home from "../views/Home.vue";
 import Layout from "@/components/Layout/index.vue";
+import Reload from "@/components/Reload/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -25,12 +26,20 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
+        path: "reloadCache",
+        name: "ReloadCache",
+        component: Reload,
+        meta: {
+          cache: false
+        }
+      },
+      {
         path: "dashboard",
         name: "Dashboard",
         component: () => import("@/views/Dashboard/index.vue"),
         props: route => ({ query: route.query.content }),
         meta: {
-          breadcrumbName: "报表"
+          breadcrumbName: "报表asdaskdnakdn"
         }
       },
       {

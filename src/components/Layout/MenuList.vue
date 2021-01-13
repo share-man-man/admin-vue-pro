@@ -22,11 +22,16 @@
         <span> 入库 </span>
         <router-link to="/income" />
       </a-menu-item>
+      <a-menu-item key="4">
+        <user-outlined />
+        <span> 报表带参数 </span>
+        <router-link to="/dashboard?content=123" />
+      </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>
 
-<script>
+<script lang="ts">
 import {
   UserOutlined,
   VideoCameraOutlined,
