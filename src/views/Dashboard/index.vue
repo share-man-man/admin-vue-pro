@@ -8,6 +8,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  name: "Dashboard",
   props: {
     query: {
       type: [String, Number]
@@ -17,6 +18,11 @@ export default defineComponent({
     return {
       inputVal: ""
     };
+  },
+  methods: {
+    refresh() {
+      console.log("刷新");
+    }
   }
 });
 </script>

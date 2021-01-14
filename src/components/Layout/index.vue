@@ -5,28 +5,21 @@
     <a-layout>
       <!-- 顶部导航栏 -->
       <navigation />
-      <!-- 路由缓存记录 -->
+      <!-- 路由缓存、内容展示 -->
       <route-cache />
-      <!-- 内容展示 -->
-      <main-content />
     </a-layout>
   </a-layout>
 </template>
-<script>
-import MenuList from "./MenuList";
-import Navigation from "./Navigation";
-import RouteCache from "./RouteCache";
-import MainContent from "./MainContent";
+<script lang="ts">
+import MenuList from "./MenuList.vue";
+import Navigation from "./Navigation.vue";
+import RouteCache from "./RouteCache.vue";
 
 export default {
   components: {
     MenuList,
     Navigation,
-    RouteCache,
-    MainContent
-  },
-  data() {
-    return {};
+    RouteCache
   }
 };
 </script>

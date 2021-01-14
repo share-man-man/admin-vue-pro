@@ -44,12 +44,14 @@
             <span class="public-dropdown public-dropdown-action">
               <!-- 头像 -->
               <a-avatar
-                class="public-header-account-avatar"
+                class="public-global-header-account-avatar"
                 src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
                 size="small"
               />
               <!-- 用户名 -->
-              <span class="public-header-account-name anticon">管理员 </span>
+              <span class="public-global-header-account-name anticon"
+                >管理员
+              </span>
             </span>
             <template #overlay>
               <!-- 用户操作栏 -->
@@ -71,11 +73,12 @@
     </div>
   </a-layout-header>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 import { mapState, mapMutations } from "vuex";
 
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
+import { RouteLocationMatched } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -83,8 +86,9 @@ export default defineComponent({
     MenuFoldOutlined
   },
   data() {
+    const breadList: RouteLocationMatched[] = [];
     return {
-      breadList: []
+      breadList
     };
   },
   computed: {

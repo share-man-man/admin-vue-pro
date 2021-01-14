@@ -1,9 +1,4 @@
 <template>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>|
-    <router-link to="/rebuild">Rebuild</router-link>
-  </div> -->
   <router-view />
 </template>
 
@@ -11,9 +6,7 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   data() {
-    return {
-      testInput: ""
-    };
+    return {};
   }
 });
 </script>

@@ -29,8 +29,9 @@ export default defineComponent({
     };
   },
   methods: {
-    onInput(e: any) {
-      let value = e?.target?.value;
+    onInput(e: KeyboardEvent) {
+      let value = (e.target as HTMLInputElement)?.value;
+
       if (this.titleModifiers?.daxie) {
         value = `${value[0].toUpperCase()}${value.slice(1)}`;
       }
