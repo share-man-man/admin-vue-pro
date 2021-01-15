@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve & npm run mock",
+    "serve:dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "mock": "tsnd -O '{\"module\":\"commonjs\"}' ./mock/index.ts",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "ant-design-vue": "^2.0.0-rc.8",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0",
@@ -20,6 +23,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^5.2.4",
+    "@types/mockjs": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -41,7 +45,9 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "mockjs": "^1.1.0",
     "prettier": "^1.19.1",
+    "ts-node-dev": "^1.1.1",
     "typescript": "~3.9.3"
   }
 }

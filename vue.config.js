@@ -1,11 +1,18 @@
-// import { join, resolve as _resolve } from "path";
-// function resolve(dir) {
-//   return join(__dirname, dir); //path.join(__dirname)设置绝对路径
-// }
-
-// export const pluginOptions = {
-//   "style-resources-loader": {
-//     preProcessor: "less",
-//     patterns: [_resolve(__dirname, "./src/asstes/public.less")]
-//   }
-// };
+module.exports = {
+  // 生产环境不生成sourceMap
+  productionSourceMap: false,
+  devServer: {
+    // 开发代理
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:4000",
+        pathRewrite: { "^/api": "" },
+        // target是域名的话，需要这个参数
+        changeOrigin: true,
+        // 设置支持https协议的代理
+        secure: false
+      }
+    }
+    // after: require("./mock/index.ts")
+  }
+};

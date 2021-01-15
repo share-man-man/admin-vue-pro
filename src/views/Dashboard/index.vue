@@ -2,10 +2,12 @@
   <h1>报表</h1>
   <a-input v-model:value="inputVal" />
   <a-button @click="refresh">{{ query || "默认" }}</a-button>
+  {{ mockRes }}
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { fakeReq } from "@/services/test";
 
 export default defineComponent({
   name: "Dashboard",
@@ -16,12 +18,14 @@ export default defineComponent({
   },
   data() {
     return {
-      inputVal: ""
+      inputVal: "",
+      mockRes: ""
     };
   },
   methods: {
-    refresh() {
-      console.log("刷新");
+    async refresh() {
+      const res = await fakeReq({});
+      this.mockRes = res.data;
     }
   }
 });
