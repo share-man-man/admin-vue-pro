@@ -34,8 +34,8 @@
   <a-layout-content class="public-content">
     <div
       v-for="r in cacheRoute"
-      :key="r.key"
       v-show="r.key === activeKey"
+      :key="r.key"
       class="public-content-div"
     >
       <component v-if="!r.reloading" :is="r.component" />
@@ -43,15 +43,30 @@
   </a-layout-content>
 </template>
 <script lang="ts">
-import { defineComponent, VNode } from "vue";
+import { defineComponent, VNode, nextTick } from "vue";
 import { RouteLocationNormalizedLoaded } from "vue-router";
 import { ReloadOutlined, LoadingOutlined } from "@ant-design/icons-vue";
 
 interface RouteItem {
+  /**
+   * 键值
+   */
   key: string;
+  /**
+   * 路径
+   */
   fullPath: string;
+  /**
+   * 标签页名字
+   */
   tabName: string;
+  /**
+   * 组件
+   */
   component: VNode;
+  /**
+   * 重载状态
+   */
   reloading: boolean;
 }
 
@@ -63,13 +78,19 @@ export default defineComponent({
   data() {
     const cacheRoute: RouteItem[] = [];
     return {
+      /**
+       * 路由缓存
+       */
       cacheRoute,
+      /**
+       * 当前路由key
+       */
       activeKey: ""
     };
   },
   computed: {
     closable: vm => {
-      // this.data的时候，编译会报错，应该vetur的问题
+      // this.data的时候，ide会报错，应该是vetur的问题
       // return this.cacheRoute.length !== 1;
       return vm.cacheRoute.length !== 1;
     }
@@ -79,9 +100,17 @@ export default defineComponent({
      * 新增、移除
      */
     onEdit(editKey: string, action: string) {
-      if (action === "remove") {
-        this.remove(editKey);
-      }
+      if (action === "remove") this.remove(editKey);
+    },
+
+    /**
+     * 关闭页面
+     */
+    remove(k: string) {
+      const index = this.cacheRoute.findIndex(i => i.key === k);
+      if (index > -1) this.cacheRoute.splice(index, 1);
+      // 如果移除的是当前页面，自动跳转到第一个页面
+      if (k === this.activeKey) this.onChangeTab(this.cacheRoute[0]?.key);
     },
 
     /**
@@ -89,9 +118,7 @@ export default defineComponent({
      */
     onChangeTab(k: string) {
       const findItem = this.cacheRoute.find(i => i.key === k);
-      if (findItem) {
-        this.$router.push(findItem.fullPath);
-      }
+      if (findItem) this.$router.push(findItem.fullPath);
     },
 
     /**
@@ -101,20 +128,11 @@ export default defineComponent({
       const activeItem = this.cacheRoute.find(i => i.key === this.activeKey);
       if (activeItem) {
         activeItem.reloading = true;
-        setTimeout(() => {
-          activeItem.reloading = false;
-        }, 500);
-      }
-    },
-
-    /**
-     * 移除组件
-     */
-    remove(k: string) {
-      const index = this.cacheRoute.findIndex(i => i.key === k);
-      this.cacheRoute.splice(index, 1);
-      if (k === this.activeKey) {
-        this.onChangeTab(this.cacheRoute[0]?.key);
+        nextTick(() => {
+          setTimeout(() => {
+            activeItem.reloading = false;
+          }, 500);
+        });
       }
     },
 
@@ -124,7 +142,7 @@ export default defineComponent({
     addCache(c: VNode, r: RouteLocationNormalizedLoaded) {
       // 必须放到异步函数里，防止产生依赖
       setTimeout(() => {
-        // 将fullPath作为唯一标识，如果没找到，加入缓存
+        // 将fullPath作为唯一标识，如果缓存数组没有，加入缓存
         const findItem = this.cacheRoute.find(i => i.key === r.fullPath);
         if (!findItem) {
           this.cacheRoute.push({
