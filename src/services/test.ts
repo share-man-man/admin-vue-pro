@@ -3,7 +3,7 @@ import request from "@/utils/request";
 
 export async function fakeReq(params?: any) {
   return request({
-    url: "/api/mock/getData",
+    url: "/api/container/detail",
     method: "GET",
     params
   });

@@ -1,11 +1,8 @@
 // ts引入需要设置tsconfig.json的modules为commonjs,与vue3的treeshaking背道而驰。解决方案1：使用js和require；解决方案2：使用commonjs规范；解决方案3:使用deno启动服务
 import express from "express"; //引入express
-import Mock from "mockjs"; //引入mock
-
-// // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const express = require("express");
-// // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const Mock = require("mockjs");
+import Mock from "mockjs"; //引入mockjs
+import fs from "fs";
+import path from "path";
 
 /**
  * 端口
@@ -15,7 +12,59 @@ const port = 4000;
 /**
  * 实例化express
  */
-const app = express(); //
+const app = express();
+
+/**
+ * 便利modules下的所有ts文件，进行动态导入
+ * @param parentPath 文件夹路径
+ */
+const fileDisplay = (parentPath: string) => {
+  fs.readdir(parentPath, (err, files) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    files.forEach(filename => {
+      // path.join得到当前文件的绝对路径
+      const childPath = path.join(parentPath, filename);
+      // 根据文件路径获取文件信息
+      fs.stat(childPath, (error, stats) => {
+        if (error) {
+          console.warn("获取文件stats失败");
+          return;
+        }
+        const isFile = stats.isFile(); // 是否为文件
+        const isDir = stats.isDirectory(); // 是否为文件夹
+        if (isFile) {
+          // 如果是文件，动态导入该文件
+          import(`${parentPath}/${filename}`).then(({ default: mockObj }) => {
+            // console.log(JSON.stringify(allModules.default));
+            Reflect.ownKeys(mockObj).forEach(key => {
+              const [method, url] = (key as string).trim().split(" ");
+              // if (method.toUpperCase() === "GET") {
+              app[method.toLowerCase() as "get" | "post"](url, function(
+                req,
+                res
+              ) {
+                if (typeof mockObj[key] === "object") {
+                  res.json(Mock.mock(mockObj[key]));
+                } else if (typeof mockObj[key] === "function") {
+                  Mock.mock(mockObj[key](req, res));
+                }
+              });
+            });
+          });
+        }
+        if (isDir) {
+          // 递归，如果是文件夹，就继续遍历该文件夹里面的文件；
+          fileDisplay(childPath);
+        }
+      });
+    });
+  });
+};
+const dirPath = path.resolve(`${__dirname}`, "./modules");
+fileDisplay(dirPath);
 
 //设置允许跨域
 app.use(function(req, res, next) {
@@ -26,32 +75,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/mock/getData", function(req, res) {
-  res.json(
-    Mock.mock({
-      "data|10": [
-        {
-          "key|+1": 99,
-          "words|1": ["哈哈", "嘿嘿", "biubiu", "啾啾", "喵喵", "啦啦"],
-          "activity|1": ["吃饭", "睡觉", "打豆豆"]
-        }
-      ]
-    })
-  );
-});
-// app.get("/mock/getData", (req, res) => {
-//   res.json(
-//     Mock.mock({
-//       "data|10": [
-//         {
-//           "key|+1": 1,
-//           "words|1": ["哈哈", "嘿嘿", "biubiu", "啾啾", "喵喵", "啦啦"],
-//           "activity|1": ["吃饭", "睡觉", "打豆豆"]
-//         }
-//       ]
-//     })
-//   );
-// });
+// 开起服务
 app.listen(port, () => {
   console.log();
   console.log("\x1b[91m", `Mock服务启动：${port}`);

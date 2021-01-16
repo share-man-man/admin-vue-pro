@@ -1,6 +1,6 @@
-import { MockApi } from ".";
+// import { MockApi } from ".";
 
-const UserModule: Array<MockApi> = [
+const UserModule: Array<any> = [
   /**
    * @api {post} /user 添加用户
    * @apiName AddUser
@@ -62,4 +62,7 @@ const UserModule: Array<MockApi> = [
   }
 ];
 
-export default UserModule;
+export default {
+  "POST /user": UserModule[0],
+  "GET /user/:id": UserModule[1]
+};
