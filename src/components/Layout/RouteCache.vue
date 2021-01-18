@@ -12,6 +12,30 @@
     @change="onChangeTab"
     class="public-tabs"
   >
+    <template #tabBarExtraContent>
+      <a-dropdown>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item key="reloadNow" @click="reload"
+              ><ReloadOutlined />刷新当前页</a-menu-item
+            >
+            <a-menu-item key="topNow" @click="topNow"
+              ><VerticalAlignTopOutlined />置顶当前页</a-menu-item
+            >
+            <a-menu-item
+              key="closeElse"
+              :disabled="!closable"
+              @click="removeElse"
+              ><CloseCircleOutlined />关闭其它页面</a-menu-item
+            >
+          </a-menu>
+        </template>
+        <EllipsisOutlined
+          :rotate="90"
+          style="margin-right:8px;font-size:16px"
+        />
+      </a-dropdown>
+    </template>
     <a-tab-pane v-for="r in cacheRoute" :key="r.key" :closable="closable">
       <template #tab>
         <a-dropdown>
@@ -45,7 +69,13 @@
 <script lang="ts">
 import { defineComponent, VNode, nextTick } from "vue";
 import { RouteLocationNormalizedLoaded } from "vue-router";
-import { ReloadOutlined, LoadingOutlined } from "@ant-design/icons-vue";
+import {
+  ReloadOutlined,
+  LoadingOutlined,
+  EllipsisOutlined,
+  CloseCircleOutlined,
+  VerticalAlignTopOutlined
+} from "@ant-design/icons-vue";
 
 interface RouteItem {
   /**
@@ -73,7 +103,10 @@ interface RouteItem {
 export default defineComponent({
   components: {
     ReloadOutlined,
-    LoadingOutlined
+    LoadingOutlined,
+    EllipsisOutlined,
+    CloseCircleOutlined,
+    VerticalAlignTopOutlined
   },
   data() {
     const cacheRoute: RouteItem[] = [];
@@ -104,13 +137,40 @@ export default defineComponent({
     },
 
     /**
+     * 置顶当前页
+     */
+    topNow() {
+      const index = this.cacheRoute.findIndex(i => i.key === this.activeKey);
+      if (index !== 0) {
+        const now = this.cacheRoute.splice(index, 1);
+        this.cacheRoute.unshift(now[0]);
+      }
+    },
+
+    /**
+     * 关闭其它页面
+     */
+    removeElse() {
+      this.cacheRoute
+        .map(i => i.key)
+        .filter(i => i !== this.activeKey)
+        .forEach(i => this.remove(i));
+    },
+
+    /**
      * 关闭页面
      */
     remove(k: string) {
       const index = this.cacheRoute.findIndex(i => i.key === k);
-      if (index > -1) this.cacheRoute.splice(index, 1);
+      if (index > -1) {
+        this.cacheRoute.splice(index, 1);
+      }
       // 如果移除的是当前页面，自动跳转到第一个页面
-      if (k === this.activeKey) this.onChangeTab(this.cacheRoute[0]?.key);
+      if (k === this.activeKey) {
+        console.log("跳转");
+
+        this.onChangeTab(this.cacheRoute[0]?.key);
+      }
     },
 
     /**

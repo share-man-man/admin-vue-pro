@@ -63,6 +63,8 @@ const fileDisplay = (parentPath: string) => {
     });
   });
 };
+
+// 默认引入./modules下的文件
 const dirPath = path.resolve(`${__dirname}`, "./modules");
 fileDisplay(dirPath);
 

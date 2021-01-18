@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import Home from "../views/Home.vue";
 import Layout from "@/components/Layout/index.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   // {
   //   path: "/",
   //   name: "Home",
@@ -15,7 +15,10 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    meta: {
+      breadcrumbName: "关于"
+    }
   },
   {
     path: "/",
@@ -47,6 +50,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Income/index.vue"),
         meta: {
           breadcrumbName: "入库管理"
+        }
+      },
+      {
+        path: "test",
+        name: "Test",
+        component: () => import("@/views/Test.vue"),
+        meta: {
+          breadcrumbName: "测试"
         }
       }
     ]
