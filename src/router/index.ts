@@ -3,28 +3,20 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Layout from "@/components/Layout/index.vue";
 
 const routes: RouteRecordRaw[] = [
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Home
-  // },
   {
     path: "/about",
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
     meta: {
-      breadcrumbName: "关于"
+      name: "关于"
     }
   },
   {
     path: "/",
     component: Layout,
     meta: {
-      breadcrumbName: "首页"
+      name: "首页"
     },
     children: [
       {
@@ -33,7 +25,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/Dashboard/index.vue"),
         props: route => ({ query: route.query.content }),
         meta: {
-          breadcrumbName: "报表"
+          name: "报表"
         }
       },
       {
@@ -41,7 +33,7 @@ const routes: RouteRecordRaw[] = [
         name: "Basic",
         component: () => import("@/views/Basic/index.vue"),
         meta: {
-          breadcrumbName: "基础管理"
+          name: "基础管理"
         }
       },
       {
@@ -49,7 +41,7 @@ const routes: RouteRecordRaw[] = [
         name: "Income",
         component: () => import("@/views/Income/index.vue"),
         meta: {
-          breadcrumbName: "入库管理"
+          name: "入库管理"
         }
       },
       {
@@ -57,7 +49,7 @@ const routes: RouteRecordRaw[] = [
         name: "Test",
         component: () => import("@/views/Test.vue"),
         meta: {
-          breadcrumbName: "测试"
+          name: "测试"
         }
       }
     ]

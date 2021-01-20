@@ -208,7 +208,7 @@ export default defineComponent({
           this.cacheRoute.push({
             key: r.fullPath,
             fullPath: r.fullPath,
-            tabName: r.meta.breadcrumbName,
+            tabName: r.meta.name,
             component: c,
             reloading: false
           });

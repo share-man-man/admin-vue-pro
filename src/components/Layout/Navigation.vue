@@ -27,10 +27,10 @@
               :key="item.path"
             >
               <span v-if="index === breadList.length - 1">
-                {{ item.meta.breadcrumbName }}
+                {{ item.meta.name }}
               </span>
               <router-link v-else :to="item.path">
-                {{ item.meta.breadcrumbName }}
+                {{ item.meta.name }}
               </router-link>
             </a-breadcrumb-item>
           </a-breadcrumb>
