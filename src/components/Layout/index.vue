@@ -11,9 +11,10 @@
   </a-layout>
 </template>
 <script lang="ts">
-import MenuList from "./MenuList/index.vue";
+// import MenuList from "./MenuList/index.vue";
 import Navigation from "./Navigation.vue";
 import RouteCache from "./RouteCache.vue";
+import MenuList from "./MenuList/index";
 
 export default {
   components: {

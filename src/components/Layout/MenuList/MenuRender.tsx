@@ -1,8 +1,9 @@
 // 使用tsx实现，避免模版组建渲染警告
 
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, ref, toRaw, toRefs, watch } from "vue";
+import { useRoute } from "vue-router";
 import { MenuItemType } from "./data";
-import IconType from "./IconType.vue";
+import IconRender from "./IconRender";
 
 /**
  * 判断是否有子菜单
@@ -21,21 +22,23 @@ const isSub = (i: MenuItemType) => {
  */
 const SubMenu = ({ subList = [] }: { subList: MenuItemType[] }) => {
   return subList.map(item => {
+    // 没有子菜单的渲染
     if (!isSub(item)) {
       return (
         <a-menu-item key={item.key}>
-          <IconType type={item.icon} />
+          <IconRender type={item.icon} />
           <span>{item.name}</span>
           {item.path && <router-link to={item.path} />}
         </a-menu-item>
       );
     } else {
+      // 有子菜单的递归渲染
       return (
         <a-sub-menu
           key={item.key}
           title={() => (
             <span>
-              <IconType type={item.icon} />
+              <IconRender type={item.icon} />
               <span>{item.name}</span>
             </span>
           )}
@@ -49,27 +52,69 @@ const SubMenu = ({ subList = [] }: { subList: MenuItemType[] }) => {
 
 const MenuRender = defineComponent({
   props: {
-    //   是否关闭
+    /**
+     * 是否关闭
+     */
     collapsed: {
       type: Boolean,
       default: false
     },
-    // 菜单列表
+    /**
+     * 菜单列表
+     */
     menuInfo: {
       type: Object as PropType<MenuItemType[]>,
       default: []
     }
   },
-  setup() {
-    const state = reactive({
-      /**
-       * 选择的菜单key
-       */
-      selectedKeys: []
+  setup(props) {
+    const route = useRoute();
+    // 不能直接使用解构，会消除props的响应性
+    const { menuInfo } = toRefs(props);
+
+    /**
+     * 选择的菜单key
+     */
+    const selectedKeys = ref<string[] | number[]>([]);
+    /**
+     * 展开keys
+     */
+    const defaultOpenKeys = ref<MenuItemType["key"][]>([]);
+    /**
+     * 选中keys
+     */
+    const defaultSelectedKeys = ref<MenuItemType["key"][]>([]);
+
+    // 递归获取默认需要展开的列表的key，在页面刷新后，也能根据路由展开菜单
+    const menuEffect = (m: MenuItemType[]) => {
+      m.forEach(i => {
+        // 默认展开的菜单项
+        if (route.matched.find(r => r.path === i.path)) {
+          defaultOpenKeys.value.push(i.key);
+        }
+        // 默认选中的菜单项
+        if (route.path === i.path) {
+          defaultSelectedKeys.value.push(i.key);
+        }
+        // 如果有子属性，递归调用
+        if (i.children) {
+          menuEffect(i.children);
+        }
+      });
+    };
+
+    // 菜单栏改变时，重新加载默认展开和选中项
+    watch(menuInfo.value, newMenuInfo => {
+      defaultSelectedKeys.value.splice(0);
+      defaultOpenKeys.value.splice(0);
+      const temp = toRaw(newMenuInfo) as MenuItemType[];
+      menuEffect(temp);
     });
 
     return {
-      state
+      selectedKeys,
+      defaultOpenKeys,
+      defaultSelectedKeys
     };
   },
   render() {
@@ -81,9 +126,10 @@ const MenuRender = defineComponent({
         theme="dark"
         inlineCollapsed={this.collapsed}
         onSelect={({ selectedKeys = [] }) => {
-          this.state.selectedKeys = selectedKeys;
+          this.selectedKeys = selectedKeys;
         }}
-        selected-keys={this.state.selectedKeys}
+        defaultOpenKeys={this.defaultOpenKeys}
+        defaultSelectedKeys={this.defaultSelectedKeys}
       >
         {sub}
       </a-menu>
