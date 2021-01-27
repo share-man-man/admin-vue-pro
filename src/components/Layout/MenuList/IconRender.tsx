@@ -1,5 +1,4 @@
-import { defineComponent, PropType, reactive } from "vue";
-import { IconType } from "./data.d";
+import { defineComponent, reactive } from "vue";
 import {
   DashboardOutlined,
   SettingOutlined,
@@ -8,25 +7,27 @@ import {
   RiseOutlined
 } from "@ant-design/icons-vue";
 
+export const IconMap = {
+  [DashboardOutlined.name]: <DashboardOutlined />,
+  [SettingOutlined.name]: <SettingOutlined />,
+  [LoginOutlined.name]: <LoginOutlined />,
+  [FallOutlined.name]: <FallOutlined />,
+  [RiseOutlined.name]: <RiseOutlined />
+};
+
 export default defineComponent({
   props: {
     type: {
-      type: String as PropType<IconType>
+      type: String
     }
   },
   setup() {
-    const state = reactive({
-      [DashboardOutlined.name]: <DashboardOutlined />,
-      [SettingOutlined.name]: <SettingOutlined />,
-      [LoginOutlined.name]: <LoginOutlined />,
-      [FallOutlined.name]: <FallOutlined />,
-      [RiseOutlined.name]: <RiseOutlined />
-    });
+    const state = reactive(IconMap);
     return {
       state
     };
   },
-  render({ type }: { type: IconType }) {
-    return this.state[type];
+  render() {
+    return this.state[this.$props.type || ""];
   }
 });

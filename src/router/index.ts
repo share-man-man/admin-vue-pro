@@ -4,12 +4,11 @@ import Layout from "@/components/Layout/index.vue";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/about",
+    path: "/login",
     name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "../views/Login"),
     meta: {
-      name: "关于"
+      name: "登录"
     }
   },
   {

@@ -1,13 +1,6 @@
-export type IconType =
-  | "PieChartOutlined"
-  | "MailOutlined"
-  | "DashboardOutlined"
-  | "SettingOutlined"
-  | "LoginOutlined"
-  | "FallOutlined"
-  | "RiseOutlined"
-  | "DashboardOutlined";
-
+/**
+ * 菜单项范型
+ */
 export type MenuItemType = {
   key: string | number;
   name: string;

@@ -3,6 +3,8 @@ import express from "express"; //引入express
 import Mock from "mockjs"; //引入mockjs
 import fs from "fs";
 import path from "path";
+import intercepter from "./utils/intercept";
+import bodyParser from "body-parser";
 
 /**
  * 端口
@@ -13,9 +15,11 @@ const port = 4000;
  * 实例化express
  */
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 /**
- * 便利modules下的所有ts文件，进行动态导入
+ * 遍历modules下的所有ts文件，进行动态导入
  * @param parentPath 文件夹路径
  */
 const fileDisplay = (parentPath: string) => {
@@ -38,14 +42,14 @@ const fileDisplay = (parentPath: string) => {
         if (isFile) {
           // 如果是文件，动态导入该文件
           import(`${parentPath}/${filename}`).then(({ default: mockObj }) => {
-            // console.log(JSON.stringify(allModules.default));
             Reflect.ownKeys(mockObj).forEach(key => {
               const [method, url] = (key as string).trim().split(" ");
-              // if (method.toUpperCase() === "GET") {
-              app[method.toLowerCase() as "get" | "post"](url, function(
-                req,
-                res
-              ) {
+              app[method.toLowerCase() as "get" | "post"](url, (req, res) => {
+                // token拦截
+                if (intercepter(req, res)) {
+                  return;
+                }
+                // 对象直接返回值，函数需要函数自行执行
                 if (typeof mockObj[key] === "object") {
                   res.json(Mock.mock(mockObj[key]));
                 } else if (typeof mockObj[key] === "function") {

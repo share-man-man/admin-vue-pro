@@ -56,10 +56,10 @@
             <template #overlay>
               <!-- 用户操作栏 -->
               <a-menu>
-                <!-- <a-menu-item>
-                  <a href="javascript:;">1st menu item</a>
-                </a-menu-item>
                 <a-menu-item>
+                  <span @click="logout">退出登陆</span>
+                </a-menu-item>
+                <!-- <a-menu-item>
                   <a href="javascript:;">2nd menu item</a>
                 </a-menu-item>
                 <a-menu-item>
@@ -76,9 +76,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapState, mapMutations } from "vuex";
-
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
 import { RouteLocationMatched } from "vue-router";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
+
+import { logout as reqLogout } from "@/services/oauth";
+import { removeTokenObj } from "@/utils/tokens";
 
 export default defineComponent({
   components: {
@@ -95,7 +97,12 @@ export default defineComponent({
     ...mapState("layout", ["collapsed"])
   },
   methods: {
-    ...mapMutations("layout", ["setCollapsed"])
+    ...mapMutations("layout", ["setCollapsed"]),
+    logout() {
+      reqLogout();
+      removeTokenObj();
+      this.$router.push("/login");
+    }
   },
   watch: {
     $route: {

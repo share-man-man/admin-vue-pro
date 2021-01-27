@@ -24,7 +24,7 @@ export default defineComponent({
     const menuInfo = ref<MenuItemType[]>([]);
 
     onMounted(async () => {
-      const { data }: { data: MenuItemType[] } = await getMenuInfo();
+      const data = await getMenuInfo();
       menuInfo.value.splice(0);
       menuInfo.value.push(...data);
     });

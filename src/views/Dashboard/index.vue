@@ -25,7 +25,9 @@ export default defineComponent({
   methods: {
     async refresh() {
       const res = await fakeReq({});
-      this.mockRes = res.data;
+      console.log(res);
+
+      // this.mockRes = res;
     }
   }
 });
