@@ -1,11 +1,61 @@
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import PageHeader from "@/components/Page/Header";
 import PageContent from "@/components/Page/Content";
+import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
+import { InfoCircleOutlined } from "@ant-design/icons-vue";
+
+const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
+const wrapperCol = { sm: { span: 17 }, lg: 10 };
+const rules = {
+  name: [
+    {
+      required: true,
+      message: "Please input Activity name",
+      trigger: "blur"
+    },
+    { min: 3, max: 5, message: "Length should be 3 to 5", trigger: "blur" }
+  ],
+  region: [
+    {
+      required: true,
+      message: "Please select Activity zone",
+      trigger: "change"
+    }
+  ],
+  date1: [
+    {
+      required: true,
+      message: "Please pick a date",
+      trigger: "change",
+      type: "object"
+    }
+  ],
+  type: [
+    {
+      type: "array",
+      required: true,
+      message: "Please select at least one activity type",
+      trigger: "change"
+    }
+  ],
+  resource: [
+    {
+      required: true,
+      message: "Please select activity resource",
+      trigger: "change"
+    }
+  ],
+  desc: [
+    {
+      required: true,
+      message: "Please input activity form",
+      trigger: "blur"
+    }
+  ]
+};
 
 export default defineComponent({
   setup() {
-    const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
-    const wrapperCol = { sm: { span: 17 }, lg: 10 };
     const form = reactive({
       name: "",
       region: undefined,
@@ -15,9 +65,25 @@ export default defineComponent({
       resource: "",
       desc: ""
     });
+    const formRef = ref(null);
+
     const onSubmit = () => {
-      console.log(form);
+      // eslint-disable-next-line
+      (formRef.value as any)
+        ?.validate?.()
+        .then(() => {
+          console.log("values", form);
+        })
+        .catch((error: ValidateErrorEntity) => {
+          console.log("error", error);
+        });
     };
+
+    const resetForm = () => {
+      // eslint-disable-next-line
+      (formRef.value as any)?.resetFields?.("");
+    };
+
     return () => (
       <>
         <PageHeader>
@@ -27,11 +93,32 @@ export default defineComponent({
         </PageHeader>
         <PageContent>
           <a-card>
-            <a-form model={form} label-col={labelCol} wrapper-col={wrapperCol}>
-              <a-form-item label="Activity name">
+            <a-form
+              ref={formRef}
+              model={form}
+              rules={rules}
+              label-col={labelCol}
+              wrapper-col={wrapperCol}
+            >
+              <a-form-item
+                label={() => (
+                  <label>
+                    Activity name
+                    <a-tooltip>
+                      {{
+                        title: () => "this is required",
+                        default: () => (
+                          <InfoCircleOutlined style="vertical-align: middle;margin-left:5px" />
+                        )
+                      }}
+                    </a-tooltip>
+                  </label>
+                )}
+                name="name"
+              >
                 <a-input v-model={[form.name, "value"]} />
               </a-form-item>
-              <a-form-item label="Activity zone">
+              <a-form-item label="Activity zone" name="region">
                 <a-select
                   v-model={[form.region, "value"]}
                   placeholder="please select your zone"
@@ -40,7 +127,7 @@ export default defineComponent({
                   <a-select-option value="beijing">Zone two</a-select-option>
                 </a-select>
               </a-form-item>
-              <a-form-item label="Activity time">
+              <a-form-item label="Activity time" name="date1">
                 <a-date-picker
                   v-model={[form.date1, "value"]}
                   show-time
@@ -49,10 +136,10 @@ export default defineComponent({
                   style={{ width: "100%" }}
                 />
               </a-form-item>
-              <a-form-item label="Instant delivery">
+              <a-form-item label="Instant delivery" name="delivery">
                 <a-switch v-model={[form.delivery, "checked"]} />
               </a-form-item>
-              <a-form-item label="Activity type">
+              <a-form-item label="Activity type" name="type">
                 <a-checkbox-group v-model={[form.type, "value"]}>
                   <a-checkbox value="1" name="type">
                     Online
@@ -65,23 +152,25 @@ export default defineComponent({
                   </a-checkbox>
                 </a-checkbox-group>
               </a-form-item>
-              <a-form-item label="Resources">
+              <a-form-item label="Resources" name="resource">
                 <a-radio-group v-model={[form.resource, "value"]}>
                   <a-radio value="1">Sponsor</a-radio>
                   <a-radio value="2">Venue</a-radio>
                 </a-radio-group>
               </a-form-item>
-              <a-form-item label="Activity form">
+              <a-form-item label="Activity form" name="desc">
                 <a-textarea
                   v-model={[form.desc, "value"]}
                   auto-size={{ minRows: 2, maxRows: 5 }}
                 />
               </a-form-item>
-              <a-form-item wrapper-col={{ span: 14, offset: 4 }}>
+              <a-form-item label=" " colon={false}>
                 <a-button type="primary" onClick={onSubmit}>
                   Create
                 </a-button>
-                <a-button style={{ "margin-left": "10px" }}>Cancel</a-button>
+                <a-button onClick={resetForm} style={{ "margin-left": "10px" }}>
+                  ResetForm
+                </a-button>
               </a-form-item>
             </a-form>
           </a-card>
