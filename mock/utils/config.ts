@@ -8,13 +8,13 @@ export const config = {
    */
   RF_SECRET: "rf",
   /**
-   * accessToken过期时间
+   * accessToken过期时间（秒）
    */
-  accessExp: 2,
+  accessExp: 3600,
   /**
-   * refreshToken过期时间
+   * refreshToken过期时间（秒）
    */
-  refreshExp: 5,
+  refreshExp: 43200,
   /**
    * 过滤拦截
    */

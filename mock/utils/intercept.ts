@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { OAuthTokenObj } from "../../src/utils/tokens";
 import { CustomResponseType } from "../../src/utils/request";
 import jwt from "jsonwebtoken";
-import { ErrorCodeMessage } from "../../src/utils/oauth";
+import { ErrorCodeMessage } from "../../src/utils/code";
 import { config } from "../utils/config";
 
 export interface PayloadType {

@@ -167,8 +167,6 @@ export default defineComponent({
       }
       // 如果移除的是当前页面，自动跳转到第一个页面
       if (k === this.activeKey) {
-        console.log("跳转");
-
         this.onChangeTab(this.cacheRoute[0]?.key);
       }
     },

@@ -5,8 +5,7 @@ import Layout from "@/components/Layout/index.vue";
 const routes: RouteRecordRaw[] = [
   {
     path: "/login",
-    name: "About",
-    component: () => import(/* webpackChunkName: "about" */ "../views/Login"),
+    component: () => import(/* webpackChunkName: "about" */ "@/views/login"),
     meta: {
       name: "登录"
     }
@@ -19,88 +18,29 @@ const routes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: "dashboard",
-        name: "Dashboard",
-        component: () => import("@/views/Dashboard/index.vue"),
-        props: route => ({ query: route.query.content }),
+        path: "form/basic",
+        component: () => import("@/views/form/basic"),
         meta: {
-          name: "报表"
-        },
-        children: [
-          {
-            path: "stock",
-            name: "Stock",
-            component: () => import("@/views/Dashboard/index.vue"),
-            props: route => ({ query: route.query.content }),
-            meta: {
-              name: "库存报表"
-            }
-          },
-          {
-            path: "deliver",
-            name: "Deliver",
-            component: () => import("@/views/Dashboard/index.vue"),
-            props: route => ({ query: route.query.content }),
-            meta: {
-              name: "出库报表"
-            }
-          }
-        ]
-      },
-      {
-        path: "basic",
-        name: "Basic",
-        component: () => import("@/views/Basic/index.vue"),
-        meta: {
-          name: "基础管理"
+          name: "基础表单"
         }
       },
       {
-        path: "income",
-        name: "Income",
-        component: () => import("@/views/Income/index.vue"),
+        path: "form/step",
+        component: () => import("@/views/form/basic"),
         meta: {
-          name: "入库管理"
+          name: "步骤表单"
         }
       },
       {
-        path: "test",
-        name: "Test",
-        component: () => import("@/views/Test.vue"),
+        path: "form/advanced",
+        component: () => import("@/views/form/basic"),
         meta: {
-          name: "测试"
-        },
-        children: [
-          {
-            path: "child-test",
-            name: "ChildTest",
-            component: () => import("@/views/Income/index.vue"),
-            meta: {
-              name: "测试子菜单1"
-            },
-            children: [
-              {
-                path: "child-test3",
-                name: "ChildTest3",
-                component: () => import("@/views/Income/index.vue"),
-                meta: {
-                  name: "测试子菜单3"
-                }
-              }
-            ]
-          },
-          {
-            path: "child-test2",
-            name: "ChildTest2",
-            component: () => import("@/views/Income/index.vue"),
-            meta: {
-              name: "测试子菜单2"
-            }
-          }
-        ]
+          name: "高级表单"
+        }
       }
     ]
-  }
+  },
+  { path: "/:pathMatch(.*)*", name: "not-found", redirect: "/" }
 ];
 
 const router = createRouter({

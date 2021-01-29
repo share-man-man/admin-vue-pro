@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ErrorCodeMessage } from "../../src/utils/oauth";
+import { ErrorCodeMessage } from "../../src/utils/code";
 import { CustomResponseType } from "../../src/utils/request";
 import {
   createAccessToken,
