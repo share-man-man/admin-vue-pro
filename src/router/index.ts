@@ -21,6 +21,9 @@ const routes: RouteRecordRaw[] = [
         path: "form",
         component: () => import("@/views/form/index.vue"),
         redirect: "/form/basic",
+        meta: {
+          name: "表单"
+        },
         children: [
           {
             path: "basic",
@@ -31,7 +34,7 @@ const routes: RouteRecordRaw[] = [
           },
           {
             path: "step",
-            component: () => import("@/views/form/basic"),
+            component: () => import("@/views/form/step/index"),
             meta: {
               name: "步骤表单"
             }

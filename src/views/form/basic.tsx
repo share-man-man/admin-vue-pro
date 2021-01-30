@@ -1,6 +1,6 @@
 import { defineComponent, reactive, ref } from "vue";
-import PageHeader from "@/components/Page/Header";
-import PageContent from "@/components/Page/Content";
+import HeaderContent from "@/components/Page/Header";
+import Content from "@/components/Page/Content";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { InfoCircleOutlined } from "@ant-design/icons-vue";
 
@@ -54,6 +54,20 @@ const rules = {
   ]
 };
 
+const CustomLabel = () => (
+  <label>
+    Activity name
+    <a-tooltip>
+      {{
+        title: () => "this is required",
+        default: () => (
+          <InfoCircleOutlined style="vertical-align: middle;margin-left:5px" />
+        )
+      }}
+    </a-tooltip>
+  </label>
+);
+
 export default defineComponent({
   setup() {
     const form = reactive({
@@ -86,12 +100,12 @@ export default defineComponent({
 
     return () => (
       <>
-        <PageHeader>
+        <HeaderContent>
           <a-page-header title="基础表单">
             表单页面用于收集或验证给用户的信息，基本表单在数据项较少的情况下很常见。
           </a-page-header>
-        </PageHeader>
-        <PageContent>
+        </HeaderContent>
+        <Content>
           <a-card>
             <a-form
               ref={formRef}
@@ -100,22 +114,7 @@ export default defineComponent({
               label-col={labelCol}
               wrapper-col={wrapperCol}
             >
-              <a-form-item
-                label={() => (
-                  <label>
-                    Activity name
-                    <a-tooltip>
-                      {{
-                        title: () => "this is required",
-                        default: () => (
-                          <InfoCircleOutlined style="vertical-align: middle;margin-left:5px" />
-                        )
-                      }}
-                    </a-tooltip>
-                  </label>
-                )}
-                name="name"
-              >
+              <a-form-item label={() => <CustomLabel />} name="name">
                 <a-input v-model={[form.name, "value"]} />
               </a-form-item>
               <a-form-item label="Activity zone" name="region">
@@ -174,7 +173,7 @@ export default defineComponent({
               </a-form-item>
             </a-form>
           </a-card>
-        </PageContent>
+        </Content>
       </>
     );
   }
