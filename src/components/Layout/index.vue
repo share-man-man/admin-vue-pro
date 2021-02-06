@@ -6,21 +6,20 @@
       <!-- 顶部导航栏 -->
       <navigation />
       <!-- 路由缓存、内容展示 -->
-      <route-cache />
+      <content-cache />
     </a-layout>
   </a-layout>
 </template>
 <script lang="ts">
-// import MenuList from "./MenuList/index.vue";
 import Navigation from "./Navigation.vue";
-import RouteCache from "./RouteCache.vue";
+import ContentCache from "./Content/index";
 import MenuList from "./MenuList/index";
 
 export default {
   components: {
     MenuList,
     Navigation,
-    RouteCache
+    ContentCache
   }
 };
 </script>

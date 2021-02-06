@@ -1,6 +1,6 @@
 import Content from "@/components/Page/Content";
 import HeaderContent from "@/components/Page/Header";
-import { defineComponent, isReactive, isRef, reactive, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import Write from "./write";
 import Confirm from "./confirm";
 import Success from "./success";
@@ -14,6 +14,7 @@ export interface FormType {
 }
 
 export default defineComponent({
+  name: "step",
   setup() {
     const form: FormType = reactive({
       payAccount: undefined,
@@ -39,27 +40,16 @@ export default defineComponent({
               <a-step>
                 {{
                   title: () => "填写转账信息"
-                  //   description: () => <span>This is a description.</span>
                 }}
               </a-step>
-              <a-step
-                title="确认转账信息"
-                // sub-title="Left 00:00:08"
-                // description="This is a description."
-              />
-              <a-step
-                title="完成"
-                //   description="This is a description."
-              />
+              <a-step title="确认转账信息" />
+              <a-step title="完成" />
             </a-steps>
             <div v-show={step.value === 0}>
               <Write
                 form={form}
-                onSubmit={f => {
+                onSubmit={() => {
                   step.value = 1;
-                  // Object.keys(form).forEach(k => {
-                  //   form[k as keyof FormType] = f[k as keyof FormType];
-                  // });
                 }}
               />
             </div>

@@ -41,34 +41,13 @@ const routes: RouteRecordRaw[] = [
           },
           {
             path: "advanced",
-            component: () => import("@/views/form/basic"),
+            component: () => import("@/views/test/index"),
             meta: {
               name: "高级表单"
             }
           }
         ]
       }
-      // {
-      //   path: "form/basic",
-      //   component: () => import("@/views/form/basic"),
-      //   meta: {
-      //     name: "基础表单"
-      //   }
-      // },
-      // {
-      //   path: "form/step",
-      //   component: () => import("@/views/form/basic"),
-      //   meta: {
-      //     name: "步骤表单"
-      //   }
-      // },
-      // {
-      //   path: "form/advanced",
-      //   component: () => import("@/views/form/basic"),
-      //   meta: {
-      //     name: "高级表单"
-      //   }
-      // }
     ]
   },
   { path: "/:pathMatch(.*)*", name: "not-found", redirect: "/" }

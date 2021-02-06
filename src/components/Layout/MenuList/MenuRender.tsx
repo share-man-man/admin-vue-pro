@@ -1,6 +1,14 @@
 // 使用tsx实现，避免模版组建渲染警告
 
-import { defineComponent, PropType, ref, toRaw, toRefs, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+  toRaw,
+  toRefs,
+  watch
+} from "vue";
 import { useRoute } from "vue-router";
 import { MenuItemType } from "./data";
 import IconRender from "./IconRender";
@@ -75,26 +83,25 @@ const MenuRender = defineComponent({
     /**
      * 选择的菜单key
      */
-    const selectedKeys = ref<string[] | number[]>([]);
+    const selectedKeys = ref<MenuItemType["key"][]>([]);
     /**
      * 展开keys
      */
-    const defaultOpenKeys = ref<MenuItemType["key"][]>([]);
-    /**
-     * 选中keys
-     */
-    const defaultSelectedKeys = ref<MenuItemType["key"][]>([]);
+    const openKeys = ref<MenuItemType["key"][]>([]);
 
     // 递归获取默认需要展开的列表的key，在页面刷新后，也能根据路由展开菜单
     const menuEffect = (m: MenuItemType[]) => {
       m.forEach(i => {
         // 默认展开的菜单项
-        if (route.matched.find(r => r.path === i.path)) {
-          defaultOpenKeys.value.push(i.key);
+        if (
+          route.matched.find(r => r.path === i.path) &&
+          !openKeys.value.includes(i.key)
+        ) {
+          openKeys.value.push(i.key);
         }
         // 默认选中的菜单项
-        if (route.path === i.path) {
-          defaultSelectedKeys.value.push(i.key);
+        if (route.path === i.path && !selectedKeys.value.includes(i.key)) {
+          selectedKeys.value.push(i.key);
         }
         // 如果有子属性，递归调用
         if (i.children) {
@@ -103,37 +110,40 @@ const MenuRender = defineComponent({
       });
     };
 
-    // 菜单栏改变时，重新加载默认展开和选中项
-    watch(menuInfo.value, newMenuInfo => {
-      defaultSelectedKeys.value.splice(0);
-      defaultOpenKeys.value.splice(0);
-      const temp = toRaw(newMenuInfo) as MenuItemType[];
+    const reloadMenu = (info: MenuItemType[]) => {
+      selectedKeys.value.splice(0);
+      const temp = info;
       menuEffect(temp);
+    };
+
+    // 菜单栏改变时，重新加载展开和选中项
+    watch(menuInfo.value, newMenuInfo => {
+      openKeys.value.splice(0);
+      reloadMenu(toRaw(newMenuInfo) as MenuItemType[]);
     });
 
-    return {
-      selectedKeys,
-      defaultOpenKeys,
-      defaultSelectedKeys
+    // 路由改变时，重新加载选中项
+    const routePath = computed(() => route.path);
+    watch(routePath, () => reloadMenu(toRaw(menuInfo.value)), {
+      immediate: true
+    });
+
+    return () => {
+      const sub = SubMenu({ subList: menuInfo.value });
+      return (
+        <a-menu
+          mode="inline"
+          theme="dark"
+          inlineCollapsed={props.collapsed}
+          v-models={[
+            [selectedKeys.value, "selectedKeys"],
+            [openKeys.value, "openKeys"]
+          ]}
+        >
+          {sub}
+        </a-menu>
+      );
     };
-  },
-  render() {
-    // 子菜单渲染函数，必须是函数，不能是标签，否则识别不了子菜单项
-    const sub = SubMenu({ subList: this.menuInfo });
-    return (
-      <a-menu
-        mode="inline"
-        theme="dark"
-        inlineCollapsed={this.collapsed}
-        onSelect={({ selectedKeys = [] }) => {
-          this.selectedKeys = selectedKeys;
-        }}
-        defaultOpenKeys={this.defaultOpenKeys}
-        defaultSelectedKeys={this.defaultSelectedKeys}
-      >
-        {sub}
-      </a-menu>
-    );
   }
 });
 

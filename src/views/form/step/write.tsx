@@ -1,7 +1,8 @@
 import { message } from "ant-design-vue";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
-import { defineComponent, PropType, reactive, ref, toRaw, toRefs } from "vue";
+import { defineComponent, PropType, reactive, ref, toRefs } from "vue";
 import { FormType } from ".";
+import { MethodsType } from "../basic";
 const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
 const wrapperCol = { sm: { span: 17 }, lg: 10 };
 const rules = {
@@ -55,10 +56,9 @@ export default defineComponent({
     const { form: f } = toRefs(props);
     const form = reactive(f.value);
 
-    const formRef = ref(null);
+    const formRef = ref<MethodsType>(undefined);
     const submit = () => {
-      // eslint-disable-next-line
-      (formRef.value as any)
+      formRef.value
         ?.validate?.()
         .then(() => {
           if (form) {

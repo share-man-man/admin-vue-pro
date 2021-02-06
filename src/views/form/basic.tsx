@@ -3,6 +3,9 @@ import HeaderContent from "@/components/Page/Header";
 import Content from "@/components/Page/Content";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { InfoCircleOutlined } from "@ant-design/icons-vue";
+import { Form } from "ant-design-vue";
+
+export declare type MethodsType = typeof Form.methods;
 
 const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
 const wrapperCol = { sm: { span: 17 }, lg: 10 };
@@ -69,6 +72,7 @@ const CustomLabel = () => (
 );
 
 export default defineComponent({
+  name: "basic",
   setup() {
     const form = reactive({
       name: "",
@@ -79,11 +83,10 @@ export default defineComponent({
       resource: "",
       desc: ""
     });
-    const formRef = ref(null);
+    const formRef = ref<MethodsType>(undefined);
 
     const onSubmit = () => {
-      // eslint-disable-next-line
-      (formRef.value as any)
+      formRef.value
         ?.validate?.()
         .then(() => {
           console.log("values", form);
@@ -94,8 +97,7 @@ export default defineComponent({
     };
 
     const resetForm = () => {
-      // eslint-disable-next-line
-      (formRef.value as any)?.resetFields?.("");
+      formRef.value?.resetFields?.("");
     };
 
     return () => (
