@@ -27,7 +27,7 @@ const routes: RouteRecordRaw[] = [
         children: [
           {
             path: "basic",
-            component: () => import("@/views/form/basic"),
+            component: () => import("@/views/form/basic/index"),
             meta: {
               name: "基础表单"
             }
@@ -41,7 +41,7 @@ const routes: RouteRecordRaw[] = [
           },
           {
             path: "advanced",
-            component: () => import("@/views/test/index"),
+            component: () => import("@/views/form/advanced/index"),
             meta: {
               name: "高级表单"
             }
