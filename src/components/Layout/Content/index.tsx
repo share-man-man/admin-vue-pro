@@ -3,8 +3,9 @@ import {
   defineComponent,
   nextTick,
   ref,
-  watch,
-  withModifiers
+  withModifiers,
+  VNode,
+  KeepAlive
 } from "vue";
 import {
   ReloadOutlined,
@@ -13,31 +14,20 @@ import {
   CloseCircleOutlined,
   VerticalAlignTopOutlined
 } from "@ant-design/icons-vue";
-import { useRoute, useRouter } from "vue-router";
-import CacheContent from "./CacheContent.vue";
-
-interface RouteItem {
-  /**
-   * 主键
-   */
-  key: string;
-  /**
-   * 路径
-   */
-  path: string;
-  /**
-   * 标签页名字
-   */
-  tabName: string;
-  /**
-   * 重载时间，用于组件的动态key
-   */
-  reloadTime: number;
-}
+import {
+  useRoute,
+  useRouter,
+  RouterView,
+  RouteLocationNormalizedLoaded
+} from "vue-router";
+import { RouteItem } from "./data.d";
+import PageView from "./Pageview.vue";
+import component from "./Pageview.vue";
 
 export default defineComponent({
   components: {
-    CacheContent
+    PageView,
+    KeepAlive
   },
   setup() {
     const route = useRoute();
@@ -106,13 +96,10 @@ export default defineComponent({
      */
     const reload = () => {
       const activeItem = cacheRoute.value[activeIndex.value];
-      if (activeItem) {
-        activeItem.reloadTime = new Date().getTime();
-      }
-      reloading.value = true;
+      activeItem.reloading = true;
       reloadingIcon.value = true;
       nextTick(() => {
-        reloading.value = false;
+        activeItem.reloading = false;
         setTimeout(() => {
           reloadingIcon.value = false;
         }, 500);
@@ -120,28 +107,26 @@ export default defineComponent({
     };
 
     /**
-     * 当routePath改变时，添加/加载缓存
+     * 动态路由缓存
+     * @param c 虚拟dom
+     * @param r 路由
      */
-    const routePath = computed(() => {
-      return route.path;
-    });
-    watch(
-      routePath,
-      () => {
-        const r = route;
-        const findItem = cacheRoute.value.find(i => i.key === r.path);
-        if (!findItem) {
-          cacheRoute.value.push({
-            key: r.path,
-            path: r.path,
-            tabName: r.meta.name,
-            reloadTime: new Date().getTime()
-          });
-        }
-        activeKey.value = r.path;
-      },
-      { immediate: true, deep: true }
-    );
+    const addCache = (c: VNode, r: RouteLocationNormalizedLoaded) => {
+      // const r = route;
+      const findItem = cacheRoute.value.find(i => i.key === r.path);
+      if (!findItem) {
+        cacheRoute.value.push({
+          key: r.fullPath,
+          path: r.path,
+          fullPath: r.fullPath,
+          tabName: r.meta.name,
+          component: c,
+          reloadTime: new Date().getTime(),
+          reloading: false
+        });
+      }
+      activeKey.value = r.path;
+    };
 
     return () => (
       <>
@@ -212,25 +197,16 @@ export default defineComponent({
               ))
           }}
         </a-tabs>
-        <a-layout-content class="public-content">
-          {/* 此方法不能添加key以实现动态缓存 */}
-          {/* <RouterView>
-            {{
-              default: (prop: unknown) => {
-                return <KeepAlive>{(prop as unknown).Component}</KeepAlive>;
-              }
-            }}
-          </RouterView> */}
-          <CacheContent
-            k={
-              reloading.value
-                ? 0
-                : cacheRoute.value.find(i => i.key === activeKey.value)
-                    ?.reloadTime
-            }
-            reloading={reloading.value}
-          />
-        </a-layout-content>
+        {/* 缓存路由 */}
+        <RouterView>
+          {{
+            default: (prop: {
+              Component: VNode;
+              route: RouteLocationNormalizedLoaded;
+            }) => addCache(prop.Component, prop.route)
+          }}
+        </RouterView>
+        <PageView list={cacheRoute.value} activeKey={activeKey.value} />
       </>
     );
   }
