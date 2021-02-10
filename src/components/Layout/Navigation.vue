@@ -98,10 +98,14 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations("layout", ["setCollapsed"]),
-    logout() {
-      reqLogout();
+    async logout() {
+      await reqLogout();
       removeTokenObj();
+      this.$router.push("/");
+      // 这里不能使用nextick，必须使用setTimeout
+      // setTimeout(() => {
       this.$router.push("/login");
+      // });
     }
   },
   watch: {

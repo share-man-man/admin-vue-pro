@@ -6,15 +6,15 @@ import { setTokenObj } from "@/utils/tokens";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const username = ref("");
-    const password = ref("");
+    const username = ref("admin");
+    const password = ref("123");
 
     const onLogin = async () => {
       const tokenObj = await login({
         username: username.value,
         password: password.value
       });
-      if (setTokenObj(tokenObj)) router.push("/dashboard");
+      if (setTokenObj(tokenObj)) router.push("/");
     };
 
     return {

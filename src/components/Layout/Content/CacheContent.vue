@@ -7,7 +7,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import NullComp from "./NullComp.vue";
 export default defineComponent({
+  components: { NullComp },
   props: {
     k: Number,
     reloading: Boolean
