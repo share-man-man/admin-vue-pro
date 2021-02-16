@@ -47,6 +47,23 @@ const routes: RouteRecordRaw[] = [
             }
           }
         ]
+      },
+      {
+        path: "list",
+        component: () => import("@/views/list/index.vue"),
+        redirect: "/list/search",
+        meta: {
+          name: "列表"
+        },
+        children: [
+          {
+            path: "search",
+            component: () => import("@/views/list/search/index"),
+            meta: {
+              name: "查询表格"
+            }
+          }
+        ]
       }
     ]
   },

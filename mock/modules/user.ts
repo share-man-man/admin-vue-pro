@@ -35,6 +35,20 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
             icon: "DashboardOutlined"
           }
         ]
+      },
+      {
+        key: "6",
+        name: "列表",
+        path: "/list",
+        icon: "DashboardOutlined",
+        children: [
+          {
+            key: "7",
+            name: "查询表格",
+            path: "/list/search",
+            icon: "DashboardOutlined"
+          }
+        ]
       }
     ]
   };

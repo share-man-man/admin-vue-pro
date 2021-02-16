@@ -12,6 +12,7 @@ import { MethodsType } from "../basic";
 import { PlusOutlined } from "@ant-design/icons-vue";
 // import { cloneDeep } from "lodash-es";
 import style from "./style.module.less";
+import avStyle from "@/components/style.module.less";
 
 const warehouseRules = {};
 const taskRules = {};
@@ -195,7 +196,7 @@ export default defineComponent({
           </a-page-header>
         </HeaderContent>
         <Content>
-          <a-card title="仓库管理" class={style["advanced-card"]}>
+          <a-card title="仓库管理" class={avStyle["av-card"]}>
             <a-form
               ref={warehouseRef}
               model={warehouseForm}
@@ -294,7 +295,7 @@ export default defineComponent({
             </a-form>
           </a-card>
 
-          <a-card title="任务管理" class={style["advanced-card"]}>
+          <a-card title="任务管理" class={avStyle["av-card"]}>
             <a-form
               ref={taskRef}
               model={taskForm}
@@ -395,7 +396,7 @@ export default defineComponent({
 
           <a-card
             title="成员管理"
-            class={style["advanced-card"]}
+            class={avStyle["av-card"]}
             style="margin-bottom:45px"
           >
             <a-table
