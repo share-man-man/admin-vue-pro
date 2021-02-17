@@ -62,6 +62,13 @@ const routes: RouteRecordRaw[] = [
             meta: {
               name: "查询表格"
             }
+          },
+          {
+            path: "basic",
+            component: () => import("@/views/list/basic"),
+            meta: {
+              name: "基础表格"
+            }
           }
         ]
       }

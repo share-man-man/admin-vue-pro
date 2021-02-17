@@ -47,6 +47,12 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
             name: "查询表格",
             path: "/list/search",
             icon: "DashboardOutlined"
+          },
+          {
+            key: "8",
+            name: "基础表格",
+            path: "/list/basic",
+            icon: "DashboardOutlined"
           }
         ]
       }

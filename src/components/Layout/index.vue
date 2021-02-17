@@ -8,6 +8,7 @@
       <!-- 路由缓存、内容展示 -->
       <content-cache />
       <!-- <cache-keep /> -->
+      <a-layout-footer></a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
