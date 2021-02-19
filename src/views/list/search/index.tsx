@@ -4,6 +4,14 @@ import avStyle from "@/components/style.module.less";
 import { MethodsType } from "@/views/form/basic";
 import { ColumnProps } from "ant-design-vue/es/table/interface";
 import style from "./style.module.less";
+import {
+  PlusOutlined,
+  ReloadOutlined,
+  ColumnHeightOutlined,
+  SettingOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined
+} from "@ant-design/icons-vue";
 
 enum StateEnum {
   CLOSE = "关闭",
@@ -96,6 +104,8 @@ export default defineComponent({
     });
     const formRef = ref<MethodsType>(undefined);
     const dataSource = reactive<TableDataType[]>([]);
+    const isFullScreen = ref(false);
+    const tableRef = ref(undefined);
 
     const columns: ColumnType[] = [
       {
@@ -155,6 +165,17 @@ export default defineComponent({
       console.log("params", pagination, filters, sorter);
     };
 
+    const setIsFullScreen = () => {
+      if (!isFullScreen.value) {
+        const e = (tableRef.value?.["$el"] as unknown) as HTMLElement;
+        e?.requestFullscreen();
+        isFullScreen.value = true;
+      } else {
+        document.exitFullscreen();
+        isFullScreen.value = false;
+      }
+    };
+
     onMounted(() => {
       let stateRound: keyof typeof StateEnum = "CLOSE";
       for (let index = 0; index < 120; index++) {
@@ -175,6 +196,66 @@ export default defineComponent({
         });
       }
     });
+
+    const ToolBar = () => (
+      <div class={style["av-table-list-toolbar"]}>
+        <div class={style["av-table-list-toolbar-container"]}>
+          <div class={style["av-table-list-toolbar-left"]}>
+            <div class={style["av-table-list-toolbar-title"]}>查询表格</div>
+          </div>
+          <div class={style["av-table-list-toolbar-right"]}>
+            <a-space>
+              <a-button type="primary">
+                <PlusOutlined />
+                新建
+              </a-button>
+              <a-switch checked-children="开" un-checked-children="关" />
+            </a-space>
+            <div class={style["av-table-list-toolbar-divider"]}>
+              <a-divider type="vertical" />
+            </div>
+            <div class={style["av-table-list-toolbar-setting-item"]}>
+              <a-tooltip title="刷新">
+                <ReloadOutlined />
+              </a-tooltip>
+            </div>
+            <div class={style["av-table-list-toolbar-setting-item"]}>
+              <a-tooltip title="密度">
+                <a-dropdown
+                  trigger={["click"]}
+                  overlay={() => (
+                    <a-menu>
+                      <a-menu-item key="0">默认</a-menu-item>
+                      <a-menu-item key="1">中等</a-menu-item>
+                      <a-menu-item key="3">紧凑</a-menu-item>
+                    </a-menu>
+                  )}
+                >
+                  <ColumnHeightOutlined />
+                </a-dropdown>
+              </a-tooltip>
+            </div>
+            <div class={style["av-table-list-toolbar-setting-item"]}>
+              <a-tooltip title="列设置">
+                <SettingOutlined />
+              </a-tooltip>
+            </div>
+            <div
+              onClick={setIsFullScreen}
+              class={style["av-table-list-toolbar-setting-item"]}
+            >
+              <a-tooltip title="全屏">
+                {isFullScreen.value ? (
+                  <FullscreenExitOutlined />
+                ) : (
+                  <FullscreenOutlined />
+                )}
+              </a-tooltip>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
     return () => (
       <Content>
@@ -204,11 +285,11 @@ export default defineComponent({
             </a-row>
           </a-form>
         </a-card>
-        <a-card class={avStyle["av-card"]}>
+        <a-card ref={tableRef} class={avStyle["av-card"]}>
+          <ToolBar />
           <a-table
             size="middle"
             rowKey="ruleName"
-            title={() => "查询表格"}
             columns={columns}
             dataSource={dataSource}
             onChange={onChange}
