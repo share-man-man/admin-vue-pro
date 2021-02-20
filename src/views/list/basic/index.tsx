@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, reactive } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import Content from "@/components/Page/Content";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import avStyle from "@/components/style.module.less";
@@ -75,9 +75,9 @@ const ListContent: (p: { item: ListItemType }) => JSX.Element = ({ item }) => (
 
 export default defineComponent({
   setup() {
-    const dataList = reactive<ListItemType[]>([]);
+    const dataList = ref<ListItemType[]>([]);
     onMounted(() => {
-      [
+      dataList.value = [
         {
           avatar:
             "https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png",
@@ -133,9 +133,7 @@ export default defineComponent({
           process: Math.round(Math.random() * 100),
           status: "exception"
         }
-      ].forEach(item => {
-        dataList.push(item);
-      });
+      ];
     });
     return () => (
       <>
@@ -163,7 +161,7 @@ export default defineComponent({
                     <PlusOutlined />
                     添加
                   </a-button>
-                  <a-list dataSource={dataList}>
+                  <a-list dataSource={dataList.value}>
                     {{
                       renderItem: ({ item }: { item: ListItemType }) => (
                         <a-list-item>

@@ -15,14 +15,12 @@ import {
   VerticalAlignTopOutlined
 } from "@ant-design/icons-vue";
 import {
-  useRoute,
   useRouter,
   RouterView,
   RouteLocationNormalizedLoaded
 } from "vue-router";
 import { RouteItem } from "./data.d";
 import PageView from "./Pageview.vue";
-import component from "./Pageview.vue";
 
 export default defineComponent({
   components: {
@@ -30,11 +28,9 @@ export default defineComponent({
     KeepAlive
   },
   setup() {
-    const route = useRoute();
     const router = useRouter();
     const activeKey = ref("");
     const cacheRoute = ref<RouteItem[]>([]);
-    const reloading = ref(false);
     const reloadingIcon = ref(false);
     const closable = computed(() => cacheRoute.value.length !== 1);
     const activeIndex = computed(() =>

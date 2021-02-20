@@ -96,6 +96,14 @@ export default defineComponent({
   computed: {
     ...mapState("layout", ["collapsed"])
   },
+  watch: {
+    $route: {
+      handler(r) {
+        this.breadList = r.matched;
+      },
+      immediate: true
+    }
+  },
   methods: {
     ...mapMutations("layout", ["setCollapsed"]),
     async logout() {
@@ -106,14 +114,6 @@ export default defineComponent({
       // setTimeout(() => {
       this.$router.push("/login");
       // });
-    }
-  },
-  watch: {
-    $route: {
-      handler() {
-        this.breadList = this.$route.matched;
-      },
-      immediate: true
     }
   }
 });

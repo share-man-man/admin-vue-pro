@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, reactive, ref, VNode } from "vue";
+import { defineComponent, onMounted, reactive, ref } from "vue";
 import Content from "@/components/Page/Content";
 import avStyle from "@/components/style.module.less";
 import { MethodsType } from "@/views/form/basic";

@@ -72,7 +72,7 @@ const CustomLabel = () => (
 );
 
 export default defineComponent({
-  name: "basic",
+  name: "Basic",
   setup() {
     const form = reactive({
       name: "",

@@ -7,7 +7,7 @@
       class="public-content-div"
     >
       <keep-alive v-if="!r.reloading">
-        <component v-if="r.key === activeKey" :is="r.component" />
+        <component :is="r.component" v-if="r.key === activeKey" />
       </keep-alive>
     </div>
   </a-layout-content>
@@ -19,9 +19,13 @@ import { RouteItem } from "./data.d";
 export default defineComponent({
   props: {
     list: {
-      type: Array as PropType<RouteItem[]>
+      type: Array as PropType<RouteItem[]>,
+      default: () => []
     },
-    activeKey: [String, Number]
+    activeKey: {
+      type: [String, Number],
+      default: ""
+    }
   }
 });
 </script>
