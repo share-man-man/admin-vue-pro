@@ -12,6 +12,8 @@ import {
   FullscreenOutlined,
   FullscreenExitOutlined
 } from "@ant-design/icons-vue";
+import { getList } from "@/services/list/search";
+import { formatTime } from "@/utils";
 
 enum StateEnum {
   CLOSE = "关闭",
@@ -20,12 +22,12 @@ enum StateEnum {
   ONLINE = "已上线"
 }
 
-type TableDataType = {
+export type TableDataType = {
   ruleName: string;
   desc: string;
   count: number;
   state: keyof typeof StateEnum;
-  dispatchTime: Date;
+  dispatchTime: number;
 };
 
 type PaginationType = {
@@ -142,9 +144,9 @@ export default defineComponent({
         title: "上次调度时间",
         dataIndex: "dispatchTime",
         sorter: (a: TableDataType, b: TableDataType) =>
-          a.dispatchTime?.getTime() - b.dispatchTime?.getTime(),
+          a.dispatchTime - b.dispatchTime,
         customRender: ({ text }) => {
-          return text?.getTime();
+          return formatTime(Number(text));
         }
       },
       {
@@ -176,25 +178,14 @@ export default defineComponent({
       }
     };
 
+    const loadDataList = async () => {
+      const { list } = await getList();
+      dataSource.splice(0);
+      dataSource.push(...list);
+    };
+
     onMounted(() => {
-      let stateRound: keyof typeof StateEnum = "CLOSE";
-      for (let index = 0; index < 120; index++) {
-        stateRound =
-          index % 4 === 0
-            ? "CLOSE"
-            : index % 4 === 1
-            ? "EXCEPTION"
-            : index % 4 === 2
-            ? "ONLINE"
-            : "RUNNING";
-        dataSource.push({
-          ruleName: `规则名称-${index}`,
-          desc: `描述-${index}`,
-          count: Math.round(Math.random() * 100),
-          state: stateRound,
-          dispatchTime: new Date()
-        });
-      }
+      loadDataList();
     });
 
     const ToolBar = () => (
