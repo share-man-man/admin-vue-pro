@@ -14,6 +14,7 @@ import {
   CloseCircleOutlined,
   VerticalAlignTopOutlined
 } from "@ant-design/icons-vue";
+import { Tabs, Dropdown, Menu } from "ant-design-vue";
 import {
   useRouter,
   RouterView,
@@ -62,8 +63,8 @@ export default defineComponent({
     /**
      * 新增、移除
      */
-    const onEdit = (editKey: string, action: string) => {
-      if (action === "remove") remove(editKey);
+    const onEdit = (editKey: string | MouseEvent, action: "add" | "remove") => {
+      if (action === "remove") remove(editKey as string);
     };
 
     /**
@@ -126,7 +127,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <a-tabs
+        <Tabs
           activeKey={activeKey.value}
           type="editable-card"
           hide-add
@@ -136,27 +137,29 @@ export default defineComponent({
         >
           {{
             tabBarExtraContent: () => (
-              <a-dropdown>
+              <Dropdown>
                 {{
                   overlay: () => (
-                    <a-menu>
-                      <a-menu-item key="reloadNow" onClick={reload}>
-                        <ReloadOutlined />
-                        刷新当前页
-                      </a-menu-item>
-                      <a-menu-item key="topNow" onClick={topNow}>
-                        <VerticalAlignTopOutlined />
-                        置顶当前页
-                      </a-menu-item>
-                      <a-menu-item
-                        key="closeElse"
-                        disabled={!closable.value}
-                        onClick={removeElse}
-                      >
-                        <CloseCircleOutlined />
-                        关闭其它页面
-                      </a-menu-item>
-                    </a-menu>
+                    <Menu>
+                      <Menu.Item key="reloadNow">
+                        <span onClick={reload}>
+                          <ReloadOutlined />
+                          刷新当前页
+                        </span>
+                      </Menu.Item>
+                      <Menu.Item key="topNow">
+                        <span onClick={topNow}>
+                          <VerticalAlignTopOutlined />
+                          置顶当前页
+                        </span>
+                      </Menu.Item>
+                      <Menu.Item key="closeElse" disabled={!closable.value}>
+                        <span onClick={removeElse}>
+                          <CloseCircleOutlined />
+                          关闭其它页面
+                        </span>
+                      </Menu.Item>
+                    </Menu>
                   ),
                   default: () => (
                     <EllipsisOutlined
@@ -165,11 +168,11 @@ export default defineComponent({
                     />
                   )
                 }}
-              </a-dropdown>
+              </Dropdown>
             ),
             default: () =>
               cacheRoute.value.map(r => (
-                <a-tab-pane key={r.key} closable={closable.value}>
+                <Tabs.TabPane key={r.key} closable={closable.value}>
                   {{
                     tab: () => (
                       <span>
@@ -189,10 +192,10 @@ export default defineComponent({
                       </span>
                     )
                   }}
-                </a-tab-pane>
+                </Tabs.TabPane>
               ))
           }}
-        </a-tabs>
+        </Tabs>
         {/* 缓存路由 */}
         <RouterView>
           {{

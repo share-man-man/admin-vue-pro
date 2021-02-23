@@ -2,7 +2,7 @@
 import "ant-design-vue/dist/antd.min.css";
 import "@/assets/public.less";
 // 全局引入ant-design-vue组件
-import Antd from "ant-design-vue";
+// import Antd from "ant-design-vue";
 
 import { createApp } from "vue";
 import "./registerServiceWorker";
@@ -13,5 +13,5 @@ import App from "./App.vue";
 createApp(App)
   .use(store)
   .use(router)
-  .use(Antd)
+  // .use(Antd)
   .mount("#app");

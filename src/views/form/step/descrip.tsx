@@ -1,5 +1,8 @@
 import { defineComponent, PropType, reactive, toRefs } from "vue";
 import { FormType } from ".";
+import { Descriptions, Statistic } from "ant-design-vue";
+
+const { Item: DescriptionsItem } = Descriptions;
 
 export default defineComponent({
   props: {
@@ -12,24 +15,22 @@ export default defineComponent({
     const { form: f } = toRefs(props);
     const form = reactive(f.value);
     return () => (
-      <a-descriptions column={1}>
-        <a-descriptions-item label="转账账号">
-          {form.payAccount}
-        </a-descriptions-item>
-        <a-descriptions-item label="收款账户">
+      <Descriptions column={1}>
+        <DescriptionsItem label="转账账号">{form.payAccount}</DescriptionsItem>
+        <DescriptionsItem label="收款账户">
           {form.receptAccount}
-        </a-descriptions-item>
-        <a-descriptions-item label="收款人姓名">
+        </DescriptionsItem>
+        <DescriptionsItem label="收款人姓名">
           {form.receptName}
-        </a-descriptions-item>
-        <a-descriptions-item label="转账金额">
-          <a-statistic value={form.amount}>
+        </DescriptionsItem>
+        <DescriptionsItem label="转账金额">
+          <Statistic value={form.amount}>
             {{
               suffix: () => "元"
             }}
-          </a-statistic>
-        </a-descriptions-item>
-      </a-descriptions>
+          </Statistic>
+        </DescriptionsItem>
+      </Descriptions>
     );
   }
 });

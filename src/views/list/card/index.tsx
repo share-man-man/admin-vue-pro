@@ -35,10 +35,8 @@ export default defineComponent({
     const loadDataList = async () => {
       const { list } = await getCardList();
       cardList.splice(0);
-      // cardList.push({ avatar: "", metaDesc: "", metaTitle: "" });
       cardList.push({});
       cardList.push(...list);
-      console.log(cardList);
     };
 
     onMounted(async () => {

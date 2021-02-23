@@ -1,5 +1,6 @@
 import { getMenuInfo } from "@/services/user";
 import { computed, defineComponent, onMounted, ref } from "vue";
+import { Layout } from "ant-design-vue";
 import { useStore } from "vuex";
 import MenuRender from "../MenuList/MenuRender";
 import { MenuItemType } from "./data";
@@ -37,7 +38,7 @@ export default defineComponent({
   },
   render() {
     return (
-      <a-layout-sider
+      <Layout.Sider
         collapsed={this.collapsed}
         onCollapse={this.onCollapse}
         trigger={null}
@@ -45,7 +46,7 @@ export default defineComponent({
         breakpoint="md"
       >
         <MenuRender collapsed={this.collapsed} menuInfo={this.menuInfo} />
-      </a-layout-sider>
+      </Layout.Sider>
     );
   }
 });

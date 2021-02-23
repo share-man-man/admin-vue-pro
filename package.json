@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "dev-cli": "vue-cli-service serve",
     "build-cli": "vue-cli-service build",
-    "mock": "tsnd -O '{\"module\":\"commonjs\"}' ./mock/index.ts",
+    "mock": "tsnd -P ./mock/tsconfig.json ./mock/index.ts",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"

@@ -15,8 +15,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { Layout } from "ant-design-vue";
 import { RouteItem } from "./data.d";
+
+const { Content } = Layout;
+
 export default defineComponent({
+  components: {
+    [Content.name]: Content
+  },
   props: {
     list: {
       type: Array as PropType<RouteItem[]>,

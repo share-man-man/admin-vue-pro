@@ -1,4 +1,5 @@
 import { defineComponent, PropType } from "vue";
+import { Result, Button } from "ant-design-vue";
 import { FormType } from ".";
 import Desc from "./descrip";
 
@@ -8,23 +9,23 @@ export default defineComponent({
       required: true,
       type: Object as PropType<FormType>
     },
-    onAgain: Function
+    onAgain: Function as PropType<(...args: any) => any>
   },
   setup(props) {
     return () => (
-      <a-result status="success" title="操作成功" sub-title="预计两小时到账">
+      <Result status="success" title="操作成功" sub-title="预计两小时到账">
         {{
           default: () => <Desc form={props.form} />,
           extra: () => (
             <>
-              <a-button onClick={props.onAgain} type="primary">
+              <Button onClick={props.onAgain} type="primary">
                 再转一笔
-              </a-button>
-              <a-button>查看账单</a-button>
+              </Button>
+              <Button>查看账单</Button>
             </>
           )
         }}
-      </a-result>
+      </Result>
     );
   }
 });

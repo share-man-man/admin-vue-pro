@@ -1,8 +1,14 @@
 import { message } from "ant-design-vue";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { defineComponent, PropType, reactive, ref, toRefs } from "vue";
+import { Form, Select, Input, Button, Divider } from "ant-design-vue";
 import { FormType } from ".";
 import { MethodsType } from "../basic";
+
+const { Item: FormItem } = Form;
+const { Option: SelectOption } = Select;
+const { Group: InputGroup } = Input;
+
 const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
 const wrapperCol = { sm: { span: 17 }, lg: 10 };
 const rules = {
@@ -76,56 +82,48 @@ export default defineComponent({
 
     return () => (
       <>
-        <a-form
+        <Form
           ref={formRef}
           model={form}
           rules={rules}
           label-col={labelCol}
           wrapper-col={wrapperCol}
         >
-          <a-form-item label="付款账户" name="payAccount">
-            <a-select
+          <FormItem label="付款账户" name="payAccount">
+            <Select
               v-model={[form.payAccount, "value"]}
               placeholder="ant-design@alipay.com"
             >
-              <a-select-option value="zhifubao">
-                zhifu@alipay.com
-              </a-select-option>
-              <a-select-option value="weixin">
-                weixin@tencent.com
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-          <a-form-item label="收款账户" name="receptAccount">
-            <a-input-group compact>
-              <a-select v-model={[form.receptOrg, "value"]} style="width:100px">
-                <a-select-option value="bank">银行账户</a-select-option>
-                <a-select-option value="alipay">支付宝</a-select-option>
-                <a-select-option value="wechat">微信</a-select-option>
-              </a-select>
-              <a-input
+              <SelectOption value="zhifubao">zhifu@alipay.com</SelectOption>
+              <SelectOption value="weixin">weixin@tencent.com</SelectOption>
+            </Select>
+          </FormItem>
+          <FormItem label="收款账户" name="receptAccount">
+            <InputGroup compact>
+              <Select v-model={[form.receptOrg, "value"]} style="width:100px">
+                <SelectOption value="bank">银行账户</SelectOption>
+                <SelectOption value="alipay">支付宝</SelectOption>
+                <SelectOption value="wechat">微信</SelectOption>
+              </Select>
+              <Input
                 style="width: calc(100% - 100px)"
                 v-model={[form.receptAccount, "value"]}
               />
-            </a-input-group>
-          </a-form-item>
-          <a-form-item label="收款人姓名" name="receptName">
-            <a-input v-model={[form.receptName, "value"]} />
-          </a-form-item>
-          <a-form-item label="转账金额" name="amount">
-            <a-input
-              v-model={[form.amount, "value"]}
-              prefix="￥"
-              suffix="RMB"
-            />
-          </a-form-item>
-          <a-form-item label=" " colon={false}>
-            <a-button type="primary" onClick={submit}>
+            </InputGroup>
+          </FormItem>
+          <FormItem label="收款人姓名" name="receptName">
+            <Input v-model={[form.receptName, "value"]} />
+          </FormItem>
+          <FormItem label="转账金额" name="amount">
+            <Input v-model={[form.amount, "value"]} prefix="￥" suffix="RMB" />
+          </FormItem>
+          <FormItem label=" " colon={false}>
+            <Button type="primary" onClick={submit}>
               下一步
-            </a-button>
-          </a-form-item>
-        </a-form>
-        <a-divider />
+            </Button>
+          </FormItem>
+        </Form>
+        <Divider />
         <div style="padding: 0 56px;color: rgba(0,0,0,.45);">
           <h3 style="margin:10px 0;color:rgba(0,0,0,.45);">说明</h3>
           <h4 style="margin:10px 0 0 0;;color:rgba(0,0,0,.45);">

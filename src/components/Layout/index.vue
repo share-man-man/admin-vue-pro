@@ -13,12 +13,17 @@
   </a-layout>
 </template>
 <script lang="ts">
+import { Layout } from "ant-design-vue";
 import Navigation from "./Navigation.vue";
 import ContentCache from "./Content/index";
 import MenuList from "./MenuList/index";
 
+const { Footer } = Layout;
+
 export default {
   components: {
+    [Layout.name]: Layout,
+    [Footer.name]: Footer,
     MenuList,
     Navigation,
     ContentCache

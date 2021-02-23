@@ -12,6 +12,22 @@ import {
   FullscreenOutlined,
   FullscreenExitOutlined
 } from "@ant-design/icons-vue";
+import {
+  Badge,
+  Space,
+  Button,
+  Switch,
+  Divider,
+  Tooltip,
+  Dropdown,
+  Menu,
+  Card,
+  Form,
+  Row,
+  Col,
+  Input,
+  Table
+} from "ant-design-vue";
 import { getList } from "@/services/list/search";
 import { formatTime } from "@/utils";
 
@@ -43,28 +59,6 @@ type FilterType = {
 interface ColumnType extends ColumnProps {
   onFilter?: (value: string, record: TableDataType) => boolean;
 }
-// type ColumnType = {
-//   title: string;
-//   dataIndex: string;
-//   filters?: {
-//     text: string;
-//     value: string;
-//     children?: {
-//       text: string;
-//       value: string;
-//     }[];
-//   }[];
-//   onFilter?: (value: string, record: TableDataType) => boolean;
-//   sorter?: (a: TableDataType, b: TableDataType) => number;
-//   sortDirections?: string[];
-//   defaultSortOrder?: string;
-//   filterMultiple?: string[] | boolean;
-//   // customRender?: (r: {
-//   //   text: string;
-//   //   record: TableDataType;
-//   //   index: number;
-//   // }) => Object;
-// };
 
 const rules = {};
 const colConfig = {
@@ -137,7 +131,7 @@ export default defineComponent({
         },
         customRender: ({ text }) => {
           const o = stateObj[text as keyof typeof StateEnum];
-          return <a-badge status={o.status} text={o.text} />;
+          return <Badge status={o.status} text={o.text} />;
         }
       },
       {
@@ -195,53 +189,53 @@ export default defineComponent({
             <div class={style["av-table-list-toolbar-title"]}>查询表格</div>
           </div>
           <div class={style["av-table-list-toolbar-right"]}>
-            <a-space>
-              <a-button type="primary">
+            <Space>
+              <Button type="primary">
                 <PlusOutlined />
                 新建
-              </a-button>
-              <a-switch checked-children="开" un-checked-children="关" />
-            </a-space>
+              </Button>
+              <Switch checked-children="开" un-checked-children="关" />
+            </Space>
             <div class={style["av-table-list-toolbar-divider"]}>
-              <a-divider type="vertical" />
+              <Divider type="vertical" />
             </div>
             <div class={style["av-table-list-toolbar-setting-item"]}>
-              <a-tooltip title="刷新">
+              <Tooltip title="刷新">
                 <ReloadOutlined />
-              </a-tooltip>
+              </Tooltip>
             </div>
             <div class={style["av-table-list-toolbar-setting-item"]}>
-              <a-tooltip title="密度">
-                <a-dropdown
+              <Tooltip title="密度">
+                <Dropdown
                   trigger={["click"]}
                   overlay={() => (
-                    <a-menu>
-                      <a-menu-item key="0">默认</a-menu-item>
-                      <a-menu-item key="1">中等</a-menu-item>
-                      <a-menu-item key="3">紧凑</a-menu-item>
-                    </a-menu>
+                    <Menu>
+                      <Menu.Item key="0">默认</Menu.Item>
+                      <Menu.Item key="1">中等</Menu.Item>
+                      <Menu.Item key="3">紧凑</Menu.Item>
+                    </Menu>
                   )}
                 >
                   <ColumnHeightOutlined />
-                </a-dropdown>
-              </a-tooltip>
+                </Dropdown>
+              </Tooltip>
             </div>
             <div class={style["av-table-list-toolbar-setting-item"]}>
-              <a-tooltip title="列设置">
+              <Tooltip title="列设置">
                 <SettingOutlined />
-              </a-tooltip>
+              </Tooltip>
             </div>
             <div
               onClick={setIsFullScreen}
               class={style["av-table-list-toolbar-setting-item"]}
             >
-              <a-tooltip title="全屏">
+              <Tooltip title="全屏">
                 {isFullScreen.value ? (
                   <FullscreenExitOutlined />
                 ) : (
                   <FullscreenOutlined />
                 )}
-              </a-tooltip>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -250,42 +244,42 @@ export default defineComponent({
 
     return () => (
       <PageContent>
-        <a-card class={avStyle["av-card"]}>
-          <a-form
+        <Card class={avStyle["av-card"]}>
+          <Form
             ref={formRef}
             model={searchForm}
             rules={rules}
             layout="horizontal"
           >
-            <a-row>
-              <a-col {...colConfig} class={style["search-item"]}>
-                <a-form-item label="规则名称" wrapperCol={{ flex: "1 1" }}>
-                  <a-input v-model={[searchForm.ruleName, "value"]} />
-                </a-form-item>
-              </a-col>
-              <a-col {...colConfig} class={style["search-item"]}>
-                <a-form-item label="描述" wrapperCol={{ flex: "1 1" }}>
-                  <a-input v-model={[searchForm.desc, "value"]} />
-                </a-form-item>
-              </a-col>
-              <a-col {...colConfig} class={style["search-item"]}>
-                <a-form-item label="服务调用次数" wrapperCol={{ flex: "1 1" }}>
-                  <a-input />
-                </a-form-item>
-              </a-col>
-            </a-row>
-          </a-form>
-        </a-card>
-        <a-card ref={tableRef} class={avStyle["av-card"]}>
+            <Row>
+              <Col {...colConfig} class={style["search-item"]}>
+                <Form.Item label="规则名称" wrapperCol={{ flex: "1 1" }}>
+                  <Input v-model={[searchForm.ruleName, "value"]} />
+                </Form.Item>
+              </Col>
+              <Col {...colConfig} class={style["search-item"]}>
+                <Form.Item label="描述" wrapperCol={{ flex: "1 1" }}>
+                  <Input v-model={[searchForm.desc, "value"]} />
+                </Form.Item>
+              </Col>
+              <Col {...colConfig} class={style["search-item"]}>
+                <Form.Item label="服务调用次数" wrapperCol={{ flex: "1 1" }}>
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Form>
+        </Card>
+        <Card ref={tableRef} class={avStyle["av-card"]}>
           <ToolBar />
-          <a-table
+          <Table
             size="middle"
             rowKey="ruleName"
             columns={columns}
             dataSource={dataSource}
             onChange={onChange}
           />
-        </a-card>
+        </Card>
       </PageContent>
     );
   }

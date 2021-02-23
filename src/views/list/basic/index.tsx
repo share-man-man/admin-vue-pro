@@ -1,6 +1,19 @@
 import { defineComponent, onMounted, reactive } from "vue";
 import { PageContent } from "@/components/Page";
 import { PlusOutlined } from "@ant-design/icons-vue";
+import {
+  Radio,
+  Input,
+  Progress,
+  Card,
+  Row,
+  Col,
+  Button,
+  List,
+  Dropdown,
+  Menu,
+  Avatar
+} from "ant-design-vue";
 import avStyle from "@/components/style.module.less";
 import style from "./style.module.less";
 import { getList } from "@/services/list/basic";
@@ -41,15 +54,12 @@ const HeaderInfo: (p: HeaderInfoProp) => JSX.Element = ({
 
 const ExtraContent = () => (
   <div class={style["extra-content"]}>
-    <a-radio-group defaultValue="a">
-      <a-radio-button value="a">全部</a-radio-button>
-      <a-radio-button value="b">进行中</a-radio-button>
-      <a-radio-button value="c">等待中</a-radio-button>
-    </a-radio-group>
-    <a-input-search
-      placeholder="请输入"
-      style="width: 272px;margin-left:16px"
-    />
+    <Radio.Group defaultValue="a">
+      <Radio.Button value="a">全部</Radio.Button>
+      <Radio.Button value="b">进行中</Radio.Button>
+      <Radio.Button value="c">等待中</Radio.Button>
+    </Radio.Group>
+    <Input.Search placeholder="请输入" style="width: 272px;margin-left:16px" />
   </div>
 );
 
@@ -64,7 +74,7 @@ const ListContent: (p: { item: ListItemType }) => JSX.Element = ({ item }) => (
       <p>{formatTime(item.startTime)}</p>
     </div>
     <div class={style["list-content-item"]}>
-      <a-progress
+      <Progress
         percent={item.process}
         status={item.status}
         style="width:180px"
@@ -89,74 +99,74 @@ export default defineComponent({
     return () => (
       <>
         <PageContent>
-          <a-card class={avStyle["av-card"]}>
-            <a-row>
-              <a-col {...colConfig}>
+          <Card class={avStyle["av-card"]}>
+            <Row>
+              <Col {...colConfig}>
                 <HeaderInfo lable="我的待办" text="8个任务" />
-              </a-col>
-              <a-col {...colConfig}>
+              </Col>
+              <Col {...colConfig}>
                 <HeaderInfo lable="本周任务平均处理时间" text="32分钟" />
-              </a-col>
-              <a-col {...colConfig}>
+              </Col>
+              <Col {...colConfig}>
                 <HeaderInfo lable="本周完成任务数" text="24个任务" noDivider />
-              </a-col>
-            </a-row>
-          </a-card>
+              </Col>
+            </Row>
+          </Card>
 
-          <a-card title="基础列表" class={avStyle["av-card"]}>
+          <Card title="基础列表" class={avStyle["av-card"]}>
             {{
               extra: () => <ExtraContent />,
               default: () => (
                 <>
-                  <a-button type="dashed" style="width: 100%;margin-top:10px">
+                  <Button type="dashed" style="width: 100%;margin-top:10px">
                     <PlusOutlined />
                     添加
-                  </a-button>
-                  <a-list dataSource={dataList}>
+                  </Button>
+                  <List dataSource={dataList}>
                     {{
                       renderItem: ({ item }: { item: ListItemType }) => (
-                        <a-list-item>
+                        <List.Item>
                           {{
                             actions: () => (
                               <>
                                 <a>编辑</a>
-                                <a-dropdown>
+                                <Dropdown>
                                   {{
                                     default: () => <a>更多</a>,
                                     overlay: () => (
-                                      <a-menu>
-                                        <a-menu-item>
+                                      <Menu>
+                                        <Menu.Item>
                                           <a>编辑</a>
-                                        </a-menu-item>
-                                        <a-menu-item>
+                                        </Menu.Item>
+                                        <Menu.Item>
                                           <a>删除</a>
-                                        </a-menu-item>
-                                      </a-menu>
+                                        </Menu.Item>
+                                      </Menu>
                                     )
                                   }}
-                                </a-dropdown>
+                                </Dropdown>
                               </>
                             ),
                             default: () => (
                               <>
-                                <a-list-item-meta description={item.metaDesc}>
+                                <List.Item.Meta description={item.metaDesc}>
                                   {{
                                     title: () => <a>{item.metaTitle}</a>,
-                                    avatar: () => <a-avatar src={item.avatar} />
+                                    avatar: () => <Avatar src={item.avatar} />
                                   }}
-                                </a-list-item-meta>
+                                </List.Item.Meta>
                                 <ListContent item={item} />
                               </>
                             )
                           }}
-                        </a-list-item>
+                        </List.Item>
                       )
                     }}
-                  </a-list>
+                  </List>
                 </>
               )
             }}
-          </a-card>
+          </Card>
         </PageContent>
       </>
     );

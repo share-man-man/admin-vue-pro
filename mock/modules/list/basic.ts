@@ -31,7 +31,7 @@ export default {
           startTime: () =>
             new Date().getTime() - Math.round(Math.random() * 999999999999),
           "process|0-100": 0,
-          "status|1": ["default", "active", "exception"]
+          "status|1": ["success", "exception", "normal", "active"]
         }
       ]
     }

@@ -1,4 +1,5 @@
 import { defineComponent, ref } from "vue";
+import { Input, Button } from "ant-design-vue";
 import { login } from "@/services/oauth";
 import { useRouter } from "vue-router";
 import { setTokenObj } from "@/utils/tokens";
@@ -26,23 +27,23 @@ export default defineComponent({
   render() {
     return (
       <>
-        <a-input
+        <Input
           value={this.username}
           onInput={(e: InputEvent) => {
             this.username = (e.target as HTMLInputElement).value;
           }}
           placeholder="用户名:admin或user"
         />
-        <a-input
+        <Input
           value={this.password}
           onInput={(e: InputEvent) => {
             this.password = (e.target as HTMLInputElement).value;
           }}
           placeholder="密码:123"
         />
-        <a-button type="primary" onClick={this.onLogin}>
+        <Button type="primary" onClick={this.onLogin}>
           登陆
-        </a-button>
+        </Button>
       </>
     );
   }

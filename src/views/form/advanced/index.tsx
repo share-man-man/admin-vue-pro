@@ -9,8 +9,25 @@ import {
 import { PageHeader, PageContent } from "@/components/Page";
 import { MethodsType } from "../basic";
 import { PlusOutlined } from "@ant-design/icons-vue";
+import {
+  Input,
+  Popconfirm,
+  PageHeader as AntPageHeader,
+  Card,
+  Form,
+  Row,
+  Col,
+  Select,
+  DatePicker,
+  Table,
+  Button
+} from "ant-design-vue";
 import style from "./style.module.less";
 import avStyle from "@/components/style.module.less";
+
+const { Item: FormItem } = Form;
+const { Option: SelectOption } = Select;
+const { RangePicker } = DatePicker;
 
 const warehouseRules = {};
 const taskRules = {};
@@ -118,7 +135,7 @@ export default defineComponent({
       }) => (
         <div>
           {editableData[record.key] ? (
-            <a-input
+            <Input
               v-model={[
                 editableData[record.key][col as keyof DataItem],
                 "value"
@@ -164,14 +181,14 @@ export default defineComponent({
                   >
                     编辑
                   </a>
-                  <a-popconfirm
+                  <Popconfirm
                     title="确定要删除码？"
                     onConfirm={() => {
                       deleteFn(record.key);
                     }}
                   >
                     <a>删除</a>
-                  </a-popconfirm>
+                  </Popconfirm>
                 </span>
               )}
             </div>
@@ -189,235 +206,233 @@ export default defineComponent({
     return () => (
       <>
         <PageHeader>
-          <a-page-header title="高级表单">
+          <AntPageHeader title="高级表单">
             高级表单常见于一次性输入和提交大批量数据的场景。
-          </a-page-header>
+          </AntPageHeader>
         </PageHeader>
         <PageContent>
-          <a-card title="仓库管理" class={avStyle["av-card"]}>
-            <a-form
+          <Card title="仓库管理" class={avStyle["av-card"]}>
+            <Form
               ref={warehouseRef}
               model={warehouseForm}
               rules={warehouseRules}
               layout="horizontal"
             >
-              <a-row>
-                <a-col sm={24} md={12} lg={6}>
-                  <a-form-item
+              <Row>
+                <Col sm={24} md={12} lg={6}>
+                  <FormItem
                     label="仓库名"
                     name="wareName"
                     class={style["advanced-form"]}
                   >
-                    <a-input
+                    <Input
                       v-model={[warehouseForm.wareName, "value"]}
                       placeholder="请输入仓库名称"
                     />
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={12} lg={8}>
-                  <a-form-item
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={12} lg={8}>
+                  <FormItem
                     label="仓库域名"
                     name="wareUrl"
                     class={style["advanced-form"]}
                   >
-                    <a-input
+                    <Input
                       v-model={[warehouseForm.wareUrl, "value"]}
                       placeholder="请输入"
                       addon-before="Http://"
                       addon-after=".com"
                     />
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
-                  <a-form-item
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
+                  <FormItem
                     label="仓库管理员"
                     name="wareManager"
                     class={style["advanced-form"]}
                   >
-                    <a-select
+                    <Select
                       v-model={[warehouseForm.wareManager, "value"]}
                       placeholder="请选择管理员"
                     >
-                      <a-select-option value="dijia">迪迦</a-select-option>
-                      <a-select-option value="tailuo">泰罗</a-select-option>
-                      <a-select-option value="aidi">艾迪</a-select-option>
-                    </a-select>
-                  </a-form-item>
-                </a-col>
-              </a-row>
-              <a-row>
-                <a-col sm={24} md={12} lg={6}>
-                  <a-form-item
+                      <SelectOption value="dijia">迪迦</SelectOption>
+                      <SelectOption value="tailuo">泰罗</SelectOption>
+                      <SelectOption value="aidi">艾迪</SelectOption>
+                    </Select>
+                  </FormItem>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={24} md={12} lg={6}>
+                  <FormItem
                     label="审批人"
                     name="wareApprover"
                     class={style["advanced-form"]}
                   >
-                    <a-select
+                    <Select
                       v-model={[warehouseForm.wareApprover, "value"]}
                       placeholder="请选择审批员"
                     >
-                      <a-select-option value="dijia">左菲</a-select-option>
-                      <a-select-option value="aisi">艾斯</a-select-option>
-                      <a-select-option value="aidi">赛文</a-select-option>
-                    </a-select>
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={12} lg={8}>
-                  <a-form-item
+                      <SelectOption value="dijia">左菲</SelectOption>
+                      <SelectOption value="aisi">艾斯</SelectOption>
+                      <SelectOption value="aidi">赛文</SelectOption>
+                    </Select>
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={12} lg={8}>
+                  <FormItem
                     label="生效日期"
                     name="wareEffectDate"
                     class={style["advanced-form"]}
                   >
-                    <a-range-picker
+                    <RangePicker
                       v-model={[warehouseForm.wareEffectDate, "value"]}
                       style={{ width: "100%" }}
                     />
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
-                  <a-form-item
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
+                  <FormItem
                     label="仓库类型"
                     name="wareType"
                     class={style["advanced-form"]}
                   >
-                    <a-select
+                    <Select
                       v-model={[warehouseForm.wareType, "value"]}
                       placeholder="请选择仓库类型"
                     >
-                      <a-select-option value="public">公开</a-select-option>
-                      <a-select-option value="private">私密</a-select-option>
-                    </a-select>
-                  </a-form-item>
-                </a-col>
-              </a-row>
-            </a-form>
-          </a-card>
+                      <SelectOption value="public">公开</SelectOption>
+                      <SelectOption value="private">私密</SelectOption>
+                    </Select>
+                  </FormItem>
+                </Col>
+              </Row>
+            </Form>
+          </Card>
 
-          <a-card title="任务管理" class={avStyle["av-card"]}>
-            <a-form
+          <Card title="任务管理" class={avStyle["av-card"]}>
+            <Form
               ref={taskRef}
               model={taskForm}
               rules={taskRules}
               layout="horizontal"
             >
-              <a-row>
-                <a-col sm={24} md={12} lg={6}>
-                  <a-form-item
+              <Row>
+                <Col sm={24} md={12} lg={6}>
+                  <FormItem
                     label="任务名"
                     name="taskName"
                     class={style["advanced-form"]}
                   >
-                    <a-input
+                    <Input
                       v-model={[taskForm.taskName, "value"]}
                       placeholder="请输入任务名称"
                     />
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={12} lg={8}>
-                  <a-form-item
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={12} lg={8}>
+                  <FormItem
                     label="任务描述"
                     name="taskDesc"
                     class={style["advanced-form"]}
                   >
-                    <a-input
+                    <Input
                       v-model={[taskForm.taskDesc, "value"]}
                       placeholder="请输入任务描述"
                     />
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
-                  <a-form-item
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
+                  <FormItem
                     label="执行人"
                     name="taskExecutor"
                     class={style["advanced-form"]}
                   >
-                    <a-select
+                    <Select
                       v-model={[taskForm.taskExecutor, "value"]}
                       placeholder="请选择执行人"
                     >
-                      <a-select-option value="dijia">迪迦</a-select-option>
-                      <a-select-option value="tailuo">泰罗</a-select-option>
-                      <a-select-option value="aidi">艾迪</a-select-option>
-                    </a-select>
-                  </a-form-item>
-                </a-col>
-              </a-row>
-              <a-row>
-                <a-col sm={24} md={12} lg={6}>
-                  <a-form-item
+                      <SelectOption value="dijia">迪迦</SelectOption>
+                      <SelectOption value="tailuo">泰罗</SelectOption>
+                      <SelectOption value="aidi">艾迪</SelectOption>
+                    </Select>
+                  </FormItem>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={24} md={12} lg={6}>
+                  <FormItem
                     label="责任人"
                     name="taskResponser"
                     class={style["advanced-form"]}
                   >
-                    <a-select
+                    <Select
                       v-model={[taskForm.taskResponser, "value"]}
                       placeholder="请选择责任人"
                     >
-                      <a-select-option value="dijia">左菲</a-select-option>
-                      <a-select-option value="aisi">艾斯</a-select-option>
-                      <a-select-option value="aidi">赛文</a-select-option>
-                    </a-select>
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={12} lg={8}>
-                  <a-form-item
+                      <SelectOption value="dijia">左菲</SelectOption>
+                      <SelectOption value="aisi">艾斯</SelectOption>
+                      <SelectOption value="aidi">赛文</SelectOption>
+                    </Select>
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={12} lg={8}>
+                  <FormItem
                     label="提醒时间"
                     name="taskNotifactionDate"
                     class={style["advanced-form"]}
                   >
-                    <a-date-picker
+                    <DatePicker
                       v-model={[taskForm.taskNotifactionDate, "value"]}
                       style={{ width: "100%" }}
                     />
-                  </a-form-item>
-                </a-col>
-                <a-col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
-                  <a-form-item
+                  </FormItem>
+                </Col>
+                <Col sm={24} md={24} lg={10} xl={{ span: 9, offset: 1 }}>
+                  <FormItem
                     label="任务类型"
                     name="taskType"
                     class={style["advanced-form"]}
                   >
-                    <a-select
+                    <Select
                       v-model={[taskForm.taskType, "value"]}
                       placeholder="请选择任务类型"
                     >
-                      <a-select-option value="regular">
-                        定期执行
-                      </a-select-option>
-                      <a-select-option value="cycle">周期执行</a-select-option>
-                    </a-select>
-                  </a-form-item>
-                </a-col>
-              </a-row>
-            </a-form>
-          </a-card>
+                      <SelectOption value="regular">定期执行</SelectOption>
+                      <SelectOption value="cycle">周期执行</SelectOption>
+                    </Select>
+                  </FormItem>
+                </Col>
+              </Row>
+            </Form>
+          </Card>
 
-          <a-card
+          <Card
             title="成员管理"
             class={avStyle["av-card"]}
             style="margin-bottom:45px"
           >
-            <a-table
+            <Table
               rowKey="no"
               columns={columns}
               data-source={dataSource.value}
               pagination={false}
             >
               {tableSlots()}
-            </a-table>
-            <a-button
+            </Table>
+            <Button
               type="dashed"
               style="width: 100%;margin-top:10px"
               onClick={addNew}
             >
               <PlusOutlined />
               新增成员
-            </a-button>
-          </a-card>
+            </Button>
+          </Card>
           <div class={style["footer-bar"]}>
             <div class={style["footer-bar-left"]}></div>
             <div>
-              <a-button type="primary">提交</a-button>
+              <Button type="primary">提交</Button>
             </div>
           </div>
         </PageContent>

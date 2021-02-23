@@ -1,10 +1,12 @@
 import { defineComponent, PropType, reactive, ref, toRefs } from "vue";
 import { InfoCircleFilled } from "@ant-design/icons-vue";
 import { FormType } from ".";
-import { message } from "ant-design-vue";
+import { message, Alert, Form, Divider, Input, Button } from "ant-design-vue";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import Desc from "./descrip";
 import { MethodsType } from "../basic";
+
+const { Item: FormItem } = Form;
 
 const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
 const wrapperCol = { sm: { span: 17 }, lg: 10 };
@@ -55,7 +57,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <a-alert
+        <Alert
           message="确认转账后，资金将直接打入对方账户，无法退回。"
           type="info"
           closable
@@ -64,8 +66,8 @@ export default defineComponent({
           {{
             icon: () => <InfoCircleFilled />
           }}
-        </a-alert>
-        <a-form
+        </Alert>
+        <Form
           ref={formRef}
           model={payForm}
           rules={rules}
@@ -74,24 +76,24 @@ export default defineComponent({
           style="max-width: 500px;margin: 40px auto 0;"
         >
           <Desc form={form} />
-          <a-divider />
-          <a-form-item label="支付密码" name="payPassword">
-            <a-input v-model={[payForm.payPassword, "value"]} type="password" />
-          </a-form-item>
-          <a-form-item label=" " colon={false}>
-            <a-button type="primary" onClick={submit} loading={loading.value}>
+          <Divider />
+          <FormItem label="支付密码" name="payPassword">
+            <Input v-model={[payForm.payPassword, "value"]} type="password" />
+          </FormItem>
+          <FormItem label=" " colon={false}>
+            <Button type="primary" onClick={submit} loading={loading.value}>
               提交
-            </a-button>
-            <a-button
+            </Button>
+            <Button
               onClick={() => {
                 props.onPrevious?.();
               }}
               style={{ "margin-left": "10px" }}
             >
               上一步
-            </a-button>
-          </a-form-item>
-        </a-form>
+            </Button>
+          </FormItem>
+        </Form>
       </>
     );
   }

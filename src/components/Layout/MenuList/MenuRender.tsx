@@ -10,8 +10,11 @@ import {
   watch
 } from "vue";
 import { useRoute } from "vue-router";
+import { Menu } from "ant-design-vue";
 import { MenuItemType } from "./data";
 import IconRender from "./IconRender";
+
+const { Item: MenuItem, SubMenu: AntSubMenu } = Menu;
 
 /**
  * 判断是否有子菜单
@@ -33,16 +36,16 @@ const SubMenu = ({ subList = [] }: { subList: MenuItemType[] }) => {
     // 没有子菜单的渲染
     if (!isSub(item)) {
       return (
-        <a-menu-item key={item.key}>
+        <MenuItem key={item.key}>
           <IconRender type={item.icon} />
           <span>{item.name}</span>
           {item.path && <router-link to={item.path} />}
-        </a-menu-item>
+        </MenuItem>
       );
     } else {
       // 有子菜单的递归渲染
       return (
-        <a-sub-menu
+        <AntSubMenu
           key={item.key}
           title={() => (
             <span>
@@ -52,7 +55,7 @@ const SubMenu = ({ subList = [] }: { subList: MenuItemType[] }) => {
           )}
         >
           {SubMenu({ subList: item.children || [] })}
-        </a-sub-menu>
+        </AntSubMenu>
       );
     }
   });
@@ -131,7 +134,7 @@ const MenuRender = defineComponent({
     return () => {
       const sub = SubMenu({ subList: menuInfo.value });
       return (
-        <a-menu
+        <Menu
           mode="inline"
           theme="dark"
           inlineCollapsed={props.collapsed}
@@ -141,7 +144,7 @@ const MenuRender = defineComponent({
           ]}
         >
           {sub}
-        </a-menu>
+        </Menu>
       );
     };
   }

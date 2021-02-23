@@ -78,12 +78,23 @@ import { defineComponent } from "vue";
 import { mapState, mapMutations } from "vuex";
 import { RouteLocationMatched } from "vue-router";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
+import { Layout, Breadcrumb, Dropdown, Avatar, Menu } from "ant-design-vue";
+const { Header } = Layout;
+const { Item: BreadcrumbItem } = Breadcrumb;
+const { Item: MenuItem } = Menu;
 
 import { logout as reqLogout } from "@/services/oauth";
 import { removeTokenObj } from "@/utils/tokens";
 
 export default defineComponent({
   components: {
+    [Header.name]: Header,
+    [Breadcrumb.name]: Breadcrumb,
+    [BreadcrumbItem.name]: BreadcrumbItem,
+    [Dropdown.name]: Dropdown,
+    [Avatar.name]: Avatar,
+    [Menu.name]: Menu,
+    [MenuItem.name]: MenuItem,
     MenuUnfoldOutlined,
     MenuFoldOutlined
   },

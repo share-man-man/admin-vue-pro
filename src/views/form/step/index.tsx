@@ -1,8 +1,11 @@
 import { PageHeader, PageContent } from "@/components/Page";
 import { defineComponent, reactive, ref } from "vue";
+import { PageHeader as AntPageHeader, Card, Steps } from "ant-design-vue";
 import Write from "./write";
 import Confirm from "./confirm";
 import Success from "./success";
+
+const { Step } = Steps;
 
 export interface FormType {
   payAccount?: string;
@@ -26,24 +29,24 @@ export default defineComponent({
     return () => (
       <>
         <PageHeader>
-          <a-page-header title="高级表单">
+          <AntPageHeader title="高级表单">
             将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
-          </a-page-header>
+          </AntPageHeader>
         </PageHeader>
         <PageContent>
-          <a-card>
-            <a-steps
+          <Card>
+            <Steps
               current={step.value}
               style={{ "max-width": "750px", margin: "16px auto" }}
             >
-              <a-step>
+              <Step>
                 {{
                   title: () => "填写转账信息"
                 }}
-              </a-step>
-              <a-step title="确认转账信息" />
-              <a-step title="完成" />
-            </a-steps>
+              </Step>
+              <Step title="确认转账信息" />
+              <Step title="完成" />
+            </Steps>
             <div v-show={step.value === 0}>
               <Write
                 form={form}
@@ -69,7 +72,7 @@ export default defineComponent({
                 }}
               />
             </div>
-          </a-card>
+          </Card>
         </PageContent>
       </>
     );
