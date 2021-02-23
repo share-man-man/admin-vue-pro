@@ -1,5 +1,4 @@
-import Content from "@/components/Page/Content";
-import HeaderContent from "@/components/Page/Header";
+import { PageHeader, PageContent } from "@/components/Page";
 import { defineComponent, reactive, ref } from "vue";
 import Write from "./write";
 import Confirm from "./confirm";
@@ -26,12 +25,12 @@ export default defineComponent({
     const step = ref(0);
     return () => (
       <>
-        <HeaderContent>
+        <PageHeader>
           <a-page-header title="高级表单">
             将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
           </a-page-header>
-        </HeaderContent>
-        <Content>
+        </PageHeader>
+        <PageContent>
           <a-card>
             <a-steps
               current={step.value}
@@ -71,7 +70,7 @@ export default defineComponent({
               />
             </div>
           </a-card>
-        </Content>
+        </PageContent>
       </>
     );
   }

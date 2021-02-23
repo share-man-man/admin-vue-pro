@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, reactive, ref } from "vue";
-import Content from "@/components/Page/Content";
+import { PageContent } from "@/components/Page";
 import avStyle from "@/components/style.module.less";
 import { MethodsType } from "@/views/form/basic";
 import { ColumnProps } from "ant-design-vue/es/table/interface";
@@ -249,7 +249,7 @@ export default defineComponent({
     );
 
     return () => (
-      <Content>
+      <PageContent>
         <a-card class={avStyle["av-card"]}>
           <a-form
             ref={formRef}
@@ -286,7 +286,7 @@ export default defineComponent({
             onChange={onChange}
           />
         </a-card>
-      </Content>
+      </PageContent>
     );
   }
 });

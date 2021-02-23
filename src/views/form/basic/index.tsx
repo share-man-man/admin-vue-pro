@@ -1,6 +1,5 @@
 import { defineComponent, reactive, ref } from "vue";
-import HeaderContent from "@/components/Page/Header";
-import Content from "@/components/Page/Content";
+import { PageHeader, PageContent } from "@/components/Page";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { InfoCircleOutlined } from "@ant-design/icons-vue";
 import { Form } from "ant-design-vue";
@@ -102,12 +101,12 @@ export default defineComponent({
 
     return () => (
       <>
-        <HeaderContent>
+        <PageHeader>
           <a-page-header title="基础表单">
             表单页面用于收集或验证给用户的信息，基本表单在数据项较少的情况下很常见。
           </a-page-header>
-        </HeaderContent>
-        <Content>
+        </PageHeader>
+        <PageContent>
           <a-card>
             <a-form
               ref={formRef}
@@ -175,7 +174,7 @@ export default defineComponent({
               </a-form-item>
             </a-form>
           </a-card>
-        </Content>
+        </PageContent>
       </>
     );
   }

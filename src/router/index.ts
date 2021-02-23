@@ -57,17 +57,24 @@ const routes: RouteRecordRaw[] = [
         },
         children: [
           {
+            path: "basic",
+            component: () => import("@/views/list/basic"),
+            meta: {
+              name: "基础列表"
+            }
+          },
+          {
             path: "search",
-            component: () => import("@/views/list/search/index"),
+            component: () => import("@/views/list/search"),
             meta: {
               name: "查询表格"
             }
           },
           {
-            path: "basic",
-            component: () => import("@/views/list/basic"),
+            path: "card",
+            component: () => import("@/views/list/card"),
             meta: {
-              name: "基础表格"
+              name: "卡片列表"
             }
           }
         ]

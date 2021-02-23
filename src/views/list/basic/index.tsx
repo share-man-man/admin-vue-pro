@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, reactive } from "vue";
-import Content from "@/components/Page/Content";
+import { PageContent } from "@/components/Page";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import avStyle from "@/components/style.module.less";
 import style from "./style.module.less";
@@ -88,7 +88,7 @@ export default defineComponent({
     });
     return () => (
       <>
-        <Content>
+        <PageContent>
           <a-card class={avStyle["av-card"]}>
             <a-row>
               <a-col {...colConfig}>
@@ -157,7 +157,7 @@ export default defineComponent({
               )
             }}
           </a-card>
-        </Content>
+        </PageContent>
       </>
     );
   }

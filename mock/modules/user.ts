@@ -44,14 +44,20 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
         children: [
           {
             key: "7",
+            name: "基础列表",
+            path: "/list/basic",
+            icon: "DashboardOutlined"
+          },
+          {
+            key: "8",
             name: "查询表格",
             path: "/list/search",
             icon: "DashboardOutlined"
           },
           {
-            key: "8",
-            name: "基础表格",
-            path: "/list/basic",
+            key: "9",
+            name: "卡片列表",
+            path: "/list/card",
             icon: "DashboardOutlined"
           }
         ]

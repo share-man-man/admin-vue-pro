@@ -6,8 +6,7 @@ import {
   toRaw,
   UnwrapRef
 } from "vue";
-import HeaderContent from "@/components/Page/Header";
-import Content from "@/components/Page/Content";
+import { PageHeader, PageContent } from "@/components/Page";
 import { MethodsType } from "../basic";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import style from "./style.module.less";
@@ -189,12 +188,12 @@ export default defineComponent({
 
     return () => (
       <>
-        <HeaderContent>
+        <PageHeader>
           <a-page-header title="高级表单">
             高级表单常见于一次性输入和提交大批量数据的场景。
           </a-page-header>
-        </HeaderContent>
-        <Content>
+        </PageHeader>
+        <PageContent>
           <a-card title="仓库管理" class={avStyle["av-card"]}>
             <a-form
               ref={warehouseRef}
@@ -421,7 +420,7 @@ export default defineComponent({
               <a-button type="primary">提交</a-button>
             </div>
           </div>
-        </Content>
+        </PageContent>
       </>
     );
   }

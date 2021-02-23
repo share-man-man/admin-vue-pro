@@ -1,7 +1,5 @@
-import { ultramanclub } from "../../utils/data";
-
 export default {
-  "GET /list/basic": {
+  "GET /list/card": {
     success: true,
     data: {
       "list|5": [
@@ -26,12 +24,7 @@ export default {
             "在优幸体内寄宿着的第二位奥特曼。乔尼亚斯奥特曼（初登场作品『乔尼亚斯奥特曼』(1979)）的后辈，身为与光之国不同的奥特之星·U40战士的贤者。",
             "优幸体内寄宿着的第三位奥特曼。在欧布奥特曼（初登场作品『欧布奥特曼』(2016)），和罗索、布鲁（初登场作品『奥特曼Ｒ／Ｂ』(2018)）授予光之战士力量的行星O-50出身。",
             "凑家兄妹的感情以及真谛水晶的力量，罗索奥特曼、布鲁、以及格丽乔奥特嫚融合·变身呈现出超进化战斗形态。"
-          ],
-          "owner|1": ultramanclub,
-          startTime: () =>
-            new Date().getTime() - Math.round(Math.random() * 999999999999),
-          "process|0-100": 0,
-          "status|1": ["default", "active", "exception"]
+          ]
         }
       ]
     }
