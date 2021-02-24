@@ -78,6 +78,20 @@ const routes: RouteRecordRaw[] = [
             }
           }
         ]
+      },
+      {
+        path: "profile",
+        redirect: "profile/basic",
+        meta: {
+          name: "详情页"
+        }
+      },
+      {
+        path: "profile/basic",
+        component: () => import("@/views/profile/basic"),
+        meta: {
+          name: "详情页"
+        }
       }
     ]
   },
