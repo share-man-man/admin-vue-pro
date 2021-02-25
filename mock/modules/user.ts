@@ -63,11 +63,11 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
         ]
       },
       {
-        key:'10',
-        name:'详情页',
-        path:'/profile',
-        icon:'DashboardOutlined',
-        children:[
+        key: "10",
+        name: "详情页",
+        path: "/profile",
+        icon: "DashboardOutlined",
+        children: [
           {
             key: "11",
             name: "基础详情页",

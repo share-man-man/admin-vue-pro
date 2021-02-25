@@ -1,4 +1,4 @@
-import { defineComponent, reactive } from "vue";
+import { defineComponent, PropType, reactive } from "vue";
 import {
   DashboardOutlined,
   SettingOutlined,
@@ -8,17 +8,17 @@ import {
 } from "@ant-design/icons-vue";
 
 export const IconMap = {
-  [DashboardOutlined.name]: <DashboardOutlined />,
-  [SettingOutlined.name]: <SettingOutlined />,
-  [LoginOutlined.name]: <LoginOutlined />,
-  [FallOutlined.name]: <FallOutlined />,
-  [RiseOutlined.name]: <RiseOutlined />
+  DashboardOutlined: <DashboardOutlined />,
+  SettingOutlined: <SettingOutlined />,
+  LoginOutlined: <LoginOutlined />,
+  FallOutlined: <FallOutlined />,
+  RiseOutlined: <RiseOutlined />
 };
 
 export default defineComponent({
   props: {
     type: {
-      type: String
+      type: String as PropType<keyof typeof IconMap>
     }
   },
   setup() {
@@ -28,6 +28,6 @@ export default defineComponent({
     };
   },
   render() {
-    return this.state[this.$props.type || ""];
+    return this.state[this.$props.type || "DashboardOutlined"];
   }
 });
