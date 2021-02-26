@@ -9,7 +9,7 @@ export default defineComponent({
       required: true,
       type: Object as PropType<FormType>
     },
-    onAgain: Function as PropType<(...args: any) => any>
+    onAgain: Function as PropType<() => void>
   },
   setup(props) {
     return () => (
