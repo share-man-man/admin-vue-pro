@@ -30,21 +30,26 @@ export default defineComponent({
 
     onMounted(async () => {
       const { refund: r, userInfo: u } = await getInfo();
-      Object.keys(r).forEach(k => {
-        const index = refund.findIndex(i => i.id === k);
-        if (index < 0) return;
-        const [item] = refund.splice(index, 1);
-        item.value = r[k as keyof RefundType] as string;
-        refund.splice(index, 0, item);
-      });
 
-      Object.keys(u).forEach(k => {
-        const index = userInfo.findIndex(i => i.id === k);
-        if (index < 0) return;
-        const [item] = userInfo.splice(index, 1);
-        item.value = u[k as keyof UserInfoType] as string;
-        userInfo.splice(index, 0, item);
-      });
+      refund.splice(
+        0,
+        refund.length,
+        ...refund.map(i => {
+          const ret = i;
+          ret.value = r[i.id] as string;
+          return ret;
+        })
+      );
+
+      userInfo.splice(
+        0,
+        userInfo.length,
+        ...userInfo.map(i => {
+          const ret = i;
+          ret.value = u[i.id] as string;
+          return ret;
+        })
+      );
     });
 
     return () => (
