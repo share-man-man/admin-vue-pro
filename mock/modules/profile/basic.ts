@@ -18,5 +18,47 @@ export default {
         "mark|1": ["无", "小怪兽", "黑暗暴君"]
       }
     }
+  },
+  "POST /profile/basic/return-gogds": {
+    success: true,
+    data: {
+      "list|5": [
+        {
+          "no|+1": 87321,
+          "name|+1": [
+            "矿泉水550ml",
+            "凉茶300ml",
+            "薯片",
+            "肥宅快乐水",
+            "口味王"
+          ],
+          "barCode|867898672-967898672": 0,
+          "price|3-10": 0,
+          "number|1-4": 0,
+          "amount|50-3021": 1
+        }
+      ]
+    }
+  },
+  "POST /profile/basic/return-process": {
+    success: true,
+    data: {
+      "list|5": [
+        {
+          time: () =>
+            new Date().getTime() - Math.round(Math.random() * 999999999999),
+          "process|+1": [
+            "联系客户",
+            "取货源出发",
+            "取货员接单",
+            "申请审批通过",
+            "发起退货申请"
+          ],
+          "state|+1": ["进行中", "完成"],
+          "userId|3-10": 0,
+          "timeConsuming|1-3600": 0
+        }
+      ]
+    }
   }
 };
