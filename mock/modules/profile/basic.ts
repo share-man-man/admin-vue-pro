@@ -24,6 +24,7 @@ export default {
     data: {
       "list|5": [
         {
+          "id|+1": 1,
           "no|+1": 87321,
           "name|+1": [
             "矿泉水550ml",
@@ -45,6 +46,7 @@ export default {
     data: {
       "list|5": [
         {
+          "id|+1": 1,
           time: () =>
             new Date().getTime() - Math.round(Math.random() * 999999999999),
           "process|+1": [

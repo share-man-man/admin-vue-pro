@@ -14,6 +14,7 @@ export interface UserInfoType {
 }
 
 export interface ReturnGoodsType {
+  id: number;
   no: string;
   name: string;
   barCode: number;
@@ -23,6 +24,7 @@ export interface ReturnGoodsType {
 }
 
 export interface ReturnProcessType {
+  id: number;
   time: number;
   process: string;
   state: string;

@@ -1,10 +1,13 @@
-interface LayoutState {
+export interface LayoutState {
   // 折叠菜单栏
   collapsed: boolean;
+  // 是否为手机
+  isMobile: boolean;
 }
 
 const state = (): LayoutState => ({
-  collapsed: false
+  collapsed: false,
+  isMobile: false
 });
 
 const getters = {};
@@ -16,6 +19,9 @@ const mutations = {
    */
   setCollapsed(state: LayoutState) {
     state.collapsed = !state.collapsed;
+  },
+  setIsMobile(state: LayoutState, isMobile = false) {
+    state.isMobile = isMobile;
   }
 };
 

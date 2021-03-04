@@ -92,6 +92,13 @@ const routes: RouteRecordRaw[] = [
         meta: {
           name: "详情页"
         }
+      },
+      {
+        path: "profile/advanced",
+        component: () => import("@/views/profile/advanced"),
+        meta: {
+          name: "高级详情页"
+        }
       }
     ]
   },

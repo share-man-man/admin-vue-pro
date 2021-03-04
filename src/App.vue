@@ -4,9 +4,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { watchResize } from "@/utils/layout";
 export default defineComponent({
-  data() {
-    return {};
+  beforeMount() {
+    // 响应式监听
+    watchResize(true);
+  },
+  beforeUnmount() {
+    // 取消监听
+    watchResize(false);
   }
 });
 </script>

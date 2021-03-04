@@ -73,6 +73,12 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
             name: "基础详情页",
             path: "/profile/basic",
             icon: "DashboardOutlined"
+          },
+          {
+            key: "12",
+            name: "高级详情页",
+            path: "/profile/advanced",
+            icon: "DashboardOutlined"
           }
         ]
       }

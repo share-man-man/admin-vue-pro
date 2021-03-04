@@ -20,11 +20,15 @@ import {
 import { ColumnProps } from "ant-design-vue/es/table/interface";
 import { formatTime } from "@/utils";
 
-type DescPropType<T> = {
+export interface DescPropType<T> {
   id: keyof T;
   label: string;
   value: string;
-};
+}
+
+export interface ProColumnProps<T = {}> extends Omit<ColumnProps, "dataIndex"> {
+  dataIndex: keyof T;
+}
 
 export default defineComponent({
   setup() {
@@ -51,7 +55,7 @@ export default defineComponent({
       record: ReturnGoodsType;
     }) => (record.no !== "总计" ? text : undefined);
 
-    const returnGoodsColumns = reactive<ColumnProps[]>([
+    const returnGoodsColumns = reactive<ProColumnProps<ReturnGoodsType>[]>([
       {
         title: "商品编号",
         dataIndex: "no",
@@ -90,7 +94,7 @@ export default defineComponent({
       }
     ]);
 
-    const returnProcessColumns = reactive<ColumnProps[]>([
+    const returnProcessColumns = reactive<ProColumnProps<ReturnProcessType>[]>([
       {
         title: "时间",
         dataIndex: "time",
@@ -149,6 +153,7 @@ export default defineComponent({
         })
       );
       returnGoods.splice(0, returnGoods.length, ...goodsList, {
+        id: 0,
         no: "总计",
         name: "",
         barCode: 0,
@@ -179,6 +184,7 @@ export default defineComponent({
             </Descriptions>
             <Divider />
             <Table
+              rowKey="id"
               style={{
                 "margin-bottom": "24px"
               }}
@@ -188,6 +194,7 @@ export default defineComponent({
               pagination={false}
             />
             <Table
+              rowKey="id"
               style={{
                 "margin-bottom": "24px"
               }}
