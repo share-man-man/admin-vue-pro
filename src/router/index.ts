@@ -99,6 +99,51 @@ const routes: RouteRecordRaw[] = [
         meta: {
           name: "高级详情页"
         }
+      },
+      {
+        path: "account",
+        redirect: "account/center",
+        meta: {
+          name: "个人页"
+        }
+      },
+      {
+        path: "account/center",
+        component: () => import("@/views/account/center"),
+        meta: {
+          name: "个人中心"
+        }
+      },
+      {
+        path: "account/settings",
+        component: () => import("@/views/account/settings"),
+        redirect: "/account/settings/base",
+        meta: {
+          name: "个人设置"
+        },
+        children: [
+          {
+            path: "base",
+            component: () => import("@/views/account/settings/Basic"),
+            meta: {
+              name: "基础设置"
+            }
+          },
+          {
+            path: "security",
+            component: () => import("@/views/account/settings/Security"),
+            meta: {
+              name: "安全设置"
+            }
+          },
+          {
+            path: "custom",
+            component: () => import("@/views/account/settings/Custom"),
+            meta: {
+              name: "个性化"
+            }
+          }
+        ]
       }
     ]
   },

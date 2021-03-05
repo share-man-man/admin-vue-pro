@@ -6,9 +6,11 @@
       :key="r.key"
       class="public-content-div"
     >
-      <keep-alive v-if="!r.reloading">
-        <component :is="r.component" v-if="r.key === activeKey" />
-      </keep-alive>
+      <router-view>
+        <keep-alive v-if="!r.reloading">
+          <component :is="r.component" v-if="r.key === activeKey" />
+        </keep-alive>
+      </router-view>
     </div>
   </a-layout-content>
 </template>

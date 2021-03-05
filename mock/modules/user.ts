@@ -81,6 +81,24 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
             icon: "DashboardOutlined"
           }
         ]
+      },
+      {
+        key: "13",
+        name: "个人页",
+        path: "/account",
+        icon: "DashboardOutlined",
+        children: [
+          {
+            key: "14",
+            name: "个人中心",
+            path: "/account/center"
+          },
+          {
+            key: "15",
+            name: "个人设置",
+            path: "/account/settings"
+          }
+        ]
       }
     ]
   };

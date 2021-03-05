@@ -18,17 +18,18 @@ import { Tabs, Dropdown, Menu } from "ant-design-vue";
 import {
   useRouter,
   RouterView,
-  RouteLocationNormalizedLoaded
+  RouteLocationNormalizedLoaded,
+  useRoute
 } from "vue-router";
 import { RouteItem } from "./data.d";
 import PageView from "./Pageview.vue";
 
 export default defineComponent({
   components: {
-    PageView,
     KeepAlive
   },
   setup() {
+    const route = useRoute();
     const router = useRouter();
     const activeKey = ref("");
     const cacheRoute = ref<RouteItem[]>([]);
@@ -109,20 +110,21 @@ export default defineComponent({
      * @param r 路由
      */
     const addCache = (c: VNode, r: RouteLocationNormalizedLoaded) => {
-      // const r = route;
-      const findItem = cacheRoute.value.find(i => i.key === r.path);
-      if (!findItem) {
-        cacheRoute.value.push({
-          key: r.fullPath,
-          path: r.path,
-          fullPath: r.fullPath,
-          tabName: r.meta.name,
-          component: c,
-          reloadTime: new Date().getTime(),
-          reloading: false
-        });
-      }
-      activeKey.value = r.path;
+      setTimeout(() => {
+        const findItem = cacheRoute.value.find(i => i.key === r.path);
+        if (!findItem) {
+          cacheRoute.value.push({
+            key: r.fullPath,
+            path: r.path,
+            fullPath: r.fullPath,
+            tabName: r.meta.name,
+            component: c,
+            reloadTime: new Date().getTime(),
+            reloading: false
+          });
+        }
+        activeKey.value = r.path;
+      });
     };
 
     return () => (
@@ -205,7 +207,26 @@ export default defineComponent({
             }) => addCache(prop.Component, prop.route)
           }}
         </RouterView>
+        {/* 此vue组件的代码的热加载不能生效 */}
         <PageView list={cacheRoute.value} activeKey={activeKey.value} />
+        {/* 下面的代码不能实现缓存 */}
+        {/* <Layout.Content>
+          {cacheRoute.value.map(i => (
+            <div
+              key={i.key}
+              class="public-content-div"
+              style={{ display: activeKey.value === i.key ? "" : "none" }}
+            >
+              <RouterView>
+                {!i.reloading && (
+                  <KeepAlive>
+                    {i.key === activeKey.value && i.component}
+                  </KeepAlive>
+                )}
+              </RouterView>
+            </div>
+          ))}
+        </Layout.Content> */}
       </>
     );
   }

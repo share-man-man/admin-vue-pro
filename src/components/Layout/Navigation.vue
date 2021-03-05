@@ -57,14 +57,29 @@
               <!-- 用户操作栏 -->
               <a-menu>
                 <a-menu-item>
-                  <span @click="logout">退出登陆</span>
-                </a-menu-item>
-                <!-- <a-menu-item>
-                  <a href="javascript:;">2nd menu item</a>
+                  <router-link to="/account/center"
+                    ><UserOutlined
+                      style="min-width: 12px;margin-right: 8px;font-size: 12px;"
+                    />个人中心</router-link
+                  >
                 </a-menu-item>
                 <a-menu-item>
-                  <a href="javascript:;">3rd menu item</a>
-                </a-menu-item> -->
+                  <router-link to="/account/settings">
+                    <SettingOutlined
+                      style="min-width: 12px;margin-right: 8px;font-size: 12px;"
+                    />
+                    个人设置</router-link
+                  >
+                </a-menu-item>
+                <a-menu-divider />
+                <a-menu-item>
+                  <span @click="logout">
+                    <LogoutOutlined
+                      style="min-width: 12px;margin-right: 8px;font-size: 12px;"
+                    />
+                    退出登陆</span
+                  >
+                </a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>
@@ -77,7 +92,13 @@
 import { defineComponent } from "vue";
 import { mapState, mapMutations } from "vuex";
 import { RouteLocationMatched } from "vue-router";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+  SettingOutlined,
+  LogoutOutlined
+} from "@ant-design/icons-vue";
 import { Layout, Breadcrumb, Dropdown, Avatar, Menu } from "ant-design-vue";
 const { Header } = Layout;
 const { Item: BreadcrumbItem } = Breadcrumb;
@@ -95,8 +116,12 @@ export default defineComponent({
     [Avatar.name]: Avatar,
     [Menu.name]: Menu,
     [MenuItem.name]: MenuItem,
+    [Menu.Divider.name]: Menu.Divider,
     MenuUnfoldOutlined,
-    MenuFoldOutlined
+    MenuFoldOutlined,
+    UserOutlined,
+    SettingOutlined,
+    LogoutOutlined
   },
   data() {
     const breadList: RouteLocationMatched[] = [];
