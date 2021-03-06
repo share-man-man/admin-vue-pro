@@ -1,18 +1,18 @@
 import { defineComponent, PropType, reactive } from "vue";
 import {
-  DashboardOutlined,
-  SettingOutlined,
-  LoginOutlined,
-  FallOutlined,
-  RiseOutlined
+  HomeOutlined,
+  FormOutlined,
+  OrderedListOutlined,
+  ProfileOutlined,
+  UserOutlined
 } from "@ant-design/icons-vue";
 
-export const IconMap = {
-  DashboardOutlined: <DashboardOutlined />,
-  SettingOutlined: <SettingOutlined />,
-  LoginOutlined: <LoginOutlined />,
-  FallOutlined: <FallOutlined />,
-  RiseOutlined: <RiseOutlined />
+export const IconMap: { [key: string]: JSX.Element } = {
+  HomeOutlined: <HomeOutlined />,
+  FormOutlined: <FormOutlined />,
+  OrderedListOutlined: <OrderedListOutlined />,
+  ProfileOutlined: <ProfileOutlined />,
+  UserOutlined: <UserOutlined />
 };
 
 export default defineComponent({
@@ -28,6 +28,6 @@ export default defineComponent({
     };
   },
   render() {
-    return this.state[this.$props.type || "DashboardOutlined"];
+    return this.state[this.$props.type || ""];
   }
 });

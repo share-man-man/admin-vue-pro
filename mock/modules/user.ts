@@ -9,30 +9,30 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
       msg: "没有相关权限"
     },
     data: [
-      { key: "1", name: "首页", path: "/", icon: "DashboardOutlined" },
+      { key: "1", name: "首页", path: "/", icon: "HomeOutlined" },
       {
         key: "2",
         name: "表单",
         path: "/form",
-        icon: "DashboardOutlined",
+        icon: "FormOutlined",
         children: [
           {
             key: "3",
             name: "基础表单",
             path: "/form/basic",
-            icon: "DashboardOutlined"
+            icon: "FormOutlined"
           },
           {
             key: "4",
             name: "步骤表单",
             path: "/form/step",
-            icon: "DashboardOutlined"
+            icon: "FormOutlined"
           },
           {
             key: "5",
             name: "高级表单",
             path: "/form/advanced",
-            icon: "DashboardOutlined"
+            icon: "FormOutlined"
           }
         ]
       },
@@ -40,25 +40,25 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
         key: "6",
         name: "列表",
         path: "/list",
-        icon: "DashboardOutlined",
+        icon: "OrderedListOutlined",
         children: [
           {
             key: "7",
             name: "基础列表",
             path: "/list/basic",
-            icon: "DashboardOutlined"
+            icon: "OrderedListOutlined"
           },
           {
             key: "8",
             name: "查询表格",
             path: "/list/search",
-            icon: "DashboardOutlined"
+            icon: "OrderedListOutlined"
           },
           {
             key: "9",
             name: "卡片列表",
             path: "/list/card",
-            icon: "DashboardOutlined"
+            icon: "OrderedListOutlined"
           }
         ]
       },
@@ -66,19 +66,19 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
         key: "10",
         name: "详情页",
         path: "/profile",
-        icon: "DashboardOutlined",
+        icon: "ProfileOutlined",
         children: [
           {
             key: "11",
             name: "基础详情页",
             path: "/profile/basic",
-            icon: "DashboardOutlined"
+            icon: "ProfileOutlined"
           },
           {
             key: "12",
             name: "高级详情页",
             path: "/profile/advanced",
-            icon: "DashboardOutlined"
+            icon: "ProfileOutlined"
           }
         ]
       },
@@ -86,17 +86,19 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
         key: "13",
         name: "个人页",
         path: "/account",
-        icon: "DashboardOutlined",
+        icon: "UserOutlined",
         children: [
           {
             key: "14",
             name: "个人中心",
-            path: "/account/center"
+            path: "/account/center",
+            icon: "UserOutlined"
           },
           {
             key: "15",
             name: "个人设置",
-            path: "/account/settings"
+            path: "/account/settings",
+            icon: "UserOutlined"
           }
         ]
       }
