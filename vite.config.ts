@@ -6,19 +6,19 @@ import reactRefresh from "@vitejs/plugin-react-refresh"; // 为Vite提供React R
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // server: {
-  //   proxy: {
-  //     "/api": {
-  //       target: "http://127.0.0.1:4000",
-  //       // 去掉/api
-  //       rewrite: path => path.replace(/^\/api/, ""),
-  //       // target是域名的话，需要这个参数
-  //       changeOrigin: true
-  //       // 设置支持https协议的代理
-  //       // secure: false
-  //     }
-  //   }
-  // },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:4000",
+        // 去掉/api
+        rewrite: path => path.replace(/^\/api/, ""),
+        // target是域名的话，需要这个参数
+        changeOrigin: true
+        // 设置支持https协议的代理
+        // secure: false
+      }
+    }
+  },
   plugins: [
     vue(),
     vueJsx(),
