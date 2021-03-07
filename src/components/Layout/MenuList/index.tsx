@@ -23,11 +23,17 @@ export default defineComponent({
      * 菜单列表
      */
     const menuInfo = ref<MenuItemType[]>([]);
-
-    onMounted(async () => {
+    /**
+     * 加载菜单
+     */
+    const loadMenu = async () => {
       const data = await getMenuInfo();
       menuInfo.value.splice(0);
       menuInfo.value.push(...data);
+    };
+
+    onMounted(async () => {
+      loadMenu();
     });
 
     return {

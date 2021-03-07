@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { MenuItemType } from "../../src/components/Layout/MenuList/data";
 import { CustomResponseType } from "../../src/utils/request";
 
@@ -106,17 +105,17 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
   };
 };
 
-const getUserInfo = (req: Request, res: Response) => {
-  res.json({
+const getUserInfo = () => {
+  return {
     success: true,
     data: {
       name: "测试人员1",
       age: 123
     }
-  });
+  };
 };
 
 export default {
   "POST /user/menu/list": getMenuInfo(),
-  "GET /user/info/:id": getUserInfo
+  "GET /user/info/:id": getUserInfo()
 };

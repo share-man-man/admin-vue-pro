@@ -4,14 +4,18 @@ import "@/assets/public.less";
 // 全局引入ant-design-vue组件
 // import Antd from "ant-design-vue";
 
+import Mock from "@/utils/mock";
+
 import { createApp } from "vue";
-import "./registerServiceWorker";
+// import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import App from "./App.vue";
 
-createApp(App)
-  .use(store)
-  .use(router)
-  // .use(Antd)
-  .mount("#app");
+Mock().then(() => {
+  createApp(App)
+    .use(store)
+    .use(router)
+    // .use(Antd)
+    .mount("#app");
+});
