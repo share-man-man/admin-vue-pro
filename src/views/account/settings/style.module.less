@@ -7,10 +7,19 @@
   & .left {
     width: 224px;
     border-right: 1px solid rgb(240, 240, 240);
+
+    &.mobile {
+      width: 100%;
+      border-right: none;
+    }
   }
 
   & .right {
     flex: 1 1 0%;
     padding: 8px 40px;
+  }
+
+  &.mobile {
+    flex-direction: column;
   }
 }
