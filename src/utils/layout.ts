@@ -15,13 +15,14 @@ export const fnIsMobile = (): boolean => {
 };
 
 function disPatch() {
-  store.commit("layout/setIsMobile", fnIsMobile());
+  const isMobile = fnIsMobile();
+  store.commit("layout/setIsMobile", isMobile);
 }
 
 export const watchResize = (remove = false) => {
   disPatch();
   if (remove) {
-    window.addEventListener("resize", disPatch);
+    window.removeEventListener("resize", disPatch);
     return;
   }
   window.addEventListener("resize", disPatch);

@@ -135,6 +135,7 @@ const MenuRender = defineComponent({
       const sub = SubMenu({ subList: menuInfo.value });
       return (
         <Menu
+          style="height:100%"
           mode="inline"
           theme="dark"
           inlineCollapsed={props.collapsed}

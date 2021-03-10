@@ -8,11 +8,11 @@ import { watchResize } from "@/utils/layout";
 export default defineComponent({
   beforeMount() {
     // 响应式监听
-    watchResize(true);
+    watchResize(false);
   },
   beforeUnmount() {
     // 取消监听
-    watchResize(false);
+    watchResize(true);
   }
 });
 </script>

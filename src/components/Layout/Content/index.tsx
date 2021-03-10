@@ -18,8 +18,7 @@ import { Tabs, Dropdown, Menu } from "ant-design-vue";
 import {
   useRouter,
   RouterView,
-  RouteLocationNormalizedLoaded,
-  useRoute
+  RouteLocationNormalizedLoaded
 } from "vue-router";
 import { RouteItem } from "./data.d";
 import PageView from "./Pageview.vue";
@@ -29,7 +28,6 @@ export default defineComponent({
     KeepAlive
   },
   setup() {
-    const route = useRoute();
     const router = useRouter();
     const activeKey = ref("");
     const cacheRoute = ref<RouteItem[]>([]);

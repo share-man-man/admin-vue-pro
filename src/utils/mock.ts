@@ -12,7 +12,7 @@ const MyMock = () => {
         modules[path]().then(({ default: mockObj }) => {
           Reflect.ownKeys(mockObj).forEach(key => {
             const [method, url] = (key as string).trim().split(" ");
-            Mock.mock(`/api${url}`, method.toLowerCase(), (options: any) => {
+            Mock.mock(`/api${url}`, method.toLowerCase(), (options: object) => {
               let res = {};
               // 对象直接返回值，函数需要函数自行执行
               if (typeof mockObj[key] === "object") {

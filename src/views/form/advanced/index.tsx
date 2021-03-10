@@ -35,24 +35,26 @@ const columns = [
   {
     title: "name",
     dataIndex: "name",
-    width: "25%",
+    width: 100,
     slots: { customRender: "name" }
   },
   {
     title: "工号",
     dataIndex: "no",
-    width: "15%",
+    width: 100,
     slots: { customRender: "no" }
   },
   {
     title: "所属部门",
     dataIndex: "org",
-    width: "15%",
+    width: 100,
     slots: { customRender: "org" }
   },
   {
     title: "operation",
     dataIndex: "operation",
+    fixed: "right",
+    width: 120,
     slots: { customRender: "operation" }
   }
 ];
@@ -417,6 +419,7 @@ export default defineComponent({
               columns={columns}
               data-source={dataSource.value}
               pagination={false}
+              scroll={{ x: "100%" }}
             >
               {tableSlots()}
             </Table>

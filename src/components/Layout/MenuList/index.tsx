@@ -1,6 +1,6 @@
 import { getMenuInfo } from "@/services/user";
-import { computed, defineComponent, onMounted, ref } from "vue";
-import { Layout } from "ant-design-vue";
+import { defineComponent, onMounted, ref } from "vue";
+import { Layout, Drawer } from "ant-design-vue";
 import { useStore } from "vuex";
 import MenuRender from "../MenuList/MenuRender";
 import { MenuItemType } from "./data";
@@ -8,17 +8,6 @@ import { MenuItemType } from "./data";
 export default defineComponent({
   setup() {
     const store = useStore();
-    /**
-     * 是否展开菜单
-     */
-    const collapsed = computed(() => store.state.layout.collapsed);
-    /**
-     * 设置是否展开菜单
-     * @param e 展开状态
-     */
-    const onCollapse = (e: boolean) => {
-      store.commit("layout/setCollapsed", e);
-    };
     /**
      * 菜单列表
      */
@@ -36,23 +25,39 @@ export default defineComponent({
       loadMenu();
     });
 
-    return {
-      menuInfo,
-      collapsed,
-      onCollapse
-    };
-  },
-  render() {
-    return (
-      <Layout.Sider
-        collapsed={this.collapsed}
-        onCollapse={this.onCollapse}
-        trigger={null}
-        collapsible
-        breakpoint="md"
-      >
-        <MenuRender collapsed={this.collapsed} menuInfo={this.menuInfo} />
-      </Layout.Sider>
+    return () => (
+      <>
+        {!store.state.layout.isMobile && (
+          <Layout.Sider
+            collapsed={store.state.layout.collapsed}
+            trigger={null}
+            breakpoint="md"
+            // style={store.state.layout.isMobile && { height: "100%" }}
+          >
+            <MenuRender
+              collapsed={store.state.layout.collapsed}
+              menuInfo={menuInfo.value}
+            />
+          </Layout.Sider>
+        )}
+        {store.state.layout.isMobile && (
+          <Drawer
+            visible={!store.state.layout.hide}
+            onClose={() => {
+              store.commit("layout/setHide");
+            }}
+            width={200}
+            bodyStyle={{ padding: "0px", height: "100%" }}
+            closable={false}
+            placement="left"
+          >
+            <MenuRender
+              collapsed={store.state.layout.collapsed}
+              menuInfo={menuInfo.value}
+            />
+          </Drawer>
+        )}
+      </>
     );
   }
 });

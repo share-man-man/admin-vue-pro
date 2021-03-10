@@ -1,14 +1,5 @@
 import { defineComponent, nextTick, reactive, ref } from "vue";
-import {
-  Col,
-  Row,
-  Card,
-  Divider,
-  Tag,
-  Input,
-  Tabs,
-  List
-} from "ant-design-vue";
+import { Col, Row, Card, Divider, Tag, Input, Tabs } from "ant-design-vue";
 import {
   FormatPainterOutlined,
   ApartmentOutlined,

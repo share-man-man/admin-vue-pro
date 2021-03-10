@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import Home from "../views/Home.vue";
-import Layout from "@/components/Layout/index.vue";
+import Layout from "@/components/Layout";
 
 const routes: RouteRecordRaw[] = [
   {
