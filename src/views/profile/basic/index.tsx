@@ -59,26 +59,31 @@ export default defineComponent({
       {
         title: "商品编号",
         dataIndex: "no",
+        width: 100,
         customRender: ({ text }) => <a>{text}</a>
       },
       {
         title: "商品名称",
         dataIndex: "name",
+        width: 120,
         customRender: countRender
       },
       {
         title: "商品条码",
         dataIndex: "barCode",
+        width: 150,
         customRender: countRender
       },
       {
         title: "单价",
         dataIndex: "price",
+        width: 100,
         customRender: countRender
       },
       {
         title: "数量",
         dataIndex: "number",
+        width: 100,
         customRender: ({
           text,
           record
@@ -90,7 +95,8 @@ export default defineComponent({
       },
       {
         title: "金额",
-        dataIndex: "amount"
+        dataIndex: "amount",
+        width: 100
       }
     ]);
 
@@ -98,17 +104,20 @@ export default defineComponent({
       {
         title: "时间",
         dataIndex: "time",
+        width: 200,
         customRender: ({ text }) => {
           return formatTime(Number(text));
         }
       },
       {
         title: "当前进度",
-        dataIndex: "process"
+        dataIndex: "process",
+        width: 150
       },
       {
         title: "状态",
         dataIndex: "state",
+        width: 100,
         customRender: ({ text }) => (
           <Badge
             status={text === "完成" ? "success" : "processing"}
@@ -118,11 +127,13 @@ export default defineComponent({
       },
       {
         title: "操作员ID",
-        dataIndex: "userId"
+        dataIndex: "userId",
+        width: 100
       },
       {
         title: "耗时",
-        dataIndex: "timeConsuming"
+        dataIndex: "timeConsuming",
+        width: 100
       }
     ]);
 
@@ -188,6 +199,7 @@ export default defineComponent({
               style={{
                 "margin-bottom": "24px"
               }}
+              scroll={{ x: "100%" }}
               title={() => "退货商品"}
               columns={returnGoodsColumns}
               dataSource={returnGoods}
@@ -198,6 +210,7 @@ export default defineComponent({
               style={{
                 "margin-bottom": "24px"
               }}
+              scroll={{ x: "100%" }}
               title={() => "退货进度"}
               columns={returnProcessColumns}
               dataSource={returnProcess}

@@ -106,20 +106,24 @@ export default defineComponent({
     const columns: ColumnType[] = [
       {
         title: "规则名称",
-        dataIndex: "ruleName"
+        dataIndex: "ruleName",
+        width: 100
       },
       {
         title: "描述",
-        dataIndex: "desc"
+        dataIndex: "desc",
+        width: 100
       },
       {
         title: "服务调用次数",
         dataIndex: "count",
+        width: 100,
         sorter: (a: TableDataType, b: TableDataType) => a.count - b.count
       },
       {
         title: "状态",
         dataIndex: "state",
+        width: 100,
         filters: [
           { text: StateEnum.CLOSE, value: "CLOSE", children: [] },
           { text: StateEnum.EXCEPTION, value: "EXCEPTION", children: [] },
@@ -137,6 +141,7 @@ export default defineComponent({
       {
         title: "上次调度时间",
         dataIndex: "dispatchTime",
+        width: 100,
         sorter: (a: TableDataType, b: TableDataType) =>
           a.dispatchTime - b.dispatchTime,
         customRender: ({ text }) => {
@@ -145,6 +150,7 @@ export default defineComponent({
       },
       {
         title: "操作",
+        width: 100,
         customRender: () => (
           <span>
             <a>编辑</a>
@@ -275,6 +281,7 @@ export default defineComponent({
           <Table
             size="middle"
             rowKey="ruleName"
+            scroll={{ x: "100%" }}
             columns={columns}
             dataSource={dataSource}
             onChange={onChange}
