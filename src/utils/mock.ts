@@ -56,6 +56,8 @@ export default async () => {
   if (service === "mockjs") {
     return MyMock();
   } else {
-    return true;
+    return new Promise(resolve => {
+      resolve(true);
+    });
   }
 };
