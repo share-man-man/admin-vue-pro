@@ -5,7 +5,7 @@
     hide-add
     @edit="onEdit"
     @change="onChangeTab"
-    class="public-tabs"
+    class="av-tabs"
   >
     <template #tabBarExtraContent>
       <a-dropdown>
@@ -44,10 +44,10 @@
           <template v-if="r.key === activeKey">
             <ReloadOutlined
               v-if="!reloadingIcon"
-              class="public-tabs-icon"
+              class="av-tabs-icon"
               @click.stop="onReload"
             />
-            <LoadingOutlined v-else class="public-tabs-icon" />
+            <LoadingOutlined v-else class="av-tabs-icon" />
           </template>
         </span>
       </template>
@@ -56,12 +56,12 @@
   <router-view v-slot="{ Component, route }">
     {{ onAddCache(Component, route) }}
   </router-view>
-  <a-layout-content class="public-content">
+  <a-layout-content class="av-content">
     <div
       v-for="r in cacheRoute"
       v-show="r.key === activeKey"
       :key="r.key"
-      class="public-content-div"
+      class="av-content-div"
     >
       <router-view>
         <keep-alive v-if="!r.reloading">

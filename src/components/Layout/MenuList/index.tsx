@@ -25,39 +25,40 @@ export default defineComponent({
       loadMenu();
     });
 
+    const MainContent = ({ child }: { child: JSX.Element }) => {
+      return !store.state.layout.isMobile ? (
+        <Layout.Sider
+          collapsed={store.state.layout.collapsed}
+          trigger={null}
+          breakpoint="md"
+        >
+          {child}
+        </Layout.Sider>
+      ) : (
+        <Drawer
+          visible={!store.state.layout.hide}
+          onClose={() => {
+            store.commit("layout/setHide");
+          }}
+          width={200}
+          bodyStyle={{ padding: "0px", height: "100%" }}
+          closable={false}
+          placement="left"
+        >
+          {child}
+        </Drawer>
+      );
+    };
+
     return () => (
-      <>
-        {!store.state.layout.isMobile && (
-          <Layout.Sider
+      <MainContent
+        child={
+          <MenuRender
             collapsed={store.state.layout.collapsed}
-            trigger={null}
-            breakpoint="md"
-            // style={store.state.layout.isMobile && { height: "100%" }}
-          >
-            <MenuRender
-              collapsed={store.state.layout.collapsed}
-              menuInfo={menuInfo.value}
-            />
-          </Layout.Sider>
-        )}
-        {store.state.layout.isMobile && (
-          <Drawer
-            visible={!store.state.layout.hide}
-            onClose={() => {
-              store.commit("layout/setHide");
-            }}
-            width={200}
-            bodyStyle={{ padding: "0px", height: "100%" }}
-            closable={false}
-            placement="left"
-          >
-            <MenuRender
-              collapsed={store.state.layout.collapsed}
-              menuInfo={menuInfo.value}
-            />
-          </Drawer>
-        )}
-      </>
+            menuInfo={menuInfo.value}
+          />
+        }
+      />
     );
   }
 });

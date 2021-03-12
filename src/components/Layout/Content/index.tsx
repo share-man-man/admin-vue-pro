@@ -133,7 +133,7 @@ export default defineComponent({
           hide-add
           onEdit={onEdit}
           onChange={onChangeTab}
-          class="public-tabs"
+          class="av-tabs"
         >
           {{
             tabBarExtraContent: () => (
@@ -181,11 +181,11 @@ export default defineComponent({
                           <>
                             {!reloadingIcon.value ? (
                               <ReloadOutlined
-                                class="public-tabs-icon"
+                                class="av-tabs-icon"
                                 onClick={withModifiers(reload, ["stop"])}
                               />
                             ) : (
-                              <LoadingOutlined class="public-tabs-icon" />
+                              <LoadingOutlined class="av-tabs-icon" />
                             )}
                           </>
                         )}
@@ -212,7 +212,7 @@ export default defineComponent({
           {cacheRoute.value.map(i => (
             <div
               key={i.key}
-              class="public-content-div"
+              class="av-content-div"
               style={{ display: activeKey.value === i.key ? "" : "none" }}
             >
               <RouterView>

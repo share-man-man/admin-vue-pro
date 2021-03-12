@@ -1,10 +1,10 @@
 <template>
-  <a-layout-content class="public-content">
+  <a-layout-content class="av-content">
     <div
       v-for="r in list"
       v-show="r.key === activeKey"
       :key="r.key"
-      class="public-content-div"
+      class="av-content-div"
     >
       <router-view>
         <keep-alive v-if="!r.reloading">

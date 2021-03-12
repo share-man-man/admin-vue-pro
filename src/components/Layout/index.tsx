@@ -7,7 +7,7 @@ import Content from "./Content";
 export default defineComponent({
   setup() {
     return () => (
-      <Layout class="public-basicLayout">
+      <Layout class="av-basicLayout">
         {/* 菜单栏 */}
         <MenuList />
         <Layout>

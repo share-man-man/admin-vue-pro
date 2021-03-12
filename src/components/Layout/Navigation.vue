@@ -2,8 +2,8 @@
   <a-layout-header
     style="padding: 0px;height: 48px;line-height: 48px;width: 100%;z-index: 9;"
   >
-    <div class="public-global-header">
-      <div class="public-global-header-collapsed-button">
+    <div class="av-global-header">
+      <div class="av-global-header-collapsed-button">
         <!-- 左边，默认trigger -->
         <slot name="left">
           <menu-unfold-outlined
@@ -18,7 +18,7 @@
           />
         </slot>
       </div>
-      <div class="public-global-header-breadcrumb">
+      <div class="av-global-header-breadcrumb">
         <!-- 中间，默认面包屑导航 -->
         <slot name="middle">
           <a-breadcrumb>
@@ -41,17 +41,15 @@
         <slot name="right">
           <!-- 用户栏 -->
           <a-dropdown>
-            <span class="public-dropdown public-dropdown-action">
+            <span class="av-dropdown av-dropdown-action">
               <!-- 头像 -->
               <a-avatar
-                class="public-global-header-account-avatar"
+                class="av-global-header-account-avatar"
                 src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
                 size="small"
               />
               <!-- 用户名 -->
-              <span class="public-global-header-account-name anticon"
-                >管理员
-              </span>
+              <span class="av-global-header-account-name anticon">管理员 </span>
             </span>
             <template #overlay>
               <!-- 用户操作栏 -->
