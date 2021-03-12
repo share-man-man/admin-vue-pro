@@ -2,7 +2,7 @@ English | [简体中文](./README.zh-CN.md)
 
 <h1 align="center">Admin Vue Pro</h1>
 <div align="center">
- Admin manage system solution, which based on Vue3、Vite、TypeScript、Ant-design-vue. link to
+ 中后台管理系统, 基于 Vue3、Vite、TypeScript、Ant-design-vue搭建。点击链接进入
 <a href="https://github.com/shuxiaoman/admin-vue-pro" target="_blank">Admin Vue Pro(AV)</a>
 </div>
 
@@ -14,55 +14,55 @@ English | [简体中文](./README.zh-CN.md)
 
 </div> -->
 
-- Preview: https://shuxiaoman.github.io/admin-vue-pro
-- Documentation: https://github.com/shuxiaoman/admin-vue-pro/blob/master/README.md
-- Mirror Site in China：https://shuxiaoman.gitee.io/admin-vue-pro
+- 预览: https://shuxiaoman.github.io/admin-vue-pro
+- 文档: https://github.com/shuxiaoman/admin-vue-pro/blob/master/README.md
+- 中国镜像：https://shuxiaoman.gitee.io/admin-vue-pro
 
-## Project setup
+## 安装
 
 ```
 yarn
 ```
 
-### Fast-start、hot-reloads、mock-server for development
+### 快速启动、热重载、mock-server
 
-- one terminal, setup development envioriment
+- 开启一个控制台，启动开发服务
 
 ```
 yarn dev
 ```
 
-- another terminal, setup mock server
+- 打开另一个控制台，启动mock服务
 
 ```
 yarn mock
 ```
 
-### Compiles and minifies for production
+### 构建生产模式的最小体积代码
 
 ```
 yarn build
 ```
 
-### Deploy on branch gh-pages
+### 发布代码到 gh-pages 分支
 
 ```
 yarn deploy
 ```
 
-### Run your unit tests
+### 执行单元测试
 
 ```
 yarn test:unit
 ```
 
-### Run your end-to-end tests
+### 执行 E2E 测试
 
 ```
 yarn test:e2e
 ```
 
-### Lints and fixes files
+### 格式校验
 
 ```
 yarn lint

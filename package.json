@@ -1,5 +1,5 @@
 {
-  "name": "vue3-demo",
+  "name": "admin-vue-pro",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "predeploy": "vuedx-typecheck . && vite build --base=/vue3-demo/ --mode=deploy",
+    "predeploy": "vuedx-typecheck . && vite build --base=/admin-vue-pro/ --mode=deploy",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
