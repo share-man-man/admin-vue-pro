@@ -2,7 +2,8 @@ import Mock from "mockjs"; //引入mockjs
 
 const service = import.meta.env.VITE_APP_SERVICE;
 
-Mock.setup({ timeout: 0 });
+// 延迟
+Mock.setup({ timeout: 500 });
 
 const MyMock = () => {
   return new Promise(resolve => {
