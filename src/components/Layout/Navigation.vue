@@ -146,7 +146,7 @@ export default defineComponent({
       this.$router.push("/");
       // 这里不能使用nextick，必须使用setTimeout
       // setTimeout(() => {
-      this.$router.push("/login");
+      this.$router.push("/user/login");
       // });
     }
   }
