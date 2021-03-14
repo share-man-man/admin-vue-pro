@@ -79,7 +79,7 @@ const Request = <T>(config: AxiosRequestConfig): Promise<T> => {
           // 1、清空发送队列
           clearCache();
           // 2、跳转到登陆界面
-          router.push("/login");
+          router.push("/user/login");
           return;
         }
         // 抛出错误

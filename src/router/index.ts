@@ -4,11 +4,21 @@ import Layout from "@/components/Layout";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/login",
-    component: () => import(/* webpackChunkName: "about" */ "@/views/login"),
+    path: "/user",
+    component: () => import("@/views/user"),
     meta: {
-      name: "登录"
-    }
+      name: "用户"
+    },
+    redirect: "/user/login",
+    children: [
+      {
+        path: "login",
+        component: () => import("@/views/user/login"),
+        meta: {
+          name: "登陆"
+        }
+      }
+    ]
   },
   {
     path: "/",

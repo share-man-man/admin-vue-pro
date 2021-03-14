@@ -26,7 +26,9 @@ const MyMock = () => {
           });
 
           if (index === Object.keys(modules).length - 1) {
-            resolve(true);
+            setTimeout(() => {
+              resolve(true);
+            }, 500);
           }
         });
       }
