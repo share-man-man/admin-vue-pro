@@ -81,6 +81,10 @@
               </a-menu>
             </template>
           </a-dropdown>
+          <!-- github地址 -->
+          <a href="https://github.com/shuxiaoman/admin-vue-pro" target="_blank">
+            <GithubFilled style="fontSize: 20px;color: #333;" />
+          </a>
         </slot>
       </div>
     </div>
@@ -95,9 +99,17 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   SettingOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  GithubFilled
 } from "@ant-design/icons-vue";
-import { Layout, Breadcrumb, Dropdown, Avatar, Menu } from "ant-design-vue";
+import {
+  Layout,
+  Breadcrumb,
+  Dropdown,
+  Avatar,
+  Menu,
+  Button
+} from "ant-design-vue";
 const { Header } = Layout;
 const { Item: BreadcrumbItem } = Breadcrumb;
 const { Item: MenuItem } = Menu;
@@ -115,11 +127,13 @@ export default defineComponent({
     [Menu.name]: Menu,
     [MenuItem.name]: MenuItem,
     [Menu.Divider.name]: Menu.Divider,
+    [Button.name]: Button,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     UserOutlined,
     SettingOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    GithubFilled
   },
   data() {
     const breadList: RouteLocationMatched[] = [];
