@@ -1,5 +1,6 @@
 import { defineComponent } from "vue";
 import { RouterView } from "vue-router";
+import { useStore } from "vuex";
 import { LayoutState } from "@/store/modules/layout";
 import style from "./style.module.less";
 
