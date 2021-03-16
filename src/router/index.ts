@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import Home from "../views/Home.vue";
 import Layout from "@/components/Layout";
 
+const TITLE = import.meta.env.VITE_APP_NAME;
+
 const routes: RouteRecordRaw[] = [
   {
     path: "/user",
@@ -163,6 +165,10 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+});
+
+router.beforeEach(i => {
+  document.title = i.meta?.name || TITLE;
 });
 
 export default router;
