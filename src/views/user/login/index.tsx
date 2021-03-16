@@ -1,14 +1,5 @@
 import { computed, defineComponent, reactive, ref } from "vue";
-import {
-  Form,
-  Tabs,
-  Alert,
-  Input,
-  Icon,
-  Row,
-  Col,
-  Button
-} from "ant-design-vue";
+import { Form, Tabs, Alert, Input, Row, Col, Button } from "ant-design-vue";
 import {
   UserOutlined,
   LockOutlined,
@@ -45,7 +36,9 @@ export default defineComponent({
           if (setTokenObj(tokenObj)) router.push("/");
           loginLoading.value = false;
         })
-        .catch(() => {})
+        .catch(() => {
+          loginError.value = true;
+        })
         .finally(() => {
           loginLoading.value = false;
         });
