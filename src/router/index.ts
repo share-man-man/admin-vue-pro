@@ -28,7 +28,15 @@ const routes: RouteRecordRaw[] = [
     meta: {
       name: "首页"
     },
+    redirect: "/workspace",
     children: [
+      {
+        path: "workspace",
+        component: () => import("@/views/workspace"),
+        meta: {
+          name: "工作台"
+        }
+      },
       {
         path: "form",
         component: () => import("@/views/form/index.vue"),
@@ -159,7 +167,7 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   },
-  { path: "/:pathMatch(.*)*", name: "not-found", redirect: "/" }
+  { path: "/:pathMatch(.*)*", name: "not-found", redirect: "/workspace" }
 ];
 
 const router = createRouter({

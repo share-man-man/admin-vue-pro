@@ -8,7 +8,7 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
       msg: "没有相关权限"
     },
     data: [
-      { key: "1", name: "首页", path: "/", icon: "HomeOutlined" },
+      { key: "1", name: "工作台", path: "/workspace", icon: "HomeOutlined" },
       {
         key: "2",
         name: "表单",
