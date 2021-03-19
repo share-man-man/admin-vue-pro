@@ -47,7 +47,7 @@ export default defineComponent({
     const currentUser = reactive({
       avatar:
         "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
-      name: "打工人"
+      name: "小满"
     });
 
     const timeFix = "早安";
