@@ -1,7 +1,14 @@
+@import "@/assets/thems/default.less";
+
 .av-header-wrap {
   background-color: #fff;
   display: flex;
   width: 100%;
+
+  @media screen and (max-width: @screen-md) {
+    display: block;
+  }
+
   &-content {
     flex: auto;
   }
@@ -9,5 +16,15 @@
     min-width: 242px;
     margin-left: 88px;
     text-align: right;
+    @media screen and (max-width: @screen-xl) {
+      margin-left: 44px;
+    }
+    @media screen and (max-width: @screen-lg) {
+      margin-left: 20px;
+    }
+    @media screen and (max-width: @screen-md) {
+      margin-left: 0;
+      text-align: left;
+    }
   }
 }
