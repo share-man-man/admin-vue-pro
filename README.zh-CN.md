@@ -1,4 +1,4 @@
-English | [简体中文](./README.zh-CN.md)
+[English](./README.md) | 简体中文
 
 <h1 align="center">Admin Vue Pro</h1>
 <div align="center">
@@ -32,7 +32,7 @@ yarn
 yarn dev
 ```
 
-- 打开另一个控制台，启动mock服务
+- 打开另一个控制台，启动 mock 服务
 
 ```
 yarn mock
