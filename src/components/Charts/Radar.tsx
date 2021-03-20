@@ -1,5 +1,5 @@
 import { defineComponent, onMounted } from "vue";
-import { Radar, RadarOptions } from "@antv/g2plot";
+import { Radar, RadarOptions } from "@antv/g2plot/esm/plots/radar";
 
 export default defineComponent({
   setup() {

@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import Home from "../views/Home.vue";
-import Layout from "@/components/Layout";
+// import Layout from "@/components/Layout";
 
 const TITLE = import.meta.env.VITE_APP_NAME;
 
@@ -24,7 +24,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/",
-    component: Layout,
+    // component: Layout,
+    component: () => import("@/components/Layout"),
     meta: {
       name: "首页"
     },
