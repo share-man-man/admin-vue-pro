@@ -1,28 +1,19 @@
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, PropType, watch } from "vue";
 import { Radar, RadarOptions } from "@antv/g2plot/esm/plots/radar";
 
 export default defineComponent({
-  setup() {
-    const data = [
-      { item: "Design", user: "a", score: 70 },
-      { item: "Design", user: "b", score: 30 },
-      { item: "Design", user: "c", score: 40 },
-      { item: "Development", user: "a", score: 60 },
-      { item: "Development", user: "b", score: 70 },
-      { item: "Development", user: "c", score: 10 },
-      { item: "Marketing", user: "a", score: 50 },
-      { item: "Marketing", user: "b", score: 60 },
-      { item: "Marketing", user: "c", score: 30 },
-      { item: "Users", user: "a", score: 40 },
-      { item: "Users", user: "b", score: 50 },
-      { item: "Users", user: "c", score: 80 },
-      { item: "Test", user: "a", score: 60 },
-      { item: "Test", user: "b", score: 70 },
-      { item: "Test", user: "c", score: 50 }
-    ];
+  props: {
+    data: {
+      type: Array as PropType<RadarItem[]>,
+      default: () => []
+    }
+  },
+  setup(props) {
+    let radarPlot: Radar;
+    // const data: RadarItem[] = [];
 
     const config: RadarOptions = {
-      data,
+      data: props.data,
       xField: "item",
       yField: "score",
       seriesField: "user",
@@ -63,9 +54,13 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      const radarPlot = new Radar("radarContainer", config);
+      radarPlot = new Radar("radarContainer", config);
       radarPlot.render();
     });
+    watch(props.data, v => {
+      radarPlot.changeData(v);
+    });
+
     return () => <div id="radarContainer"></div>;
   }
 });
