@@ -12,8 +12,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "predeploy": "vuedx-typecheck . && vite build --base=/admin-vue-pro/ --mode=deploy",
-    "deploy": "gh-pages -d dist"
+    "build:av": "vuedx-typecheck . && vite build --base=/admin-vue-pro/ --mode=deploy",
+    "deploy": "bash deploy.sh"
   },
   "dependencies": {
     "@antv/g2plot": "^2.3.16",
