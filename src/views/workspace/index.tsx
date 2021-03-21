@@ -34,9 +34,6 @@ export default defineComponent({
       visitNum: 0
     });
 
-    const timeFix = "早安";
-    const welcome = "今天又是搬砖的一天";
-
     const Content = () => (
       <div class={style["page-header-content"]}>
         <div class={style["avatar"]}>
@@ -44,8 +41,8 @@ export default defineComponent({
         </div>
         <div class={style["content"]}>
           <div class={style["content-title"]}>
-            {timeFix}，{currentUser.name}
-            <span class={style["welcome-text"]}>，{welcome}</span>
+            早安，{currentUser.name}
+            <span class={style["welcome-text"]}>，今天又是搬砖的一天</span>
           </div>
           <div>全栈工程师 | 板砖技术部 - 某某某事业群 - 前端平台</div>
         </div>
