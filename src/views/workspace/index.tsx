@@ -108,9 +108,9 @@ export default defineComponent({
                 loading={loading.value}
                 style="margin-bottom: 24px;"
                 bordered={false}
-                title="进行中的项目"
+                title="项目"
                 body-style={{ padding: 0 }}
-                extra={<a>全部项目</a>}
+                extra={<a>其他</a>}
               >
                 <div>
                   {projects.value.map(item => (
