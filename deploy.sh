@@ -15,7 +15,7 @@ cd dist
 #创建.nojekyll 防止Github Pages build错误
 touch .nojekyll
 
-yarn gh-pages -d dist
+yarn gh-pages -d dist --dotfiles
 
 # git init
 # git add -A

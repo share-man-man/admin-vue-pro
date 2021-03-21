@@ -106,7 +106,7 @@ export default defineComponent({
               <Card
                 class={style["project-list"]}
                 loading={loading.value}
-                style="margin-bottom: 24px;"
+                style="margin-bottom: 22px;"
                 bordered={false}
                 title="所有项目"
                 body-style={{ padding: 0 }}
