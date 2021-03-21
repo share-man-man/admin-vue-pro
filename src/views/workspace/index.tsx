@@ -108,7 +108,7 @@ export default defineComponent({
                 loading={loading.value}
                 style="margin-bottom: 24px;"
                 bordered={false}
-                title="项目"
+                title="所有项目"
                 body-style={{ padding: 0 }}
                 extra={<a>其他</a>}
               >
