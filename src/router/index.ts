@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import Home from "../views/Home.vue";
 // import Layout from "@/components/Layout";
+import NProgress from "nprogress";
 
 const TITLE = import.meta.env.VITE_APP_NAME;
 
@@ -176,8 +177,21 @@ const router = createRouter({
   routes
 });
 
+const loadingDiv = document.createElement("div");
+loadingDiv.id = "my-loading";
+loadingDiv.style.height = "100vh";
+loadingDiv.style.background = "red";
+
 router.beforeEach(i => {
   document.title = i.meta?.name || TITLE;
+  NProgress.start();
+  NProgress.set(0.7);
+  NProgress.inc();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+  NProgress.remove();
 });
 
 export default router;

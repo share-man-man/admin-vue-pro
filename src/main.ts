@@ -1,3 +1,4 @@
+import "nprogress/nprogress.css";
 // 必须在引入路由前引用，避免此样式覆盖路由组件里的样式
 import "ant-design-vue/dist/antd.min.css";
 import "@/assets/public.less";
