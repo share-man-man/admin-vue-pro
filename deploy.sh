@@ -7,7 +7,7 @@ set -e
 yarn build:av
 
 # navigate into the build output directory
-# cd dist
+cd dist
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
@@ -24,4 +24,4 @@ yarn gh-pages -d dist
 # # if you are deploying to https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:PanJiaChen/vue-element-admin.git master:gh-pages
 
-cd -
+cd ../
