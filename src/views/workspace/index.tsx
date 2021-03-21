@@ -7,8 +7,8 @@ import {
   Col,
   List,
   PageHeader as AntPageHeader,
-  Row,
-  Statistic
+  Row
+  // Statistic
 } from "ant-design-vue";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import HeaderWrapper from "@/components/Page/HeaderWrapper";
@@ -51,17 +51,17 @@ export default defineComponent({
     const Extra = () => (
       <div class={style["extra-content"]}>
         <div class={style["stat-item"]}>
-          <Statistic title="项目数" value={statisticData.value.projectNum} />
+          {/* <Statistic title="项目数" value={statisticData.value.projectNum} /> */}
         </div>
         <div class={style["stat-item"]}>
-          <Statistic
+          {/* <Statistic
             title="团队内排名"
             value={statisticData.value.teamRank}
             suffix="/ 24"
-          />
+          /> */}
         </div>
         <div class={style["stat-item"]}>
-          <Statistic title="项目访问" value={statisticData.value.visitNum} />
+          {/* <Statistic title="项目访问" value={statisticData.value.visitNum} /> */}
         </div>
       </div>
     );
