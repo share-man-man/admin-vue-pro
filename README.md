@@ -32,7 +32,7 @@ yarn
 yarn dev
 ```
 
-- another terminal, setup mock server
+- another terminal, setup mock server(if you run error,update nodejs version)
 
 ```
 yarn mock
