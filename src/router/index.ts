@@ -1,9 +1,10 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-// import Home from "../views/Home.vue";
-// import Layout from "@/components/Layout";
 import NProgress from "nprogress";
 
-const TITLE = import.meta.env.VITE_APP_NAME;
+/**
+ * app名字，可在.env文件自定义
+ */
+const APP_NAME = import.meta.env.VITE_APP_NAME;
 
 const routes: RouteRecordRaw[] = [
   {
@@ -177,13 +178,8 @@ const router = createRouter({
   routes
 });
 
-const loadingDiv = document.createElement("div");
-loadingDiv.id = "my-loading";
-loadingDiv.style.height = "100vh";
-loadingDiv.style.background = "red";
-
 router.beforeEach(i => {
-  document.title = i.meta?.name || TITLE;
+  document.title = i.meta?.name || APP_NAME;
   NProgress.start();
   NProgress.set(0.7);
   NProgress.inc();
