@@ -32,7 +32,7 @@ yarn
 yarn dev
 ```
 
-- 打开另一个控制台，启动 mock 服务
+- 打开另一个控制台，启动 mock 服务（有些版本不能启动mockserver，是node版本问题，升级版本即可）
 
 ```
 yarn mock
