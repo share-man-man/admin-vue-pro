@@ -1,4 +1,3 @@
-// 引入封装的axios
 import { MenuItemType } from "@/components/Layout/MenuList/data";
 import request from "@/utils/request";
 
