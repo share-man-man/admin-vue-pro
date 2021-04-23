@@ -9,9 +9,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    let radarPlot: Radar;
-    // const data: RadarItem[] = [];
-
+    let chart: Radar;
     const config: RadarOptions = {
       data: props.data,
       xField: "item",
@@ -54,11 +52,11 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      radarPlot = new Radar("radarContainer", config);
-      radarPlot.render();
+      chart = new Radar("radarContainer", config);
+      chart.render();
     });
     watch(props.data, v => {
-      radarPlot.changeData(v);
+      chart.changeData(v);
     });
 
     return () => <div id="radarContainer"></div>;

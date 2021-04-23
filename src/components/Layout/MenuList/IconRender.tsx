@@ -4,7 +4,8 @@ import {
   FormOutlined,
   OrderedListOutlined,
   ProfileOutlined,
-  UserOutlined
+  UserOutlined,
+  BarChartOutlined
 } from "@ant-design/icons-vue";
 
 export const IconMap: { [key: string]: JSX.Element } = {
@@ -12,7 +13,8 @@ export const IconMap: { [key: string]: JSX.Element } = {
   FormOutlined: <FormOutlined />,
   OrderedListOutlined: <OrderedListOutlined />,
   ProfileOutlined: <ProfileOutlined />,
-  UserOutlined: <UserOutlined />
+  UserOutlined: <UserOutlined />,
+  BarChartOutlined: <BarChartOutlined />
 };
 
 export default defineComponent({
