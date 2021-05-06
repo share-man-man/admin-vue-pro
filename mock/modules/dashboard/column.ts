@@ -59,6 +59,17 @@ export default {
       { date: "2021-04-22", type: "wechat", value: 3282 },
       { date: "2021-04-23", type: "wechat", value: 5639 },
       { date: "2021-04-24", type: "wechat", value: 2906 },
+      { date: "2021-04-25", type: "wechat", value: 3746 },
+      { date: "2021-04-26", type: "wechat", value: 5308 },
+      { date: "2021-04-27", type: "wechat", value: 3760 },
+      { date: "2021-04-28", type: "wechat", value: 5602 },
+      { date: "2021-04-29", type: "wechat", value: 5907 },
+      { date: "2021-04-30", type: "wechat", value: 6049 },
+      { date: "2021-05-01", type: "wechat", value: 2512 },
+      { date: "2021-05-02", type: "wechat", value: 2046 },
+      { date: "2021-05-03", type: "wechat", value: 1804 },
+      { date: "2021-05-04", type: "wechat", value: 1844 },
+      { date: "2021-05-05", type: "wechat", value: 1041 },
 
       { date: "2021-02-27", type: "alipay", value: 112 },
       { date: "2021-02-28", type: "alipay", value: 910 },
@@ -116,7 +127,18 @@ export default {
       { date: "2021-04-21", type: "alipay", value: 985 },
       { date: "2021-04-22", type: "alipay", value: 759 },
       { date: "2021-04-23", type: "alipay", value: 930 },
-      { date: "2021-04-24", type: "alipay", value: 302 }
+      { date: "2021-04-24", type: "alipay", value: 302 },
+      { date: "2021-04-25", type: "alipay", value: 1097 },
+      { date: "2021-04-26", type: "alipay", value: 1546 },
+      { date: "2021-04-27", type: "alipay", value: 1290 },
+      { date: "2021-04-28", type: "alipay", value: 1384 },
+      { date: "2021-04-29", type: "alipay", value: 1570 },
+      { date: "2021-04-30", type: "alipay", value: 1872 },
+      { date: "2021-05-01", type: "alipay", value: 399 },
+      { date: "2021-05-02", type: "alipay", value: 426 },
+      { date: "2021-05-03", type: "alipay", value: 671 },
+      { date: "2021-05-04", type: "alipay", value: 602 },
+      { date: "2021-05-05", type: "alipay", value: 419 }
     ]
   }
 };
