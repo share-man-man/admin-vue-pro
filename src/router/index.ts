@@ -174,6 +174,23 @@ const routes: RouteRecordRaw[] = [
             }
           }
         ]
+      },
+      {
+        path: "/games",
+        component: () => import("@/views/games/index.vue"),
+        redirect: "/games/2048",
+        meta: {
+          name: "小游戏"
+        },
+        children: [
+          {
+            path: "2048",
+            component: () => import("@/views/games/T0FE"),
+            meta: {
+              name: "2048"
+            }
+          }
+        ]
       }
     ]
   },

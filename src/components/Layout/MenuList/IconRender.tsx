@@ -7,6 +7,7 @@ import {
   UserOutlined,
   BarChartOutlined
 } from "@ant-design/icons-vue";
+import { Game, T0FE } from "@/components/Icons";
 
 export const IconMap: { [key: string]: JSX.Element } = {
   HomeOutlined: <HomeOutlined />,
@@ -14,7 +15,9 @@ export const IconMap: { [key: string]: JSX.Element } = {
   OrderedListOutlined: <OrderedListOutlined />,
   ProfileOutlined: <ProfileOutlined />,
   UserOutlined: <UserOutlined />,
-  BarChartOutlined: <BarChartOutlined />
+  BarChartOutlined: <BarChartOutlined />,
+  Game: <Game />,
+  T0FE: <T0FE />
 };
 
 export default defineComponent({

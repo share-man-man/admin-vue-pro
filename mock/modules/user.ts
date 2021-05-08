@@ -106,6 +106,20 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
             icon: "UserOutlined"
           }
         ]
+      },
+      {
+        key: "16",
+        name: "小游戏",
+        path: "/games",
+        icon: "Game",
+        children: [
+          {
+            key: "16",
+            name: "2048",
+            path: "/games/2048",
+            icon: "T0FE"
+          }
+        ]
       }
     ]
   };
