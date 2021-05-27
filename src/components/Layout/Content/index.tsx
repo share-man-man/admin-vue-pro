@@ -23,6 +23,11 @@ import {
 import { RouteItem } from "./data.d";
 import PageView from "./Pageview.vue";
 
+/**
+ * 将路由的path或者fullPath作为key
+ */
+const tabKeyMapRouter: "path" | "fullPath" = "fullPath";
+
 export default defineComponent({
   components: {
     KeepAlive
@@ -42,7 +47,7 @@ export default defineComponent({
      */
     const onChangeTab = (k: string) => {
       const findItem = cacheRoute.value.find(i => i.key === k);
-      if (findItem) router.push(findItem.path);
+      if (findItem) router.push(findItem[tabKeyMapRouter]);
     };
 
     /**
@@ -109,7 +114,9 @@ export default defineComponent({
      */
     const addCache = (c: VNode, r: RouteLocationNormalizedLoaded) => {
       setTimeout(() => {
-        const findItem = cacheRoute.value.find(i => i.key === r.path);
+        const findItem = cacheRoute.value.find(
+          i => i.key === r[tabKeyMapRouter]
+        );
         if (!findItem) {
           cacheRoute.value.push({
             key: r.fullPath,
@@ -121,7 +128,7 @@ export default defineComponent({
             reloading: false
           });
         }
-        activeKey.value = r.path;
+        activeKey.value = r[tabKeyMapRouter];
       });
     };
 

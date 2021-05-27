@@ -100,6 +100,20 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
             icon: "UserOutlined"
           }
         ]
+      },
+      {
+        key: "16",
+        name: "Mock服务",
+        path: "/mock-server",
+        icon: "UserOutlined",
+        children: [
+          {
+            key: "17",
+            name: "项目管理",
+            path: "/mock-server/project",
+            icon: "UserOutlined"
+          }
+        ]
       }
     ]
   };

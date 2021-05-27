@@ -15,6 +15,9 @@ export interface PayloadType {
  * @param req 请求对象
  */
 const intercepter = (req: Request, res: Response): boolean => {
+  if (config.filterNothing) {
+    return false;
+  }
   const errJSON: Required<CustomResponseType> = {
     success: false,
     error: {

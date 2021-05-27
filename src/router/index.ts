@@ -42,7 +42,8 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "form",
-        component: () => import("@/views/form/index.vue"),
+        // component: () => import("@/views/list/index.vue"),
+        component: () => import("@/components/Page/EmptyContainer.vue"),
         redirect: "/form/basic",
         meta: {
           name: "表单"
@@ -73,7 +74,8 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "list",
-        component: () => import("@/views/list/index.vue"),
+        // component: () => import("@/views/list/index.vue"),
+        component: () => import("@/components/Page/EmptyContainer.vue"),
         redirect: "/list/search",
         meta: {
           name: "列表"
@@ -165,6 +167,37 @@ const routes: RouteRecordRaw[] = [
             meta: {
               name: "个性化"
             }
+          }
+        ]
+      },
+      {
+        path: "mock-server",
+        redirect: "/mock-server/project/list",
+        meta: {
+          name: "Mock服务"
+        },
+        component: () => import("@/components/Page/EmptyContainer.vue"),
+        children: [
+          {
+            path: "project",
+            meta: {
+              name: "项目管理"
+            },
+            component: () => import("@/components/Page/EmptyContainer.vue"),
+            redirect: "/mock-server/project/list",
+            children: [
+              {
+                path: "list",
+                meta: { name: "列表" },
+                component: () => import("@/views/mock-server/project/index")
+              },
+              {
+                path: "detail",
+                meta: { name: "详情" },
+                component: () => import("@/views/mock-server/project/detail"),
+                props: r => ({ code: r.query?.code || "" })
+              }
+            ]
           }
         ]
       }

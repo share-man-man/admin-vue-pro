@@ -5,6 +5,10 @@ import fs from "fs";
 import path from "path";
 import intercepter from "./utils/intercept";
 import bodyParser from "body-parser";
+import { networkInterfaces } from "os";
+
+console.clear();
+console.time("Mock服务启动：");
 
 /**
  * 端口
@@ -84,6 +88,9 @@ app.use(function(req, res, next) {
 // 开起服务
 app.listen(port, () => {
   console.log();
-  console.log("\x1b[91m", `Mock服务启动：${port}`);
+  const ip = networkInterfaces()["en0"]?.[1]?.address;
+  console.log("\x1B[31m%s\x1B[0m", `Local:   http://localhost:${port}`);
+  console.log("\x1B[31m%s\x1B[0m", `Network:   http://${ip}:${port}`);
   console.log();
+  console.timeEnd("Mock服务启动：");
 });

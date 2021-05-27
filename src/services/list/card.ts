@@ -7,6 +7,7 @@ interface CardListRespType {
 
 export async function getCardList() {
   return Request<CardListRespType>({
+    // baseURL: "/_mock",
     url: "/list/card",
     method: "GET"
   });
