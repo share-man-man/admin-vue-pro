@@ -10,6 +10,12 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
     data: [
       { key: "1", name: "工作台", path: "/workspace", icon: "HomeOutlined" },
       {
+        key: "dashboard",
+        name: "报表",
+        path: "/dashboard",
+        icon: "BarChartOutlined"
+      },
+      {
         key: "2",
         name: "表单",
         path: "/form",

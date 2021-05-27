@@ -98,7 +98,7 @@ const Request = <T>(config: AxiosRequestConfig): Promise<T> => {
           return;
         }
         const { status } = errorRes;
-        // axios将status>=200&&<300的状态码被当作错误抛出，需要自行处理
+        // axios将status>200&&<300的状态码当作错误抛出，需要自行处理
         notification.error({
           message: config.url,
           description: HttpCodeMessage[status] || `${status}：请求失败`

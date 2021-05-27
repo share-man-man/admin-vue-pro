@@ -41,6 +41,13 @@ const routes: RouteRecordRaw[] = [
         }
       },
       {
+        path: "dashboard",
+        component: () => import("@/views/dashboard"),
+        meta: {
+          name: "报表"
+        }
+      },
+      {
         path: "form",
         // component: () => import("@/views/list/index.vue"),
         component: () => import("@/components/Page/EmptyContainer.vue"),
@@ -115,7 +122,7 @@ const routes: RouteRecordRaw[] = [
         path: "profile/basic",
         component: () => import("@/views/profile/basic"),
         meta: {
-          name: "详情页"
+          name: "基础详情页"
         }
       },
       {
