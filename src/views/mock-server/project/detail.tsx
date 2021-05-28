@@ -1,19 +1,25 @@
-import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import { PageContent, PageHeader } from "@/components/Page";
 import {
   PageHeader as AntPageHeader,
   Descriptions,
-  Table
+  Card,
+  Button,
+  Space,
+  message
 } from "ant-design-vue";
-import { Card } from "ant-design-vue";
-import { ColumnProps } from "ant-design-vue/es/table/interface";
-import { getDetail } from "@/services/mock-server/project";
+import { getDetail, getApiList } from "@/services/mock-server/project";
+import ProTable, { ProColumnType } from "@/components/Pro/ProTable";
 
 import { ProjectListItem } from "./index";
+import { useRouter } from "vue-router";
 
-interface ApiListItem {
+export interface ApiListItem {
   id: number;
   name: string;
+  project_id: number;
+  url: string;
+  json_str: string;
 }
 
 export default defineComponent({
@@ -25,14 +31,57 @@ export default defineComponent({
     }
   },
   setup(prop) {
-    const columns: ColumnProps[] = [
-      { dataIndex: "id", title: "id" },
-      { dataIndex: "name", title: "API名字" }
-    ];
-
     const currentProject = ref<Partial<ProjectListItem>>({});
-
-    const dataSource = reactive<ApiListItem[]>([]);
+    const router = useRouter();
+    const columns: ProColumnType[] = [
+      { dataIndex: "id", title: "id" },
+      { dataIndex: "name", title: "api描述" },
+      { dataIndex: "url", title: "请求路径" },
+      { dataIndex: "json_str", title: "json字符串", ellipsis: true },
+      {
+        dataIndex: "option",
+        title: "操作",
+        customRender: ({ record }: { record: ApiListItem }) => (
+          <Space>
+            <Button
+              type="link"
+              onClick={() => {
+                const inputEl = document.createElement("input");
+                inputEl.setAttribute("value", record.json_str);
+                document.body.appendChild(inputEl);
+                inputEl.select();
+                document.execCommand("copy");
+                document.body.removeChild(inputEl);
+                message.success("成功复制到剪切板");
+                // // console.log(typeof copyRef?.value);
+                // copyRef?.value?.onSelect?.();
+                // copyRef.value?.value = record.json_str;
+                // if (document.execCommand("copy")) {
+                //   document.execCommand("copy");
+                //   alert("复制成功");
+                // }
+              }}
+            >
+              复制json
+            </Button>
+            <Button
+              type="link"
+              onClick={() => {
+                router.push({
+                  path: "/mock-server/project/api",
+                  query: {
+                    id: record.id,
+                    projectId: currentProject.value.id
+                  }
+                });
+              }}
+            >
+              详情
+            </Button>
+          </Space>
+        )
+      }
+    ];
 
     const loadDataList = async () => {
       const res = await getDetail({ code: prop.code });
@@ -41,9 +90,9 @@ export default defineComponent({
       //   dataSource.push(...list);
     };
 
-    onMounted(() => {
-      loadDataList();
-    });
+    // onMounted(() => {
+    //   loadDataList();
+    // });
 
     return () => (
       <>
@@ -51,50 +100,44 @@ export default defineComponent({
           <AntPageHeader>基础详情页</AntPageHeader>
         </PageHeader>
         <PageContent>
-          <Card>
-            <Descriptions title="项目基本信息">
-              <Descriptions.Item label="项目英文名">
-                {currentProject.value.code}
-              </Descriptions.Item>
-              <Descriptions.Item label="项目中文名">
-                {currentProject.value.name}
-              </Descriptions.Item>
-            </Descriptions>
-            {/* <Descriptions title="退款申请">
-              {refund.map(i => (
-                <Descriptions.Item label={i.label}>{i.value}</Descriptions.Item>
-              ))}
-            </Descriptions>
-            <Divider />
-            <Descriptions title="用户信息">
-              {userInfo.map(i => (
-                <Descriptions.Item label={i.label}>{i.value}</Descriptions.Item>
-              ))}
-            </Descriptions>
-            <Divider /> */}
-            {/* <Table
-              rowKey="id"
-              style={{
-                "margin-bottom": "24px"
-              }}
-              scroll={{ x: "100%" }}
-              title={() => "退货商品"}
-              columns={returnGoodsColumns}
-              dataSource={returnGoods}
-              pagination={false}
-            /> */}
-            <Table
-              rowKey="id"
-              style={{
-                "margin-bottom": "24px"
-              }}
-              scroll={{ x: "100%" }}
-              title={() => "API列表"}
+          <Space direction="vertical">
+            <Card>
+              <Descriptions title="项目基本信息">
+                <Descriptions.Item label="项目英文名">
+                  {currentProject.value.code}
+                </Descriptions.Item>
+                <Descriptions.Item label="项目中文名">
+                  {currentProject.value.name}
+                </Descriptions.Item>
+              </Descriptions>
+              <Space>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    router.push({
+                      path: "/mock-server/project/api"
+                    });
+                  }}
+                >
+                  新建api
+                </Button>
+              </Space>
+            </Card>
+            <ProTable
+              title={() => <h3>api列表</h3>}
+              search={false}
               columns={columns}
-              dataSource={dataSource}
-              pagination={false}
+              request={(params, sorter, filter) =>
+                loadDataList().then(() =>
+                  getApiList({
+                    ...params,
+                    sorter,
+                    filter: { ...filter, code: currentProject.value.code }
+                  })
+                )
+              }
             />
-          </Card>
+          </Space>
         </PageContent>
       </>
     );

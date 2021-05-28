@@ -203,6 +203,21 @@ const routes: RouteRecordRaw[] = [
                 meta: { name: "详情" },
                 component: () => import("@/views/mock-server/project/detail"),
                 props: r => ({ code: r.query?.code || "" })
+              },
+              // {
+              //   path: "api",
+              //   meta: { name: "api" },
+              //   component: () => import("@/views/mock-server/project/ApiDetail")
+              // },
+              {
+                path: "api",
+                meta: { name: "api" },
+                component: () =>
+                  import("@/views/mock-server/project/ApiDetail"),
+                props: r => ({
+                  id: Number(r.query.id || "0"),
+                  projectId: Number(r.query.projectId || "0")
+                })
               }
             ]
           }
@@ -219,7 +234,7 @@ const router = createRouter({
 });
 
 router.beforeEach(i => {
-  document.title = i.meta?.name || APP_NAME;
+  document.title = (i.meta?.name || APP_NAME) as string;
   NProgress.start();
   NProgress.set(0.7);
   NProgress.inc();

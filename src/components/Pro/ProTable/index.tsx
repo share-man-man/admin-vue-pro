@@ -15,6 +15,7 @@ import {
   TableProps,
   SortOrder
 } from "ant-design-vue/lib/table/interface";
+import { defaultTableProps } from "ant-design-vue/lib/table/Table";
 import { formColProps } from "./config";
 import { deleteEmptyKey } from "@/utils";
 
@@ -81,7 +82,8 @@ export type ProColumnType = ColumnProps & {
   listKey?: string;
 };
 
-export interface ProTable extends Omit<TableProps, "columns" | "rowSelection"> {
+export interface ProTableProps
+  extends Omit<TableProps, "columns" | "rowSelection"> {
   //   rowKey?: string;
   columns: ProColumnType[];
   /** @name 一个获得 dataSource 的方法 */
@@ -94,22 +96,31 @@ export interface ProTable extends Omit<TableProps, "columns" | "rowSelection"> {
     sort: Record<string, SortOrder>,
     filter: Record<string, (string | number)[]>
   ) => Promise<Partial<RequestData>>;
+  search?: boolean;
 }
+
+/* 封装table组件原始参数类型 */
+const originProps = {} as typeof defaultTableProps;
 
 const ProTable = defineComponent({
   props: {
+    ...originProps,
     columns: {
-      type: Object as PropType<ProTable["columns"]>
+      type: Object as PropType<ProTableProps["columns"]>
     },
     request: {
-      type: Function as PropType<ProTable["request"]>
+      type: (Function as unknown) as PropType<ProTableProps["request"]>
     },
     rowKey: {
-      type: String as PropType<ProTable["rowKey"]>,
+      type: String as PropType<ProTableProps["rowKey"]>,
       default: () => "id"
+    },
+    search: {
+      type: Boolean as PropType<ProTableProps["search"]>,
+      default: () => true
     }
   },
-  setup(props) {
+  setup(props, { attrs }) {
     const form = ref<{
       [key: string]: (string | number)[];
     }>({});
@@ -130,7 +141,10 @@ const ProTable = defineComponent({
 
     const onSearch = async () => {
       const res = await props.request?.(
-        { ...pagination.value },
+        {
+          current: pagination.value.current,
+          pageSize: pagination.value.pageSize
+        },
         {},
         deleteEmptyKey(form.value)
       );
@@ -156,39 +170,44 @@ const ProTable = defineComponent({
 
     return () => (
       <div class="av-pro-table">
-        <Card>
-          <Form
-            layout="horizontal"
-            model={form.value}
-            ref={formRef}
-            label-col={{ span: 10 }}
-            wrapper-col={{ span: 14 }}
-          >
-            <Row type="flex" justify="start">
-              {formList.value.map(i => (
-                <Col {...formColProps}>
-                  <Form.Item label={i.title} name={i.dataIndex}>
-                    <Input v-model={[form.value[i.dataIndex || ""], "value"]} />
-                  </Form.Item>
+        {props.search && (
+          <Card>
+            <Form
+              layout="horizontal"
+              model={form.value}
+              ref={formRef}
+              label-col={{ span: 10 }}
+              wrapper-col={{ span: 14 }}
+            >
+              <Row type="flex" justify="start">
+                {formList.value.map(i => (
+                  <Col {...formColProps}>
+                    <Form.Item label={i.title} name={i.dataIndex}>
+                      <Input
+                        v-model={[form.value[i.dataIndex || ""], "value"]}
+                      />
+                    </Form.Item>
+                  </Col>
+                ))}
+                {formList.value.length % 2 === 0 && <Col {...formColProps} />}
+                <Col
+                  {...formColProps}
+                  style={{ textAlign: "right", marginBottom: "24px" }}
+                >
+                  <Space>
+                    <Button onClick={onReset}>重置</Button>
+                    <Button type="primary" onClick={onSearch}>
+                      查询
+                    </Button>
+                  </Space>
                 </Col>
-              ))}
-              {formList.value.length % 2 === 0 && <Col {...formColProps} />}
-              <Col
-                {...formColProps}
-                style={{ textAlign: "right", marginBottom: "24px" }}
-              >
-                <Space>
-                  <Button onClick={onReset}>重置</Button>
-                  <Button type="primary" onClick={onSearch}>
-                    查询
-                  </Button>
-                </Space>
-              </Col>
-            </Row>
-          </Form>
-        </Card>
+              </Row>
+            </Form>
+          </Card>
+        )}
         <Card>
           <Table
+            {...attrs}
             rowKey={props.rowKey}
             columns={tableComuns.value}
             dataSource={dataSource.value}
