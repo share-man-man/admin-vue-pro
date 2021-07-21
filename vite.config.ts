@@ -17,6 +17,16 @@ export default defineConfig({
         changeOrigin: true
         // 设置支持https协议的代理
         // secure: false
+      },
+      "/mock-server": {
+        target: "http://172.20.49.116:7001",
+        rewrite: path => path.replace(/^\/mock-server/, ""),
+        changeOrigin: true
+      },
+      "/_mock": {
+        target: "http://172.20.49.116:7001",
+        rewrite: path => path.replace(/^\/_mock/, "/request/admin-vue-pro"),
+        changeOrigin: true
       }
     }
   },
@@ -47,9 +57,11 @@ export default defineConfig({
     //   targets: ["defaults", "not IE 11"]
     // })
   ],
-  // 别名
-  alias: {
-    "@/": "/src/"
+  resolve: {
+    // 别名
+    alias: {
+      "@/": "/src/"
+    }
   },
   css: {
     preprocessorOptions: {

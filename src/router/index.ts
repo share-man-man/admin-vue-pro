@@ -49,7 +49,8 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "form",
-        component: () => import("@/views/form/index.vue"),
+        // component: () => import("@/views/list/index.vue"),
+        component: () => import("@/components/Page/EmptyContainer.vue"),
         redirect: "/form/basic",
         meta: {
           name: "表单"
@@ -80,7 +81,8 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "list",
-        component: () => import("@/views/list/index.vue"),
+        // component: () => import("@/views/list/index.vue"),
+        component: () => import("@/components/Page/EmptyContainer.vue"),
         redirect: "/list/search",
         meta: {
           name: "列表"
@@ -191,6 +193,52 @@ const routes: RouteRecordRaw[] = [
             }
           }
         ]
+      },
+      {
+        path: "mock-server",
+        redirect: "/mock-server/project/list",
+        meta: {
+          name: "Mock服务"
+        },
+        component: () => import("@/components/Page/EmptyContainer.vue"),
+        children: [
+          {
+            path: "project",
+            meta: {
+              name: "项目管理"
+            },
+            component: () => import("@/components/Page/EmptyContainer.vue"),
+            redirect: "/mock-server/project/list",
+            children: [
+              {
+                path: "list",
+                meta: { name: "列表" },
+                component: () => import("@/views/mock-server/project/index")
+              },
+              {
+                path: "detail",
+                meta: { name: "详情" },
+                component: () => import("@/views/mock-server/project/detail"),
+                props: r => ({ code: r.query?.code || "" })
+              },
+              // {
+              //   path: "api",
+              //   meta: { name: "api" },
+              //   component: () => import("@/views/mock-server/project/ApiDetail")
+              // },
+              {
+                path: "api",
+                meta: { name: "api" },
+                component: () =>
+                  import("@/views/mock-server/project/ApiDetail"),
+                props: r => ({
+                  id: Number(r.query.id || "0"),
+                  projectId: Number(r.query.projectId || "0")
+                })
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -203,7 +251,7 @@ const router = createRouter({
 });
 
 router.beforeEach(i => {
-  document.title = i.meta?.name || APP_NAME;
+  document.title = (i.meta?.name || APP_NAME) as string;
   NProgress.start();
   NProgress.set(0.7);
   NProgress.inc();

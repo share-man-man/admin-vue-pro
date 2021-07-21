@@ -74,8 +74,8 @@ const MenuRender = defineComponent({
      * 菜单列表
      */
     menuInfo: {
-      type: Object as PropType<MenuItemType[]>,
-      default: []
+      type: Array as PropType<MenuItemType[]>,
+      default: () => []
     }
   },
   setup(props) {

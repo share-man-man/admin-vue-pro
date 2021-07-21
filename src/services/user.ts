@@ -3,6 +3,7 @@ import request from "@/utils/request";
 
 export async function getMenuInfo(data?: unknown) {
   return request<MenuItemType[]>({
+    // baseURL: "/_mock",
     url: "/user/menu/list",
     method: "POST",
     data

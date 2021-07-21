@@ -114,10 +114,24 @@ const getMenuInfo = (): CustomResponseType<MenuItemType[]> => {
         icon: "Game",
         children: [
           {
-            key: "16",
+            key: "17",
             name: "2048",
             path: "/games/2048",
             icon: "T0FE"
+          }
+        ]
+      },
+      {
+        key: "18",
+        name: "Mock服务",
+        path: "/mock-server",
+        icon: "UserOutlined",
+        children: [
+          {
+            key: "19",
+            name: "项目管理",
+            path: "/mock-server/project",
+            icon: "UserOutlined"
           }
         ]
       }

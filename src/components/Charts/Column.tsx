@@ -10,7 +10,7 @@ export default defineComponent({
         column: ColumnDataItem[];
         line: LineDataItem[];
       }>,
-      default: () => []
+      default: () => ({ column: [], line: [] })
     }
   },
   setup(props) {

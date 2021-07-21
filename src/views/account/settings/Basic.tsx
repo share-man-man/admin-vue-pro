@@ -1,6 +1,6 @@
 import { MethodsType } from "@/views/form/basic";
 import { Form, Input, Select, Button } from "ant-design-vue";
-import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
+// import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { defineComponent, reactive, ref } from "vue";
 
 const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
@@ -18,14 +18,14 @@ export default defineComponent({
     });
     const rules = {};
     const onSubmit = () => {
-      formRef.value
-        ?.validate?.()
-        .then(() => {
-          console.log("values", form);
-        })
-        .catch((error: ValidateErrorEntity) => {
-          console.log("error", error);
-        });
+      // formRef.value
+      //   ?.validate?.()
+      //   .then(() => {
+      //     console.log("values", form);
+      //   })
+      //   .catch((error: ValidateErrorEntity) => {
+      //     console.log("error", error);
+      //   });
     };
     return () => (
       <div>

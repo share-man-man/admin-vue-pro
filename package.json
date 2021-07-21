@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vuedx-typecheck . && vite build",
     "preview": "vite preview",
     "dev-cli": "vue-cli-service serve",
