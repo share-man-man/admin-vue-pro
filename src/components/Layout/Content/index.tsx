@@ -122,7 +122,7 @@ export default defineComponent({
             key: r.fullPath,
             path: r.path,
             fullPath: r.fullPath,
-            tabName: r.meta.name,
+            tabName: r.meta.name as string,
             component: c,
             reloadTime: new Date().getTime(),
             reloading: false

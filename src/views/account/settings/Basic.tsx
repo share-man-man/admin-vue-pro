@@ -1,6 +1,6 @@
 import { MethodsType } from "@/views/form/basic";
 import { Form, Input, Select, Button } from "ant-design-vue";
-// import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
+import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { defineComponent, reactive, ref } from "vue";
 
 const labelCol = { sm: { span: 7 }, lg: { span: 7 } };
@@ -16,16 +16,33 @@ export default defineComponent({
       country: "zh",
       address: ""
     });
-    const rules = {};
+    const rules = {
+      email: [
+        {
+          required: true,
+          validator(_: Record<string, any>[], value: string) {
+            return new Promise((resolve, reject) => {
+              const regex = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+              const valdit = regex.test(value);
+              if (value && !valdit) {
+                reject("邮箱格式不正确");
+                return;
+              }
+              resolve(true);
+            });
+          }
+        }
+      ]
+    };
     const onSubmit = () => {
-      // formRef.value
-      //   ?.validate?.()
-      //   .then(() => {
-      //     console.log("values", form);
-      //   })
-      //   .catch((error: ValidateErrorEntity) => {
-      //     console.log("error", error);
-      //   });
+      formRef.value
+        ?.validate?.()
+        .then(() => {
+          console.log("values", form);
+        })
+        .catch((error: ValidateErrorEntity) => {
+          console.log("error", error);
+        });
     };
     return () => (
       <div>
@@ -36,7 +53,7 @@ export default defineComponent({
           label-col={labelCol}
           wrapper-col={wrapperCol}
         >
-          <Form.Item label="Email" name="name" required>
+          <Form.Item label="Email" name="email">
             <Input v-model={[form.email, "value"]} />
           </Form.Item>
           <Form.Item label="Nickname" name="nickname" required>

@@ -19,10 +19,14 @@ import style from "./style.module.less";
 import { getList } from "@/services/list/basic";
 import { formatTime } from "@/utils";
 
+import { ProgressStatuses } from "ant-design-vue/es/progress/props";
+
 const colConfig = {
   xs: 24,
   sm: 8
 };
+
+type StatusType = typeof ProgressStatuses[number];
 
 export interface ListItemType {
   avatar: string;
@@ -31,7 +35,7 @@ export interface ListItemType {
   owner: string;
   startTime: number;
   process: number;
-  status: string;
+  status: StatusType;
 }
 
 interface HeaderInfoProp {

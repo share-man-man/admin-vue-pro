@@ -135,7 +135,19 @@ export default defineComponent({
         },
         customRender: ({ text }) => {
           const o = stateObj[text as keyof typeof StateEnum];
-          return <Badge status={o.status} text={o.text} />;
+          return (
+            <Badge
+              status={
+                o.status as
+                  | "default"
+                  | "error"
+                  | "success"
+                  | "processing"
+                  | "warning"
+              }
+              text={o.text}
+            />
+          );
         }
       },
       {

@@ -39,7 +39,7 @@ export default defineComponent({
       { id: "address", label: "联系地址", value: "M78星云-红色巨星" }
     ]);
 
-    const TitleOperation = () => (
+    const TitleOperation = (
       <>
         <Button.Group style="margin-right:4px">
           <Button>操作</Button>
@@ -51,7 +51,7 @@ export default defineComponent({
         <Button type="primary">主操作</Button>
       </>
     );
-    const TitleFooter = () => (
+    const TitleFooter = (
       <Tabs activeKey="1">
         <Tabs.TabPane key="1" tab="详情" />
         <Tabs.TabPane key="2" tab="规则" />

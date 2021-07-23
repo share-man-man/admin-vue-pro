@@ -133,7 +133,7 @@ export default defineComponent({
               label-col={labelCol}
               wrapper-col={wrapperCol}
             >
-              <FormItem label={() => <CustomLabel />} name="name">
+              <FormItem label={<CustomLabel />} name="name">
                 <Input v-model={[form.name, "value"]} />
               </FormItem>
               <FormItem label="Activity zone" name="region">

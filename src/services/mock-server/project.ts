@@ -2,7 +2,7 @@ import Request from "@/utils/request";
 import { ProjectListItem } from "@/views/mock-server/project";
 import { ApiListItem } from "@/views/mock-server/project/detail";
 
-export const getList = async params =>
+export const getList = async (params = {}) =>
   Request<{ list: ProjectListItem[] }>({
     baseURL: "/mock-server",
     url: "/project/list",
@@ -26,7 +26,7 @@ export const getDetail = async (params: { code: string }) =>
     params
   });
 
-export const getApiList = async params =>
+export const getApiList = async (params = {}) =>
   Request<{ list: ApiListItem[] }>({
     baseURL: "/mock-server",
     url: "/api/list",
@@ -42,7 +42,7 @@ export const getApiDetail = async (params: Partial<ApiListItem>) =>
     params
   });
 
-export const createApi = async data =>
+export const createApi = async (data = {}) =>
   Request<{ list: ApiListItem[] }>({
     baseURL: "/mock-server",
     url: "/api/create",
