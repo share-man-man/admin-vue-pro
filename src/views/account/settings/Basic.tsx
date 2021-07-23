@@ -22,9 +22,13 @@ export default defineComponent({
           required: true,
           validator(_: Record<string, any>[], value: string) {
             return new Promise((resolve, reject) => {
+              if (!value) {
+                reject("email is required");
+                return;
+              }
               const regex = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
               const valdit = regex.test(value);
-              if (value && !valdit) {
+              if (!valdit) {
                 reject("邮箱格式不正确");
                 return;
               }
@@ -33,16 +37,16 @@ export default defineComponent({
           }
         }
       ],
-      nickname: [
-        {
-          required: true,
-          validator() {
-            return new Promise(resolve => {
-              resolve(true);
-            });
-          }
-        }
-      ],
+      // nickname: [
+      //   {
+      //     required: true,
+      //     validator() {
+      //       return new Promise(resolve => {
+      //         resolve(true);
+      //       });
+      //     }
+      //   }
+      // ],
       address: [
         {
           required: true,
@@ -76,7 +80,7 @@ export default defineComponent({
           <Form.Item label="Email" name="email">
             <Input v-model={[form.email, "value"]} />
           </Form.Item>
-          <Form.Item label="Nickname" name="nickname">
+          <Form.Item label="Nickname" name="nickname" required>
             <Input v-model={[form.nickname, "value"]} />
           </Form.Item>
           <Form.Item label="Personal profile" name="profile">
