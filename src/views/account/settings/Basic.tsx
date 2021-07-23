@@ -32,6 +32,26 @@ export default defineComponent({
             });
           }
         }
+      ],
+      nickname: [
+        {
+          required: true,
+          validator() {
+            return new Promise(resolve => {
+              resolve(true);
+            });
+          }
+        }
+      ],
+      address: [
+        {
+          required: true,
+          validator() {
+            return new Promise(resolve => {
+              resolve(true);
+            });
+          }
+        }
       ]
     };
     const onSubmit = () => {
@@ -56,7 +76,7 @@ export default defineComponent({
           <Form.Item label="Email" name="email">
             <Input v-model={[form.email, "value"]} />
           </Form.Item>
-          <Form.Item label="Nickname" name="nickname" required>
+          <Form.Item label="Nickname" name="nickname">
             <Input v-model={[form.nickname, "value"]} />
           </Form.Item>
           <Form.Item label="Personal profile" name="profile">
@@ -70,7 +90,7 @@ export default defineComponent({
               <Select.Option value="zh">中国</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label="address" name="address" required>
+          <Form.Item label="address" name="address">
             <Input v-model={[form.address, "value"]} />
           </Form.Item>
           <Form.Item label=" " colon={false}>
