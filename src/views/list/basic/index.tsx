@@ -63,7 +63,10 @@ const ExtraContent = () => (
       <Radio.Button value="b">进行中</Radio.Button>
       <Radio.Button value="c">等待中</Radio.Button>
     </Radio.Group>
-    <Input.Search placeholder="请输入" style="width: 272px;margin-left:16px" />
+    <Input.Search
+      placeholder="请输入值"
+      style="width: 272px;margin-left:16px"
+    />
   </div>
 );
 
