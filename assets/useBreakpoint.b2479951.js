@@ -1,1 +1,0 @@
-import{N as n}from"./debounce.67102cb7.js";import{l as u,E as o,x as r}from"./vendor.1bd2b8e6.js";function s(){var s=u({}),e=null;return o((function(){e=n.subscribe((function(n){s.value=n}))})),r((function(){n.unsubscribe(e)})),s}export{s as u};
