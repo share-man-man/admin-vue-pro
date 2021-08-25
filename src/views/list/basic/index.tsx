@@ -60,7 +60,7 @@ const HeaderInfo: (p: HeaderInfoProp) => JSX.Element = ({
 const ExtraContent = () => (
   <div class={style["extra-content"]}>
     <RadioGroup defaultValue="a">
-      <RadioButton value="a">全部</RadioButton>
+      <RadioButton value="a">所有</RadioButton>
       <RadioButton value="b">进行中</RadioButton>
       <RadioButton value="c">等待中</RadioButton>
     </RadioGroup>
