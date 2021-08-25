@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --host",
-    "build": "vuedx-typecheck . && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "dev-cli": "vue-cli-service serve",
     "build-cli": "vue-cli-service build",
@@ -12,10 +12,11 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "build:av": "vuedx-typecheck . && vite build --base=/admin-vue-pro/ --mode=deploy",
+    "build:av": "vite build --base=/admin-vue-pro/ --mode=deploy",
     "deploy": "bash deploy.sh"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "@antv/g2plot": "^2.3.16",
     "ant-design-vue": "2.2.6",
     "axios": "^0.21.1",
@@ -54,8 +55,6 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^2.0.0-0",
-    "@vuedx/typecheck": "^0.6.3",
-    "@vuedx/typescript-plugin-vue": "^0.6.3",
     "body-parser": "^1.19.0",
     "chai": "^4.1.2",
     "eslint": "^6.7.2",
