@@ -14,15 +14,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # 指定node
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
 
+      # 获取yarn缓存
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
+      # 缓存依赖
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
@@ -31,12 +34,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      # 安装依赖
       - run: yarn install --frozen-lockfile
+      # 构建包
       - run: yarn build:av
 
+      # 发布包，默认到gh-pages分支
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        # if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
           publish_dir: ./dist
