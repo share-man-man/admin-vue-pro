@@ -1,35 +1,38 @@
-name: Deploy GitHub Pages
+name: GitHub Pages
 
-# 触发条件：在 push 到 master 分支后
 on:
   push:
     branches:
       - master
+  pull_request:
 
-# 任务
 jobs:
-  build-and-deploy:
-    # 服务器环境：最新版 Ubuntu
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-20.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      # 拉取代码
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          persist-credentials: false
+          node-version: '14'
 
-      # 1、生成静态文件
-      - name: Build
-        run: npm install && npm run build
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      # 2、部署到 GitHub Pages
+      - run: npm ci
+      - run: npm run build
+
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REPOSITORY_NAME: shuxiaoman/shuxiaoman.github.io
-          BRANCH: gh-pages
-          FOLDER: dist
-          #注意这里的 public 是仓库根目录下的 public，也就是 npm run build 生成静态资源的路径，比如有的人是 `docs/.vuepress/dist`
-
-      
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: ./dist
