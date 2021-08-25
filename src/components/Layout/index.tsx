@@ -2,7 +2,8 @@ import { defineComponent } from "@vue/runtime-core";
 import { Layout } from "ant-design-vue";
 import MenuList from "./MenuList";
 import Navigation from "./Navigation.vue";
-import Content from "./Content";
+// import Content from "./Content";
+import Content from "./Content/index.vue";
 
 export default defineComponent({
   setup() {

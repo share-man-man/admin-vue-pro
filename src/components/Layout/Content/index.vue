@@ -53,19 +53,15 @@
       </template>
     </a-tab-pane>
   </a-tabs>
-  <router-view v-slot="{ Component, route }">
-    {{ onAddCache(Component, route) }}
-  </router-view>
   <a-layout-content class="av-content">
-    <div
-      v-for="r in cacheRoute"
-      v-show="r.key === activeKey"
-      :key="r.key"
-      class="av-content-div"
-    >
-      <router-view>
-        <keep-alive v-if="!r.reloading">
-          <component :is="r.component" v-if="r.key === activeKey" />
+    <div class="av-content-div">
+      <router-view v-slot="{ Component: c, route: r }">
+        <keep-alive :include="includeKeys">
+          <component
+            v-if="!reloadingIcon"
+            :is="onAddCache(c, r)"
+            :key="c.type.__hmrId"
+          />
         </keep-alive>
       </router-view>
     </div>
@@ -73,7 +69,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, ref, VNode } from "vue";
+import {
+  cloneVNode,
+  computed,
+  defineComponent,
+  nextTick,
+  ref,
+  VNode,
+  watchEffect
+} from "vue";
 import { RouteLocationNormalizedLoaded, useRouter } from "vue-router";
 import { Layout, Tabs, Dropdown, Menu } from "ant-design-vue";
 import {
@@ -109,6 +113,10 @@ export default defineComponent({
     const activeIndex = computed(() =>
       cacheRoute.value.findIndex(i => i.key === activeKey.value)
     );
+    const includeKeys = ref<string[]>([]);
+    watchEffect(() => {
+      includeKeys.value = cacheRoute.value.map(i => i.key);
+    });
 
     /**
      * 点击tab页，跳转路由
@@ -122,14 +130,20 @@ export default defineComponent({
      * 关闭页面
      */
     const remove = (k: string) => {
-      const index = cacheRoute.value.findIndex(i => i.key === k);
-      if (index > -1) {
-        cacheRoute.value.splice(index, 1);
-      }
       // 如果移除的是当前页面，自动跳转到第一个页面
       if (k === activeKey.value) {
-        onChangeTab(cacheRoute.value[0]?.key);
+        const toItem = cacheRoute.value.find(i => i.key !== k);
+        if (!toItem) return;
+        onChangeTab(toItem.key);
+        // onChangeTab(cacheRoute.value[0]?.key);
       }
+
+      setTimeout(() => {
+        const index = cacheRoute.value.findIndex(i => i.key === k);
+        if (index > -1) {
+          cacheRoute.value.splice(index, 1);
+        }
+      });
     };
 
     /**
@@ -167,10 +181,14 @@ export default defineComponent({
       const activeItem = cacheRoute.value[activeIndex.value];
       activeItem.reloading = true;
       reloadingIcon.value = true;
+      const index = includeKeys.value.findIndex(i => i === activeItem.key);
+      const [reloadKey] = includeKeys.value.splice(index, 1);
+
       nextTick(() => {
         activeItem.reloading = false;
         setTimeout(() => {
           reloadingIcon.value = false;
+          includeKeys.value.splice(index, 0, reloadKey);
         }, 500);
       });
     };
@@ -180,22 +198,31 @@ export default defineComponent({
      * @param c 虚拟dom
      * @param r 路由
      */
-    const onAddCache = (c: VNode, r: RouteLocationNormalizedLoaded) => {
-      setTimeout(() => {
-        const findItem = cacheRoute.value.find(i => i.key === r.path);
-        if (!findItem) {
-          cacheRoute.value.push({
-            key: r.fullPath,
-            path: r.path,
-            fullPath: r.fullPath,
-            tabName: r.meta.name,
-            component: c,
-            reloadTime: new Date().getTime(),
-            reloading: false
-          });
-        }
-        activeKey.value = r.path;
-      });
+    const onAddCache = (comp: VNode, r: RouteLocationNormalizedLoaded) => {
+      // const key = (c.type as any).name || "_noCache";
+      const key = r.fullPath;
+      activeKey.value = key;
+
+      const index = cacheRoute.value.findIndex(i => i.key === key);
+      const pushItem = {
+        key: key,
+        path: r.path,
+        fullPath: r.fullPath,
+        tabName: String(r.meta.name),
+        // component: c,
+        reloadTime: new Date().getTime(),
+        reloading: false
+      };
+      if (index === -1) {
+        cacheRoute.value.push(pushItem);
+        return;
+      }
+
+      // 基于name缓存
+      const c = cloneVNode(comp);
+      (c.type as any).name = key;
+
+      return c;
     };
 
     return {
@@ -208,7 +235,8 @@ export default defineComponent({
       onTopNow,
       removeElse,
       closable,
-      reloadingIcon
+      reloadingIcon,
+      includeKeys
     };
   }
 });

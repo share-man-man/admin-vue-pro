@@ -47,12 +47,12 @@ const SubMenu = ({ subList = [] }: { subList: MenuItemType[] }) => {
       return (
         <AntSubMenu
           key={item.key}
-          title={() => (
+          title={
             <span>
               <IconRender type={item.icon} />
               <span>{item.name}</span>
             </span>
-          )}
+          }
         >
           {SubMenu({ subList: item.children || [] })}
         </AntSubMenu>
@@ -97,10 +97,11 @@ const MenuRender = defineComponent({
       m.forEach(i => {
         // 默认展开的菜单项
         if (
-          route.matched.find(r => r.path === i.path) &&
+          route.path.startsWith(i.path) &&
+          route.path !== i.path &&
           !openKeys.value.includes(i.key)
         ) {
-          openKeys.value.push(i.key);
+          openKeys.value = [...openKeys.value, i.key];
         }
         // 默认选中的菜单项
         if (route.path === i.path && !selectedKeys.value.includes(i.key)) {
@@ -109,6 +110,9 @@ const MenuRender = defineComponent({
         // 如果有子属性，递归调用
         if (i.children) {
           menuEffect(i.children);
+        }
+        if (!i.children && route.path.startsWith(i.path)) {
+          selectedKeys.value.push(i.key);
         }
       });
     };

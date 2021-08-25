@@ -47,69 +47,60 @@ const routes: RouteRecordRaw[] = [
           name: "报表"
         }
       },
+      // form表单
       {
-        path: "form",
-        // component: () => import("@/views/list/index.vue"),
-        component: () => import("@/components/Page/EmptyContainer.vue"),
-        redirect: "/form/basic",
+        path: "form/basic",
+        component: () => import("@/views/form/basic/index"),
         meta: {
-          name: "表单"
-        },
-        children: [
-          {
-            path: "basic",
-            component: () => import("@/views/form/basic/index"),
-            meta: {
-              name: "基础表单"
-            }
-          },
-          {
-            path: "step",
-            component: () => import("@/views/form/step/index"),
-            meta: {
-              name: "步骤表单"
-            }
-          },
-          {
-            path: "advanced",
-            component: () => import("@/views/form/advanced/index"),
-            meta: {
-              name: "高级表单"
-            }
-          }
-        ]
+          name: "基础表单"
+        }
       },
       {
-        path: "list",
-        // component: () => import("@/views/list/index.vue"),
-        component: () => import("@/components/Page/EmptyContainer.vue"),
-        redirect: "/list/search",
+        path: "form/step",
+        component: () => import("@/views/form/step/index"),
         meta: {
-          name: "列表"
-        },
-        children: [
-          {
-            path: "basic",
-            component: () => import("@/views/list/basic"),
-            meta: {
-              name: "基础列表"
-            }
-          },
-          {
-            path: "search",
-            component: () => import("@/views/list/search"),
-            meta: {
-              name: "查询表格"
-            }
-          },
-          {
-            path: "card",
-            component: () => import("@/views/list/card"),
-            meta: {
-              name: "卡片列表"
-            }
-          }
-        ]
+          name: "步骤表单"
+        }
+      },
+      {
+        path: "form/advanced",
+        component: () => import("@/views/form/advanced/index"),
+        meta: {
+          name: "高级表单"
+        }
+      },
+      // 列表
+      // {
+      //   path: "list",
+      //   // component: () => import("@/views/list/index.vue"),
+      //   component: () => import("@/components/Page/EmptyContainer.vue"),
+      //   redirect: "/list/search",
+      //   meta: {
+      //     name: "列表"
+      //   },
+      //   children: [
+      {
+        path: "list/basic",
+        component: () => import("@/views/list/basic"),
+        meta: {
+          name: "基础列表"
+        }
+      },
+      {
+        path: "list/search",
+        component: () => import("@/views/list/search"),
+        meta: {
+          name: "查询表格"
+        }
+      },
+      {
+        path: "list/card",
+        component: () => import("@/views/list/card"),
+        meta: {
+          name: "卡片列表"
+        }
+        //   }
+        // ]
       },
       {
         path: "profile",

@@ -14,7 +14,7 @@ export interface RouteItem {
   /**
    * 路由匹配组件
    */
-  component: VNode;
+  component?: VNode;
   /**
    * 标签页名字
    */
