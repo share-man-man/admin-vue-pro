@@ -20,25 +20,24 @@ jobs:
         with:
           node-version: "14"
 
-      # 获取yarn缓存
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # # 获取yarn缓存
+      # - name: Get yarn cache
+      #   id: yarn-cache
+      #   run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      # 缓存依赖
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      # # 缓存依赖
+      # - name: Cache dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ${{ steps.yarn-cache.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
 
       # 安装依赖
-      # - run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
       # 构建包
-      # - run: yarn build:av
-
+      - run: yarn build:av
 
       # 发布包，默认到gh-pages分支
       - name: Deploy
