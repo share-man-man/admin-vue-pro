@@ -10,7 +10,7 @@ export default defineComponent({
   setup() {
     const formRef = ref<MethodsType>(undefined);
     const form = reactive({
-      email: "651487447@168.com",
+      email: "651487447@138.com",
       nickname: "GrainFull",
       profile: "",
       country: "zh",
