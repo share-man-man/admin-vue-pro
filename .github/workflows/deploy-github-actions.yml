@@ -46,3 +46,14 @@ jobs:
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
           publish_dir: ./dist
+
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          # 注意在 Settings->Secrets 配置 GITEE_SSH_KEY
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_KEY }}
+        with:
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: git@github.com:shuxiaoman/admin-vue-pro.git
+          # 注意替换为你的 Gitee 目标仓库地址
+          destination-repo: git@gitee.com:shuxiaoman/admin-vue-pro.git
