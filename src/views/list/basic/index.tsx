@@ -2,8 +2,9 @@ import { defineComponent, onMounted, reactive } from "vue";
 import { PageContent } from "@/components/Page";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import {
-  Radio,
-  Input,
+  RadioGroup,
+  RadioButton,
+  InputSearch,
   Progress,
   Card,
   Row,
@@ -58,15 +59,12 @@ const HeaderInfo: (p: HeaderInfoProp) => JSX.Element = ({
 
 const ExtraContent = () => (
   <div class={style["extra-content"]}>
-    <Radio.Group defaultValue="a">
-      <Radio.Button value="a">全部</Radio.Button>
-      <Radio.Button value="b">进行中</Radio.Button>
-      <Radio.Button value="c">等待中</Radio.Button>
-    </Radio.Group>
-    <Input.Search
-      placeholder="请输入值"
-      style="width: 272px;margin-left:16px"
-    />
+    <RadioGroup defaultValue="a">
+      <RadioButton value="a">全部</RadioButton>
+      <RadioButton value="b">进行中</RadioButton>
+      <RadioButton value="c">等待中</RadioButton>
+    </RadioGroup>
+    <InputSearch placeholder="请输入值" style="width: 272px;margin-left:16px" />
   </div>
 );
 
