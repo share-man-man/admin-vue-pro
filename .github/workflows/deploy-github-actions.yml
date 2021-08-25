@@ -1,32 +1,50 @@
-# This is a basic workflow to help you get started with Actions
+name: Deploy gh-pages
 
-name: deploy-project
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    name: Build and deploy gh-pages
+    env:
+      MY_SECRET   : ${{secrets.commit_secret}}
+      PUBLISH_DIR : ./dist
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x]
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.3.0
-      - run: yarn install
-      - run: yarn build:av
-      - run: cd dist
-      - run: touch .nojekyll
-      - run: yarn gh-pages -d dist --dotfiles
-
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: install # will run `yarn install` command
+    - uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: build:av # will run `yarn build` command
+    - name: Commit files
+      run: |
+        echo ${{secrets.DEPLOY_PASSWORD}} | sudo -S chown -R $USER:$USER $PUBLISH_DIR
+        cd $PUBLISH_DIR
+        touch .nojekyll
+        git init
+        git config --local user.email "651487447@qq.com"
+        git config --local user.name "GitHub Action"
+        git status
+        git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
+        git checkout -b gh-pages
+        git add --all
+        git commit -m "deploy to Github pages"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'gh-pages'
+        force: true
+        directory: '.vuepress/dist'
