@@ -1,1 +1,0 @@
-var e=0,n={};function t(t){var i=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1,a=e++,r=i;function o(){(r-=1)<=0?(t(),delete n[a]):n[a]=requestAnimationFrame(o)}return n[a]=requestAnimationFrame(o),a}t.cancel=function(e){void 0!==e&&(cancelAnimationFrame(n[e]),delete n[e])},t.ids=n;export{t as w};
