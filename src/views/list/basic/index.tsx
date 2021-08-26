@@ -125,7 +125,7 @@ export default defineComponent({
                 <>
                   <Button type="dashed" style="width: 100%;margin-top:10px">
                     <PlusOutlined />
-                    添加
+                    新增
                   </Button>
                   <List dataSource={dataList}>
                     {{
