@@ -1,0 +1,1 @@
+import{$ as i}from"./debounce.b47df357.js";var o=1/0,f=17976931348623157e292;function e(r){if(!r)return r===0?r:0;if(r=i(r),r===o||r===-o){var t=r<0?-1:1;return t*f}return r===r?r:0}function m(r){var t=e(r),n=t%1;return t===t?n?t-n:t:0}export{m as t};
