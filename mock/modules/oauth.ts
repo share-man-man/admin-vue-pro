@@ -9,6 +9,7 @@ import {
 import jwt from "jsonwebtoken";
 import { config } from "../utils/config";
 import { LoginReq } from "../../src/services/oauth";
+import Mock from "mockjs"; //引入mockjs
 
 export default {
   "POST /oauth/refresh_token": (req: Request, res: Response) => {
@@ -86,5 +87,33 @@ export default {
   },
   "POST /oauth/logout": {
     success: true
+  },
+  "POST /api/test": (req: Request, res: Response) => {
+    // console.log(req.body.page.pageSize);
+
+    const total = 234;
+    const r1 = {
+      code: "000000",
+      data: {
+        total
+      }
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    r1.data[`list|${total}`] = [
+      {
+        "id|+1": 1,
+        "metaTitle|1": ["all", "open", "closed", "processing"],
+        "metaDesc|1": [true, false]
+      }
+    ];
+    const r2 = Mock.mock(r1);
+    const start = req.body.page.pageSize * (req.body.page.current - 1);
+    const end = req.body.page.pageSize * req.body.page.current;
+    r2.data.list = r2.data.list.slice(start, end);
+    // console.log(start, end);
+    setTimeout(() => {
+      res.json(r2);
+    }, 1000);
   }
 };

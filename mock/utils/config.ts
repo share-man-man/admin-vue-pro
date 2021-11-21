@@ -18,7 +18,7 @@ export const config = {
   /**
    * 过滤拦截
    */
-  filterPath: ["/oauth/login", "/oauth/refresh_token"],
+  filterPath: ["/oauth/login", "/oauth/refresh_token", "/api/test"],
   /**
    * 不拦截任何请求
    */
