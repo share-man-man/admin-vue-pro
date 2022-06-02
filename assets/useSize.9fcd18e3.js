@@ -1,0 +1,1 @@
+import{G as a}from"./debounce.63695ae7.js";import{h as i,k as n,p as s}from"./index.e1409c94.js";var t=Symbol("SizeProvider"),f=function(e){var r=n("configProvider",a),o=i(function(){return e.size||r.componentSize});return s(t,o),o},d=function(e){var r=e?i(function(){return e.size}):n(t,i(function(){return"default"}));return r};export{f as a,d as u};

@@ -1,0 +1,1 @@
+import{_ as n}from"./debounce.63695ae7.js";var i=function(a,t){var o=n({},a);return Object.keys(t).forEach(function(r){var e=o[r];if(e)e.default=t[r];else throw new Error("not have ".concat(r," prop"))}),o},s=i;export{s as i};
